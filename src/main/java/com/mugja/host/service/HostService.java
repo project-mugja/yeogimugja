@@ -1,2 +1,9 @@
-package com.mugja.host.service;public class HostService {
+package com.mugja.host.service;
+
+public interface HostService {
+
+
+    //==================================================
+
+
 }
