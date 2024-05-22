@@ -38,7 +38,10 @@ public class ReviewServiceImplTest {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        Assertions.assertEquals(review.getContent(), reviewRepository.findByHostIdOrderByWriteDateDesc(10, PageRequest.of(0,1)));
+        Assertions.assertEquals(
+                review,
+                reviewRepository.findByHostIdOrderByWriteDateDesc(10, PageRequest.of(0,1))
+        );
 
     }
 
