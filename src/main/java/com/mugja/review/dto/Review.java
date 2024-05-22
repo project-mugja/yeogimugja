@@ -13,7 +13,6 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-@IdClass(RVId.class)
 @Table(name = "rv")
 public class Review {
     @Id
@@ -21,11 +20,9 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer rvId;
 
-    @Id
     @Column(name = "mem_id", nullable = false)
     private Integer memId;
 
-    @Id
     @Column(name = "host_id", nullable = false)
     private Integer hostId;
 

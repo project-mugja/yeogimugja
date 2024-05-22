@@ -1,5 +1,7 @@
 package com.mugja.review.domain;
 
+import jakarta.persistence.IdClass;
+
 import java.io.Serializable;
 import java.util.Objects;
 
