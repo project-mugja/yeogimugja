@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.apachecommons.CommonsLog;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -33,4 +35,7 @@ public class Host {
 
     @Column(name = "host_api")
     private String location;
+
+   @Transient
+    private List<HostImg> hostImgs;
 }

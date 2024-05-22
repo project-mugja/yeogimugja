@@ -20,4 +20,8 @@ public class HostImg {
 
     @Column(name = "host_imgpath")
     private String ImgPath;
+
+    @ManyToOne
+    @JoinColumn(name = "host_id")
+    private Host host;
 }
