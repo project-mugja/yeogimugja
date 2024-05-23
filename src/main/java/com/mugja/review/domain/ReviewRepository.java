@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReviewRepository extends JpaRepository<Review, RVId> {
+public interface ReviewRepository extends JpaRepository<Review, Integer> {
 
     //숙소별 리뷰조회
     Page<Review> findByHostIdOrderByWriteDateDesc(Integer hostId, Pageable pageable);

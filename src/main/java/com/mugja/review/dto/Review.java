@@ -1,9 +1,7 @@
 package com.mugja.review.dto;
 
-import com.mugja.review.domain.RVId;
 import jakarta.persistence.*;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
