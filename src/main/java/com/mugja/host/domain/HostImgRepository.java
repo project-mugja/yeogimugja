@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface HostImgRepository extends JpaRepository<HostImg, Integer> {
-    List<HostImg> findByHostId(Integer hostId);
+    List<HostImg> findByHost_HostId(Integer hostId);
 }
