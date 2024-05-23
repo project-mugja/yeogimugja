@@ -4,6 +4,7 @@ import com.mugja.global.exceptions.HostNotFoundException;
 import com.mugja.host.domain.HostImgRepository;
 import com.mugja.host.domain.HostRepository;
 import com.mugja.host.dto.Host;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,12 +22,13 @@ public class HostServiceImpl implements HostService{
     }
 
     @Override
+    @Transactional
     public Host findHost(Integer hostId) throws HostNotFoundException {
         Host host = hostRepository
                 .findByHostId(hostId)
                 .orElseThrow(() -> new HostNotFoundException());
         host.setHostImgs(
-                hostImgRepository.findByHostId(hostId)
+                hostImgRepository.findByHost_HostId(hostId)
         );
         return host;
     }

@@ -11,17 +11,17 @@ import lombok.Setter;
 public class HostImg {
 
     @Id
-    @Column(name = "host_img_id")
+    @Column(name = "host_img_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer hostImgId;
 
-    @Column(name = "host_id")
-    private Integer hostId;
+//    @Column(name = "host_id", nullable = false)
+//    private Integer hostId;
 
-    @Column(name = "host_imgpath")
+    @Column(name = "host_imgpath",nullable = false)
     private String ImgPath;
 
     @ManyToOne
-    @JoinColumn(name = "host_id")
+    @JoinColumn(name = "host_id", nullable = false)
     private Host host;
 }
