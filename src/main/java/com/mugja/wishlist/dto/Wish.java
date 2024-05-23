@@ -1,12 +1,15 @@
 package com.mugja.wishlist.dto;
 
+import com.mugja.host.dto.Host;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Entity
+@NoArgsConstructor()
 @Table(name = "wish")
 public class Wish {
 

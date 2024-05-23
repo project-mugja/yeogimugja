@@ -1,5 +1,6 @@
 package com.mugja.wishlist.controller;
 
+import com.mugja.host.dto.Host;
 import com.mugja.wishlist.dto.Wish;
 import com.mugja.wishlist.service.WishListService;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,8 @@ public class WishListRestController {
         wishListService.save(
                 Wish.builder()
                         .memId(memId)
-                        .host(Host.builder().hostId(hostId))
+                        .host(Host.builder().hostId(hostId).build())
+                        .build()
         );
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -52,7 +54,8 @@ public class WishListRestController {
         wishListService.delete(
                 Wish.builder()
                         .memId(memId)
-                        .host(Host.builder().hostId(hostId))
+                        .host(Host.builder().hostId(hostId).build())
+                        .build()
         );
         return new ResponseEntity<>(HttpStatus.OK);
     }
