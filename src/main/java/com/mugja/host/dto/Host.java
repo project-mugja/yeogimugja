@@ -1,15 +1,17 @@
 package com.mugja.host.dto;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.extern.apachecommons.CommonsLog;
 
 import java.util.List;
 
 @Getter
-@Setter
 @Entity
+@NoArgsConstructor
 @Table(name = "host")
 public class Host {
 
@@ -38,4 +40,18 @@ public class Host {
 
    @Transient
     private List<HostImg> hostImgs;
+
+    public void setHostImgs(List<HostImg> hostImgs) {
+        this.hostImgs = hostImgs;
+    }
+
+    @Builder
+    public Host(Integer hostId, Byte avgScore, String hostName, String hostAddress, String hostContact, String hostIntro) {
+       this.hostId = hostId;
+       this.avgScore = avgScore;
+       this.hostName = hostName;
+       this.hostAddress = hostAddress;
+       this.hostContact = hostContact;
+       this.hostIntro = hostIntro;
+   }
 }
