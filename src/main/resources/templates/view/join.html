@@ -2,12 +2,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>여기묵자 회원가입</title>
+ <link rel="stylesheet" href="/css/member.css">
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<script src="/js/mail.js"></script>
 </head>
 <body>
 회원가입창
-이메일
-비밀번호
-닉네임
+<form action="/mugja/create" method="post">
+<div>이메일 <input type="email" name="mem_email" id="mem_email">
+<button type="button" id="email_auth" class="email_auth_btn">인증번호 받기</button></div>
+<div class="mail_check" id="mail_check">
+<input type="text" id="number" class="number"/>
+<button type="button" id="mailcheck" class="mailcheck">인증</button>
+</div> 
+<input type="hidden" id="mailOk" class="mailOk" value="false"/>
+<div>비밀번호<input type="password" name="mem_pwd" id="password"></div>
+<div>비밀번호 확인<input type="password" name="mem_pwd_ck" id="mem_pwd_ck"></div>
+<div id="passwordMessage"></div>
+<input type="submit" value="가입" name="join" id="join">
+</form>
 </body>
 </html>
