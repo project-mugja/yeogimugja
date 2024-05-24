@@ -45,12 +45,14 @@ public class Host {
     private List<HostImg> hostImgList;
 
     @Builder
-    public Host(Integer hostId, Byte avgScore, String hostName, String hostAddress, String hostContact, String hostIntro) {
+    public Host(Integer hostId, Byte avgScore, String hostName, String hostAddress, String hostContact, String hostIntro, Double lat, Double lng) {
        this.hostId = hostId;
        this.avgScore = avgScore;
        this.hostName = hostName;
        this.hostAddress = hostAddress;
        this.hostContact = hostContact;
        this.hostIntro = hostIntro;
+       this.lat = lat;
+       this.lng = lng;
    }
 }
