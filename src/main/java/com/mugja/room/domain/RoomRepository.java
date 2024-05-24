@@ -1,5 +1,6 @@
 package com.mugja.room.domain;
 
+import com.mugja.host.dto.Host;
 import com.mugja.room.dto.Room;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,5 +9,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RoomRepository extends JpaRepository<Room, Integer> {
-    Page<Room> findByHostIdOrderByPriceDsc(Integer hostId,Pageable pageable);
+    Page<Room> findByHost_HostIdOrderByPriceDesc(Integer hostId, Pageable pageable);
 }

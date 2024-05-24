@@ -29,21 +29,20 @@ public class Host {
     @Column(name = "host_address", nullable = false)
     private String hostAddress;
 
-    @Column(name = "host_contect", nullable = false)
+    @Column(name = "host_contact", nullable = false)
     private String hostContact;
 
     @Column(name = "host_intro")
     private String hostIntro;
 
-    @Column(name = "host_api", nullable = false)
-    private String location;
+    @Column(name = "host_lat", nullable = false)
+    private Double lat;
 
-   @Transient
-    private List<HostImg> hostImgs;
+    @Column(name = "host_lng", nullable = false)
+    private Double lng;
 
-    public void setHostImgs(List<HostImg> hostImgs) {
-        this.hostImgs = hostImgs;
-    }
+    @OneToMany(mappedBy = "host", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HostImg> hostImgList;
 
     @Builder
     public Host(Integer hostId, Byte avgScore, String hostName, String hostAddress, String hostContact, String hostIntro) {

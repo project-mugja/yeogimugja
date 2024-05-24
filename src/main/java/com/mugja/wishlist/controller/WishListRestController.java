@@ -18,6 +18,7 @@ public class WishListRestController {
 
     private WishListService wishListService;
 
+    //페이지 넘버와 멤버id를 받아 찜목록 보여줌
     @GetMapping("/{pageNo}")
     public ResponseEntity<Page<Wish>> getWishes(
             @PathVariable int pageNo,
@@ -32,6 +33,7 @@ public class WishListRestController {
         );  
     }
 
+    //찜목록에 추가
     @PostMapping("/{hostId}")
     public ResponseEntity<Wish> createWish(
             @PathVariable Integer hostId,
@@ -46,6 +48,7 @@ public class WishListRestController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    //찜목록에서 제거
     @DeleteMapping("/{hostId}")
     public ResponseEntity<Wish> delWish(
             @PathVariable Integer hostId,
