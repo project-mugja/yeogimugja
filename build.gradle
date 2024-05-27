@@ -43,6 +43,9 @@ runtimeOnly 'com.mysql:mysql-connector-j'
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 	testImplementation 'org.springframework.security:spring-security-test'
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+	implementation 'org.modelmapper:modelmapper:3.0.0'
+
 }
 
 tasks.named('test') {
