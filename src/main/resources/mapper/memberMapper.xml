@@ -14,4 +14,15 @@
  from mem where mem_email=#{mem_email}
  
  </select>
+ 
+ <update id="randompwd" parameterType="MemberDto">
+  update mem
+ set mem_pwd=#{mem_pwd}
+ where mem_email=#{mem_email}
+ </update>
+ 
+ <select id="pwdsearch" parameterType="String" resultType="String">
+ select mem_pwd from mem
+where mem_email=#{mem_email};
+ </select>
 </mapper>
