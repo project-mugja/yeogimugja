@@ -14,7 +14,7 @@ import java.io.IOException;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/host/{hostId}/review")
-public class ReviewController {
+public class ReviewRestController {
 
     private final ReviewService reviewService;
 
