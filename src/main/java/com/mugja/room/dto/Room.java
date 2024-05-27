@@ -4,6 +4,7 @@ import com.mugja.host.dto.Host;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.ibatis.annotations.Delete;
 
 import java.util.List;
 
@@ -18,8 +19,6 @@ public class Room {
     @Column(name = "room_id", nullable = false)
     private Integer roomId;
 
-//    @Column(name = "host_id", nullable = false)
-//    private Integer hostId;
     @ManyToOne
     @JoinColumn(name = "host_id", nullable = false)
     private Host host;
@@ -36,6 +35,6 @@ public class Room {
     @Column(name = "room_status", nullable = false)
     private Boolean status;
 
-    @Transient
-    List<RoomImg> images;
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RoomImg> roomImgList;
 }

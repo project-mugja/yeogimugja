@@ -1,9 +1,8 @@
 package com.mugja.review.controller;
 
 
-import com.mugja.review.domain.ReviewRepository;
 import com.mugja.review.dto.Review;
-import com.mugja.review.service.ReviewServiceImpl;
+import com.mugja.review.service.ReviewService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -15,10 +14,9 @@ import java.io.IOException;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/host/{hostId}/review")
-public class ReviewController {
+public class ReviewRestController {
 
-    private final ReviewServiceImpl reviewService;
-    private final ReviewRepository reviewRepository;
+    private final ReviewService reviewService;
 
     //댓글 목록 보여주기
     @GetMapping("/{pageNum}")
@@ -50,7 +48,6 @@ public class ReviewController {
     public ResponseEntity<String> deleteReview(
             @PathVariable Integer rvId
         ){
-
         return new ResponseEntity<>("delete", HttpStatus.OK);
     }
 

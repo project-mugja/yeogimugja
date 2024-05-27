@@ -1,5 +1,6 @@
 package com.mugja.host.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,13 +16,11 @@ public class HostImg {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer hostImgId;
 
-//    @Column(name = "host_id", nullable = false)
-//    private Integer hostId;
-
     @Column(name = "host_imgpath",nullable = false)
-    private String ImgPath;
+    private String imgPath;
 
-    @ManyToOne
-    @JoinColumn(name = "host_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "host_id")
+    @JsonIgnore
     private Host host;
 }

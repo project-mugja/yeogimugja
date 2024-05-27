@@ -21,15 +21,18 @@ public class HostServiceImpl implements HostService{
         this.hostImgRepository = hostImgRepository;
     }
 
+    /*
+    hostId로 숙소 정보와 그 숙소의 이미지를 불러옴
+     */
     @Override
     @Transactional
     public Host findHost(Integer hostId) throws HostNotFoundException {
+        
+        //숙소 정보 가져오기
         Host host = hostRepository
                 .findByHostId(hostId)
                 .orElseThrow(() -> new HostNotFoundException());
-        host.setHostImgs(
-                hostImgRepository.findByHost_HostId(hostId)
-        );
+
         return host;
     }
 }
