@@ -7,4 +7,5 @@ public interface MemberService {
 	
 	void createmember(MemberDto dto);
 	int searchmember(MemberDto dto);
+	Integer findByEmail(String email);
 }

@@ -1,8 +1,13 @@
 package com.mugja.review.controller;
 
 
+import com.mugja.member.dto.MemberDto;
+import com.mugja.member.service.MemberService;
+import com.mugja.member.service.SecurityService;
 import com.mugja.review.dto.Review;
 import com.mugja.review.service.ReviewService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -17,6 +22,8 @@ import java.io.IOException;
 public class ReviewRestController {
 
     private final ReviewService reviewService;
+    private final SecurityService securityService;
+    private final MemberService memberService;
 
     //댓글 목록 보여주기
     @GetMapping("/{pageNum}")
@@ -30,12 +37,17 @@ public class ReviewRestController {
 
     //댓글 작성 하기
     @PostMapping("/")
+    @Transactional
     public ResponseEntity<String> doWrite(
             @PathVariable Integer hostId,
             @ModelAttribute Review review
         ){
+        if(securityService.userId() == null){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
         try{
             review.setHostId(hostId);
+            review .setMemId(memberService.findByEmail(securityService.userId()));
             reviewService.save(review);
             return ResponseEntity.ok().body("Success");
         }catch (IOException e){

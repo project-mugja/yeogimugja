@@ -13,5 +13,7 @@ public interface MemberMapper {
 	
 	@Select("SELECT * FROM mem WHERE mem_email = #{email}")
 	MemberDto findByEmail(String email);
-	
+
+	@Select("SELECT mem_id from mem where mem_email = #{email}")
+	Integer findMemId(String email);
 }

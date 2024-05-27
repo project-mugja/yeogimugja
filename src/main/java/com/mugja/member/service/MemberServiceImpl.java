@@ -38,6 +38,11 @@ public class MemberServiceImpl implements MemberService {
 	public int searchmember(MemberDto dto) {
 		return mapper.emailserach(dto.getMem_email());
 	}
-	
-	
+
+	@Override
+	public Integer findByEmail(String email) {
+		return mapper.findMemId(email);
+	}
+
+
 }
