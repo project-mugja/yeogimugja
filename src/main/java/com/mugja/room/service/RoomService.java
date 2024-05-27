@@ -4,7 +4,9 @@ import com.mugja.room.dto.Room;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface RoomService {
 
-    public Page<Room> findRooms(Integer hostId,Pageable pageable);
+    public List<Room> findRooms(Integer hostId);
 }

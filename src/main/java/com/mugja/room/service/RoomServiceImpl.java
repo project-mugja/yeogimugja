@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -17,9 +19,8 @@ public class RoomServiceImpl implements RoomService {
     private final RoomRepository roomRepository;
 
     @Override
-    public Page<Room> findRooms(Integer hostId, Pageable pageable) {
-        Page<Room> rooms = roomRepository.findByHost_HostIdOrderByPriceDesc(hostId,pageable);
-
+    public List<Room> findRooms(Integer hostId) {
+        List<Room> rooms = roomRepository.findByHost_HostIdOrderByPriceDesc(hostId);
         return rooms;
     }
 }

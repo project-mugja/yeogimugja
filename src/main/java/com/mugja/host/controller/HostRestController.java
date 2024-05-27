@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/host")
@@ -28,6 +30,14 @@ public class HostRestController {
         } catch (HostNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    /*
+    숙소 카테고리 검색 메서드
+     */
+    @GetMapping("/{hostId}/category/{category}")
+    public ResponseEntity<List<Host>> getHostByCategory(){
+        return null;
     }
 
 

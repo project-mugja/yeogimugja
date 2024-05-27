@@ -48,7 +48,6 @@ public class ReviewRestController {
     public ResponseEntity<String> deleteReview(
             @PathVariable Integer rvId
         ){
-
         return new ResponseEntity<>("delete", HttpStatus.OK);
     }
 
