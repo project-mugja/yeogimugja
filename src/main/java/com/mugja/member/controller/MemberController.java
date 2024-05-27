@@ -20,7 +20,7 @@ public class MemberController {
 	@Autowired
 	private MemberServiceImpl service;
 	
-
+	
 
 	public MemberController(MemberServiceImpl service) {
 		this.service = service;
@@ -44,8 +44,12 @@ public class MemberController {
 	
 	@RequestMapping(value="/join",method = {RequestMethod.GET,RequestMethod.POST})
 	public String join(MemberDto dto) {
-		
 		return "/view/join";
+	}
+	
+	@RequestMapping(value="/mypage",method = {RequestMethod.GET,RequestMethod.POST})
+	public String mypage(MemberDto dto) {
+		return "/view/mypage";
 	}
 	
 	@RequestMapping(value="/create",method = {RequestMethod.GET,RequestMethod.POST})
@@ -54,6 +58,19 @@ public class MemberController {
 		System.out.println(dto);
 		service.createmember(dto);
 		return "redirect:/mugja/login";
+	}
+	@RequestMapping(value="/pwdfind",method = {RequestMethod.GET,RequestMethod.POST})
+	public String pwdfind() {
+		return "/view/pwdfind";
+	}
+	
+	@RequestMapping(value="/pwdchgemail",method = {RequestMethod.GET,RequestMethod.POST})
+	public String pwdchg() {
+		return "/view/pwdchgemail";
+	}
+	@RequestMapping(value="/myPwdChg",method = {RequestMethod.GET,RequestMethod.POST})
+	public String myPwdChg() {
+		return "/view/myPwdChg";
 	}
 	
 	

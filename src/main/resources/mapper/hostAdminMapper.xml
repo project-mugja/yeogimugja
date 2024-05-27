@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mugja.host.mapper.HostAdminMapper">
+<insert id="hostwrite" parameterType="com.mugja.host.dto.HostAdminDto">
+ insert into host
+ values(null,0,#{host_name},#{host_address},#{host_contact},#{host_intro},'testAPI');
+</insert>
+
+
+<!-- <insert id="hostAddhash" parameterMap="com.mugja.host.dto.HostAdminDto">
+insert into 
+</insert> -->
+ 
+<select id="gethostId" resultType="int">
+select host_id from host
+ order by host_id desc limit 1;
+</select>
+
+
+<sql id="tagInsertValues">
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <foreach collection="tags" item="tag">
+                #{tag},
+            </foreach>
+        </trim>
+    </sql>
+
+    <insert id="hostAddTags" parameterType="com.mugja.host.dto.HostAdminDto">
+        insert into tag (host_id, tag1, tag2, tag3, tag4)
+        values (#{hostId}, 
+        <include refid="tagInsertValues" />
+        )
+    </insert>
+</mapper>
