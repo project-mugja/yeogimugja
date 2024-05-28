@@ -6,6 +6,8 @@ import com.mugja.host.domain.HostRepository;
 import com.mugja.host.dto.Host;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -34,5 +36,10 @@ public class HostServiceImpl implements HostService{
                 .orElseThrow(() -> new HostNotFoundException());
 
         return host;
+    }
+
+    @Override
+    public Page<Host> findFavHosts(Integer memId,String category,Pageable pageable) {
+        return hostRepository.findHostByTagAndFavoriteNative(memId,category,pageable);
     }
 }

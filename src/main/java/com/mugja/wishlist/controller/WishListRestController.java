@@ -8,7 +8,6 @@ import com.mugja.wishlist.service.WishListService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,20 +24,29 @@ public class WishListRestController {
     //페이지 넘버와 멤버id를 받아 찜목록 보여줌
     @GetMapping("/{pageNo}")
     public ResponseEntity<Page<Wish>> getWishes(
-            @PathVariable int pageNo,
-            @PathVariable Integer memId
+            @PathVariable int pageNo
         ){
-        if(!memId.equals(memberService.findByEmail(securityService.userId()))){
+        if(memberService.getMemId() == null){
             return new ResponseEntity<>(HttpStatus.LOCKED);
         }
         return new ResponseEntity<Page<Wish>>(
-
                 wishListService.findWishes(
-                        memId,
+                        memberService.getMemId()
+                        ,
                         PageRequest.of(pageNo - 1, 8)
                 ),
                 HttpStatus.OK
         );  
+    }
+    //유저가 이 숙소에 찜하기를 하였는가?
+    @GetMapping("/{hostId}/")
+    public ResponseEntity<Boolean> isFav(@PathVariable int hostId){
+        System.out.println("memId : "+memberService.getMemId());
+        try {
+            return new ResponseEntity<>(wishListService.isFav(hostId, memberService.getMemId()),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
     //찜목록에 추가
@@ -46,17 +54,17 @@ public class WishListRestController {
     public ResponseEntity<Wish> createWish(
             @PathVariable Integer hostId
     ){
-        if(securityService.userId() == null){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        try{
+            wishListService.save(
+                    Wish.builder()
+                            .memId(memberService.getMemId())
+                            .host(Host.builder().hostId(hostId).build())
+                            .build()
+            );
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        int memId =  memberService.findByEmail(securityService.userId());
-        wishListService.save(
-                Wish.builder()
-                        .memId(memId)
-                        .host(Host.builder().hostId(hostId).build())
-                        .build()
-        );
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     //찜목록에서 제거
@@ -64,16 +72,17 @@ public class WishListRestController {
     public ResponseEntity<Wish> delWish(
             @PathVariable Integer hostId
     ){
-        if(securityService.userId() == null){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        try {
+            wishListService.delete(
+                    Wish.builder()
+                            .memId(memberService.getMemId())
+                            .host(Host.builder().hostId(hostId).build())
+                            .build()
+            );
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        int memId =  memberService.findByEmail(securityService.userId());
-        wishListService.delete(
-                Wish.builder()
-                        .memId(memId)
-                        .host(Host.builder().hostId(hostId).build())
-                        .build()
-        );
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

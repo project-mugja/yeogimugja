@@ -51,7 +51,7 @@ public class ReviewRestController {
             reviewService.save(review);
             return ResponseEntity.ok().body("Success");
         }catch (IOException e){
-            e.printStackTrace();
+            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

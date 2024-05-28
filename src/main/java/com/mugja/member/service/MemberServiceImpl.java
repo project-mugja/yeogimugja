@@ -16,8 +16,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	
+    @Autowired
+    private SecurityService securityService;
+
+
 	public MemberServiceImpl(MemberMapper mapper) {
 	        this.mapper = mapper;
 	    }
@@ -44,5 +46,8 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.findMemId(email);
 	}
 
-
+	@Override
+	public Integer getMemId(){
+		return mapper.findMemId(securityService.userId());
+	}
 }
