@@ -2,9 +2,9 @@ package com.mugja.host.controller;
 
 import com.mugja.global.exceptions.HostNotFoundException;
 import com.mugja.host.dto.Host;
+import com.mugja.host.dto.HostWishDTO;
 import com.mugja.host.service.HostService;
 import com.mugja.member.service.MemberService;
-import com.mugja.member.service.MemberServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
 
 @RestController
 @AllArgsConstructor
@@ -39,12 +38,33 @@ public class HostRestController {
 
     /*
     숙소 카테고리 검색 메서드
-
-    @GetMapping("/{hostId}/category/{category}")
-    public ResponseEntity<Page<Host>> getHostByCategory(){
-        return null;
-    }
     */
+    @GetMapping("/category/{category}/{pageNo}/")
+    public ResponseEntity<Page<HostWishDTO>> getHostByCategory(@PathVariable String category, @PathVariable int pageNo){
+        try {
+            if(memberService.getMemId() != null){
+                return new ResponseEntity<Page<HostWishDTO>>(
+                        hostService.findHostsAuth(
+                                memberService.getMemId(),
+                                category,
+                                PageRequest.of(pageNo, 8)
+                        ),
+                        HttpStatus.OK
+                );
+            }else {
+                return new ResponseEntity<Page<HostWishDTO>>(
+                        hostService.findHosts(
+                                category,
+                                PageRequest.of(pageNo, 8)
+                        ),
+                        HttpStatus.OK
+                );
+            }
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }   
+    }
+
 
     /*
     찜한 숙소를 카테고리 별로 검색
@@ -52,8 +72,12 @@ public class HostRestController {
     @GetMapping("/category/{category}/{pageNo}")
     public ResponseEntity<Page<Host>>getFavHostsByCategory(@PathVariable String category, @PathVariable int pageNo){
         try {
-            System.out.println("Category: " + memberService.getMemId());
-            return new ResponseEntity<Page<Host>>(hostService.findFavHosts(memberService.getMemId(),category, PageRequest.of(pageNo-1, 8)),HttpStatus.OK);
+            return new ResponseEntity<Page<Host>>(
+                    hostService.findFavHosts(
+                            memberService.getMemId(),
+                            category, PageRequest.of(pageNo-1, 8)),
+                    HttpStatus.OK
+            );
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }

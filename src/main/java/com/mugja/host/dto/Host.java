@@ -44,6 +44,7 @@ public class Host {
     @OneToMany(mappedBy = "host", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<HostImg> hostImgList;
 
+
     @Builder
     public Host(Integer hostId, Byte avgScore, String hostName, String hostAddress, String hostContact, String hostIntro, Double lat, Double lng) {
        this.hostId = hostId;

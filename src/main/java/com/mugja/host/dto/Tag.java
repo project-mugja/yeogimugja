@@ -17,6 +17,7 @@ public class Tag {
     @Column(name = "host_id", nullable = false)
     private Integer hostId;
 
+    @Column(name = "tag_1", nullable = false)
     private String category;
     private String convFacility;
     private String roomFacility;
