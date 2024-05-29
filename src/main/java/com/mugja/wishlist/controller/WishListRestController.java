@@ -85,4 +85,5 @@ public class WishListRestController {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
     }
+
 }

@@ -5,22 +5,27 @@ import com.mugja.host.domain.HostImgRepository;
 import com.mugja.host.domain.HostRepository;
 import com.mugja.host.dto.Host;
 import com.mugja.host.dto.HostWishDTO;
+import com.mugja.wishlist.domain.WishListRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class HostServiceImpl implements HostService{
 
     private final HostRepository hostRepository;
     private final HostImgRepository hostImgRepository;
+    private final WishListRepository wishListRepository;
 
     @Autowired
-    public HostServiceImpl(HostRepository hostRepository, HostImgRepository hostImgRepository) {
+    public HostServiceImpl(HostRepository hostRepository, HostImgRepository hostImgRepository, WishListRepository wishListRepository) {
         this.hostRepository = hostRepository;
         this.hostImgRepository = hostImgRepository;
+        this.wishListRepository = wishListRepository;
     }
 
     /*
@@ -37,20 +42,36 @@ public class HostServiceImpl implements HostService{
         return host;
     }
 
-    @Override
-    @Transactional
-    public Page<Host> findFavHosts(Integer memId,String category,Pageable pageable) {
-        return hostRepository.findHostByTagAndFavoriteNative(memId,category,pageable);
-    }
+//    @Override
+//    @Transactional
+//    public Page<Host> findFavHosts(Integer memId,String category,Pageable pageable) {
+//        return hostRepository.findHostByTagAndFavoriteNative(memId,category,pageable);
+//    }
 
     @Override
     @Transactional
-    public Page<HostWishDTO> findHostsAuth(Integer memId, String category, Pageable pageable) {
-        return hostRepository.findByTagAuthNative(memId, category, pageable);
+    public Page<HostWishDTO> findHostsAuth(Integer memId, String category, String search, Pageable pageable) {
+        Page<HostWishDTO> page = hostRepository.findByTagNative(category, search, pageable);
+        page.forEach(hostWishDTO -> {
+            hostWishDTO.setHostImgList(
+                    hostImgRepository.findAllByHost_HostId(hostWishDTO.getHostId())
+            );
+            hostWishDTO.setIsFav(
+                    wishListRepository.findByMemIdAndHost_HostId(memId,hostWishDTO.getHostId()).isPresent() ? true : false
+            );
+        });
+        return page;
+    }
+    @Override
+    @Transactional
+    public Page<HostWishDTO> findHosts(String category, String search, Pageable pageable) {
+        Page<HostWishDTO> page = hostRepository.findByTagNative(category, search, pageable);
+        page.forEach(hostWishDTO ->
+                    hostWishDTO.setHostImgList(
+                            hostImgRepository.findAllByHost_HostId(hostWishDTO.getHostId())
+                    )
+        );
+        return page;
     }
 
-    @Override
-    public Page<HostWishDTO> findHosts(String category, Pageable pageable) {
-        return hostRepository.findByTagNative(category, pageable);
-    }
 }

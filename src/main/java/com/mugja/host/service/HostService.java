@@ -9,9 +9,9 @@ import org.springframework.data.domain.Pageable;
 public interface HostService {
 
     Host findHost(Integer hostId) throws HostNotFoundException;
-    Page<Host> findFavHosts(Integer memId, String category, Pageable pageable);
-    Page<HostWishDTO> findHostsAuth(Integer memId, String category, Pageable pageable);
-    Page<HostWishDTO> findHosts(String category, Pageable pageable);
+//    Page<Host> findFavHosts(Integer memId, String category, Pageable pageable);
+    Page<HostWishDTO> findHostsAuth(Integer memId, String category, String search, Pageable pageable);
+    Page<HostWishDTO> findHosts(String category, String search, Pageable pageable);
 
     //==================================================
 

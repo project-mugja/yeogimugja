@@ -39,47 +39,34 @@ public class HostRestController {
     /*
     숙소 카테고리 검색 메서드
     */
-    @GetMapping("/category/{category}/{pageNo}/")
-    public ResponseEntity<Page<HostWishDTO>> getHostByCategory(@PathVariable String category, @PathVariable int pageNo){
-        try {
+    @GetMapping("/category/{category}/{pageNo}/{search}")
+    public ResponseEntity<Page<HostWishDTO>> getHostByCategory(@PathVariable String category, @PathVariable int pageNo, @PathVariable String search){
+//        try {
             if(memberService.getMemId() != null){
+                System.out.println("authed");
                 return new ResponseEntity<Page<HostWishDTO>>(
                         hostService.findHostsAuth(
                                 memberService.getMemId(),
                                 category,
-                                PageRequest.of(pageNo, 8)
+                                search,
+                                PageRequest.of(pageNo-1, 8)
                         ),
                         HttpStatus.OK
                 );
             }else {
+                System.out.println("not authed");
                 return new ResponseEntity<Page<HostWishDTO>>(
                         hostService.findHosts(
                                 category,
-                                PageRequest.of(pageNo, 8)
+                                search,
+                                PageRequest.of(pageNo-1, 8)
                         ),
                         HttpStatus.OK
                 );
             }
-        }catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }   
+//        }catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//        }
     }
 
-
-    /*
-    찜한 숙소를 카테고리 별로 검색
-     */
-    @GetMapping("/category/{category}/{pageNo}")
-    public ResponseEntity<Page<Host>>getFavHostsByCategory(@PathVariable String category, @PathVariable int pageNo){
-        try {
-            return new ResponseEntity<Page<Host>>(
-                    hostService.findFavHosts(
-                            memberService.getMemId(),
-                            category, PageRequest.of(pageNo-1, 8)),
-                    HttpStatus.OK
-            );
-        }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 }
