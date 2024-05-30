@@ -23,7 +23,7 @@ public class Room {
     @JoinColumn(name = "host_id", nullable = false)
     private Host host;
 
-    @Column(name = "room_capacity", nullable = false)
+    @Column(name = "room_maxcapacity", nullable = false)
     private Byte capacity;
 
     @Column(name = "room_price", nullable = false)
