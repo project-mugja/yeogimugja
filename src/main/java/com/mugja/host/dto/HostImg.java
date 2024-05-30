@@ -19,6 +19,9 @@ public class HostImg {
     @Column(name = "host_imgpath",nullable = false)
     private String imgPath;
 
+    @Column(name = "host_imgdir",nullable = false)
+    private String imgDir;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "host_id")
     @JsonIgnore

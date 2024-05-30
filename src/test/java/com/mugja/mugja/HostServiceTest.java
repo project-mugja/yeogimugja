@@ -24,7 +24,7 @@ public class HostServiceTest {
     public void findHostTest(){
         try {
             Host host = hostService.findHost(1);
-            System.out.println(host.getHostImgs().toString());
+            System.out.println(host.getHostImgList().toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

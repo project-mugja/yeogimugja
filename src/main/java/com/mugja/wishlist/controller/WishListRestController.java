@@ -1,65 +1,95 @@
 package com.mugja.wishlist.controller;
 
 import com.mugja.host.dto.Host;
+import com.mugja.member.service.MemberService;
+import com.mugja.member.service.SecurityService;
 import com.mugja.wishlist.dto.Wish;
 import com.mugja.wishlist.service.WishListService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/mypage/{memId}/wish")
+@RequestMapping("/mypage/wish")
 public class WishListRestController {
 
     private WishListService wishListService;
+    private SecurityService securityService;
+    private MemberService memberService;
 
-    //페이지 넘버와 멤버id를 받아 찜목록 보여줌
+    //OK
+    //페이지 넘버와 멤버id를 받아 위시리스트목록 보여줌
     @GetMapping("/{pageNo}")
     public ResponseEntity<Page<Wish>> getWishes(
-            @PathVariable int pageNo,
-            @PathVariable Integer memId
+            @PathVariable int pageNo
         ){
+        if(memberService.getMemId() == null){
+            return new ResponseEntity<>(HttpStatus.LOCKED);
+        }
         return new ResponseEntity<Page<Wish>>(
                 wishListService.findWishes(
-                        memId,
+                        memberService.getMemId()
+                        ,
                         PageRequest.of(pageNo - 1, 8)
                 ),
                 HttpStatus.OK
         );  
     }
 
+    //OK
+    //유저가 이 숙소에 찜하기를 하였는가?
+    @GetMapping("/{hostId}/")
+    public ResponseEntity<Boolean> isFav(@PathVariable int hostId){
+        System.out.println("memId : "+memberService.getMemId());
+        try {
+            return new ResponseEntity<>(wishListService.isFav(hostId, memberService.getMemId()),HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+    }
+
+    //OK
     //찜목록에 추가
     @PostMapping("/{hostId}")
     public ResponseEntity<Wish> createWish(
-            @PathVariable Integer hostId,
-            @PathVariable Integer memId
+            @PathVariable Integer hostId
     ){
-        wishListService.save(
-                Wish.builder()
-                        .memId(memId)
-                        .host(Host.builder().hostId(hostId).build())
-                        .build()
-        );
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        try{
+            System.out.println("memId : "+memberService.getMemId());
+            wishListService.save(
+                    Wish.builder()
+                            .memId(memberService.getMemId())
+                            .host(Host.builder().hostId(hostId).build())
+                            .build()
+            );
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
 
+    //OK
     //찜목록에서 제거
     @DeleteMapping("/{hostId}")
     public ResponseEntity<Wish> delWish(
-            @PathVariable Integer hostId,
-            @PathVariable Integer memId
+            @PathVariable Integer hostId
     ){
-        wishListService.delete(
-                Wish.builder()
-                        .memId(memId)
-                        .host(Host.builder().hostId(hostId).build())
-                        .build()
-        );
-        return new ResponseEntity<>(HttpStatus.OK);
+        try {
+            wishListService.delete(
+                    Wish.builder()
+                            .memId(memberService.getMemId())
+                            .host(Host.builder().hostId(hostId).build())
+                            .build()
+            );
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
     }
+
 }
