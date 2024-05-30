@@ -25,6 +25,7 @@ public class ReviewRestController {
     private final SecurityService securityService;
     private final MemberService memberService;
 
+    //OK
     //댓글 목록 보여주기
     @GetMapping("/{pageNum}")
     public ResponseEntity<Page<Review>> getReviews(
@@ -35,6 +36,7 @@ public class ReviewRestController {
         return new ResponseEntity<Page<Review>>(reviewService.findReviews(pageNum-1,2,hostId), HttpStatus.OK);
     }
 
+    //OK
     //댓글 작성 하기
     @PostMapping("/")
     @Transactional
@@ -55,6 +57,7 @@ public class ReviewRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
     //댓글 삭제하기
     @DeleteMapping("/{pageNum}/{rvId}")
     public ResponseEntity<String> deleteReview(

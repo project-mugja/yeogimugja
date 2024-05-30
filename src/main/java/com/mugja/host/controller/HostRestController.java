@@ -10,11 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
@@ -25,6 +21,7 @@ public class HostRestController {
     private final MemberService memberService;
 
     /*
+    OK
     숙소 id를 받아 숙소 정보를 가져오는 메서드
      */
     @GetMapping("/{hostId}")
@@ -37,8 +34,12 @@ public class HostRestController {
     }
 
     /*
+    OK
     숙소 카테고리 검색 메서드 
     카테고리, 검색어, 페이지넘버 => 호스트목록 페이지 객체
+    
+    예약 가능 여부, 태그 검색 구현 필요
+    
     */
     @GetMapping("/category/{category}/{pageNo}/{search}")
     public ResponseEntity<Page<HostWishDTO>> getHostByCategory(@PathVariable String category, @PathVariable int pageNo, @PathVariable String search){

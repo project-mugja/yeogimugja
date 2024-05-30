@@ -21,7 +21,8 @@ public class WishListRestController {
     private SecurityService securityService;
     private MemberService memberService;
 
-    //페이지 넘버와 멤버id를 받아 찜목록 보여줌
+    //OK
+    //페이지 넘버와 멤버id를 받아 위시리스트목록 보여줌
     @GetMapping("/{pageNo}")
     public ResponseEntity<Page<Wish>> getWishes(
             @PathVariable int pageNo
@@ -38,6 +39,8 @@ public class WishListRestController {
                 HttpStatus.OK
         );  
     }
+
+    //OK
     //유저가 이 숙소에 찜하기를 하였는가?
     @GetMapping("/{hostId}/")
     public ResponseEntity<Boolean> isFav(@PathVariable int hostId){
@@ -49,12 +52,14 @@ public class WishListRestController {
         }
     }
 
+    //OK
     //찜목록에 추가
     @PostMapping("/{hostId}")
     public ResponseEntity<Wish> createWish(
             @PathVariable Integer hostId
     ){
         try{
+            System.out.println("memId : "+memberService.getMemId());
             wishListService.save(
                     Wish.builder()
                             .memId(memberService.getMemId())
@@ -67,6 +72,7 @@ public class WishListRestController {
         }
     }
 
+    //OK
     //찜목록에서 제거
     @DeleteMapping("/{hostId}")
     public ResponseEntity<Wish> delWish(
