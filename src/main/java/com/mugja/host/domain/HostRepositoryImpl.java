@@ -25,7 +25,17 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
         search = "%" + search + "%";
         String baseQuery = "select a.host_id as hostId, a.avgscore as avgScore, a.host_name as hostName, a.host_address as hostAddress " +
                 "from host a left join tag c on a.host_id = c.host_id";
-        String searchQuery = " where a.host_name like :search or a.host_address like :search";
+        String searchQuery = " where a.host_name like :search or a.host_address like :search ";
+
+        String tagSearchQuery = "or tag1 like :search " +
+                "or tag2 like :search " +
+                "or tag3 like :search " +
+                "or tag4 like :search " +
+                "or tag5 like :search " +
+                "or tag6 like :search " +
+                "or tag7 like :search " +
+                "or tag8 like :search";
+
         String condition1 = " and c.tag1 = :category";
         String orderBy = " order by " +
                 "case " +
@@ -41,8 +51,8 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
                 "when a.host_address like :search then 2 " +
                 "else 4 end";
         String queryStr = category.equals("all")?
-                baseQuery + searchQuery + orderBy :
-                baseQuery + searchQuery + condition1 + orderBy;
+                baseQuery + searchQuery + tagSearchQuery + orderBy :
+                baseQuery + searchQuery + tagSearchQuery + condition1 + orderBy;
 
         System.out.println("queryStr: " + queryStr);
         Query query = em.createNativeQuery(queryStr).setParameter("search", search);
