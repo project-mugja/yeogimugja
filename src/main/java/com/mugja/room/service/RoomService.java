@@ -10,3 +10,4 @@ public interface RoomService {
 
     public List<Room> findRooms(Integer hostId);
 }
+
