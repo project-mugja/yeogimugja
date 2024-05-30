@@ -6,7 +6,7 @@
 
 <insert id="createmember" parameterType="MemberDto">
  insert into mem	
- value(null,#{mem_email},#{mem_pwd},0,#{mem_grade},'무통장입금');
+ value(null,#{mem_email},#{mem_pwd},0,#{mem_grade});
  </insert> 
  
  <select id="emailserach" parameterType="String" resultType="int">
@@ -25,4 +25,6 @@
  select mem_pwd from mem
 where mem_email=#{mem_email};
  </select>
+ 
+
 </mapper>

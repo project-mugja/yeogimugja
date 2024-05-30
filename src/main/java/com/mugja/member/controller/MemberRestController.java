@@ -14,7 +14,7 @@ import com.mugja.member.service.SecurityService;
 @RestController
 @RequestMapping("/mugja")
 public class MemberRestController {
-
+	
 	@Autowired
 	private MailService service;
 
@@ -56,12 +56,16 @@ public class MemberRestController {
 			service.sendHTMLEmail(email,number);
 			System.out.println(number + "난수");
 
+			
+
+
 		} else { 
 
 			result = false;
 		}
 		return result;
 	}
+
 	
 	//마이페이지 비밀번호 일치여부 컨트롤러
 	@PostMapping("/mypwdChk")
@@ -89,6 +93,7 @@ public class MemberRestController {
 		System.out.println(result +" : boolean");
 		return result;
 	}
+
 	
 	//비밀번호 난수생성이후 메일발송
 	@PostMapping("/emailSendPwd")
@@ -109,6 +114,4 @@ public class MemberRestController {
 	}
 	
 
-
 }
-
