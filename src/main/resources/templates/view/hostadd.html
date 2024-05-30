@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>관리자 숙소생성</title>
+   <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+     <script src="/js/kakaopost.js"></script>
+     <script src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6812d65aa97ba829b5720501114f7818&libraries=services"
+        type="text/javascript"></script>
+<style>
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .checkbox-group label {
+            display: block;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .checkbox-group input[type="checkbox"] {
+            display: none;
+        }
+        .checkbox-group input[type="checkbox"]:checked + label {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+    
+</head>
+<body>
+<form action="/mugja/admin/roomadd" method="post" enctype="multipart/form-data">
+<div>숙소명<input type="text" id="host_name" name="host_name"/></div>
+
+
+숙소주소 <input type="text" id="postcode" placeholder="우편번호">
+    <input type="button" onclick="daumPostcode()" value="우편번호 찾기"><br>
+    <input type="hidden" id="host_lat" name="host_lat">
+    <input type="hidden" id="host_lng" name="host_lng">
+    <input type="text" id="host_address" name="host_address" placeholder="주소"><br>
+    <input type="text" id="host_address_detail" name="host_address_detail" placeholder="상세주소">
+
+
+
+<div>숙소연락처<input type="text" id="host_contact" name="host_contact"/></div>
+<div>숙소소개글<input type="text" id="host_intro" name="host_intro"/></div>
+<div>숙소이미지<input type="file" id="hostimgpath" name="hostimgpath" multiple accept="image/*"/></div>
+<h3>숙소</h3>
+ <div class="checkbox-group">
+        <input type="checkbox" id="motel" name="tag1" value="motel">
+        <label for="motel">모텔</label>
+
+        <input type="checkbox" id="hotel_resort" name="tag1" value="hotel_resort">
+        <label for="hotel_resort">호텔/리조트</label>
+
+        <input type="checkbox" id="pension" name="tag1" value="pension">
+        <label for="pension">펜션</label>
+
+        <input type="checkbox" id="home_villa" name="tag1" value="home_villa">
+        <label for="home_villa">홈/빌라</label>
+
+        <input type="checkbox" id="camping" name="tag1" value="camping">
+        <label for="camping">캠핑</label>
+
+        <input type="checkbox" id="guesthouse_hanok" name="tag1" value="guesthouse_hanok">
+        <label for="guesthouse_hanok">게스트하우스/한옥</label>
+    </div>
+<h3>편의시설</h3>
+    <div class="checkbox-group">
+        <input type="checkbox" id="sauna" name="tag2" value="sauna">
+        <label for="sauna">사우나</label>
+
+        <input type="checkbox" id="swimming_pool" name="tag2" value="swimming_pool">
+        <label for="swimming_pool">수영장</label>
+
+        <input type="checkbox" id="bbq" name="tag2" value="bbq">
+        <label for="bbq">BBQ</label>
+
+        <input type="checkbox" id="restaurant" name="tag2" value="restaurant">
+        <label for="restaurant">레스토랑</label>
+
+        <input type="checkbox" id="fitness" name="tag2" value="fitness">
+        <label for="fitness">피트니스</label>
+
+        <input type="checkbox" id="kitchen_dining" name="tag2" value="kitchen_dining">
+        <label for="kitchen_dining">주방/식당</label>
+    </div>
+<h3>객실 내 시설</h3>
+    <div class="checkbox-group">
+        <input type="checkbox" id="spa" name="tag3" value="spa">
+        <label for="spa">스파</label>
+
+        <input type="checkbox" id="minibar" name="tag3" value="minibar">
+        <label for="minibar">미니바</label>
+
+        <input type="checkbox" id="wifi" name="tag3" value="wifi">
+        <label for="wifi">와이파이</label>
+
+        <input type="checkbox" id="air_conditioner" name="tag3" value="air_conditioner">
+        <label for="air_conditioner">에어컨</label>
+
+        <input type="checkbox" id="bath_amenities" name="tag3" value="bath_amenities">
+        <label for="bath_amenities">욕실용품</label>
+    </div>
+<h3>기타시설</h3>
+    <div class="checkbox-group">
+        <input type="checkbox" id="breakfast_included" name="tag4" value="breakfast_included">
+        <label for="breakfast_included">조식포함</label>
+
+        <input type="checkbox" id="free_parking" name="tag4" value="free_parking">
+        <label for="free_parking">무료주차</label>
+
+        <input type="checkbox" id="in_room_cooking" name="tag4" value="in_room_cooking">
+        <label for="in_room_cooking">객실내취사</label>
+
+        <input type="checkbox" id="campfire" name="tag4" value="campfire">
+        <label for="campfire">캠프파이어</label>
+
+        <input type="checkbox" id="pickup_available" name="tag4" value="pickup_available">
+        <label for="pickup_available">픽업가능</label>
+    </div>
+<input type="submit" value="전송"/>
+</form>
+</body>
+</html>

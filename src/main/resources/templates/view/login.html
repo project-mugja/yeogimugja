@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
@@ -11,5 +11,7 @@
 <input type="submit" value="로그인">
 </form>
 <input type="button"  onclick="location.href='join'" value="회원가입"/>
+
+<a th:href="@{/mugja/pwdfind}">비밀번호 찾기</a>
 </body>
 </html>

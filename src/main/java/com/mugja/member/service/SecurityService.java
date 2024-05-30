@@ -15,6 +15,7 @@ public class SecurityService {
 	public String userId() {
 		
 		return SecurityContextHolder.getContext().getAuthentication().getName();
+		
 	}
 	
 	

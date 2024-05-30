@@ -10,6 +10,9 @@ import com.mugja.member.dto.MemberDto;
 public interface MemberMapper {
 	int createmember(MemberDto dto);
 	int emailserach(String email);
+	void randompwd(MemberDto dto);
+	String pwdsearch(String email);
+	void pwdchange(String email);
 	
 	@Select("SELECT * FROM mem WHERE mem_email = #{email}")
 	MemberDto findByEmail(String email);
