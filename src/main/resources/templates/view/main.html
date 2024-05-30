@@ -1,0 +1,125 @@
+<!DOCTYPE html> 
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <!-- css불러오는 부분 -->
+    <!-- <link rel="stylesheet" type="text/css" href="../../../resources/css/common/Mainpage.css"> -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+        <style>
+            /* CSS 파트 */
+        </style>
+
+        <script>
+            // 자바스크립트 파트
+        </script>
+    </head>
+    <body>
+        <!-- 공통 header -->
+        <div class="contents">
+            <div class="header">
+                <!-- 로고 img -->
+                <div class="head_logo">
+                    여기는 로고
+                </div>
+                <!-- 로그인/회원가입 버튼 or 유저정보 표출 -->
+                <div class="head_btn">
+                    로그인/회원가입버튼 or 로그인시 정보표기
+                </div>
+
+                <!-----------구분선---------->
+
+                <!-- 햄버거/ 세줄짜리 메뉴버튼 -->
+                <div class="menulist_btn">
+                    헤더 메뉴 리스트
+                    <!-- 버튼 내부 메뉴1 -->
+                    <div class="menu1">
+                        메뉴 1 (마이페이지)
+                    </div>
+                    <!-- 버튼 내부 메뉴2 -->
+                    <div class="menu2">
+                        메뉴 2 (로그아웃)
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+        <!-----------구분선---------->
+        
+        <!-- 메인페이지 -->
+        <div class="contents">
+            <div class="body_content">
+                Body_contents
+                <!-- 메인 이미지 + 검색창 -->
+                <section role="region" aria-label="메인비쥬얼"></section>
+                <section role="region" aria-label="이벤트카드"></section>
+                <section role="region" aria-label="지역별카드"></section>
+                <section role="region" aria-label="이벤트배너"></section>
+                <section role="region" aria-label="QR태그영역"></section>
+            </div>
+        </div>
+        
+
+        <!-- footer -->
+        <div class="contents">
+            <div class="footer">
+                <div class="cs_contect">
+                고객센터
+                오전 9시 - 새벽 3시 운영안함
+                btn(1234-5678) btn(카카오문의)
+                </div>
+                <div class="footer_menu">
+                회사 회사소개
+                서비스 공지사항 자주묻는질문 
+                혜택 엘리트 멤버쉽
+                </div>
+                <div class="introduce">
+                (주)여기묵자컴퍼니
+
+주소 : 서울 강남구 테헤란로 7길 7 1실 | 대표이사 : ??? | 사업자등록번호 : 123-45-09876사업자정보확인
+
+(주)여기묵자컴퍼니는 통신판매중개자로서 통신판매의 당사자가 아니며, 상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.
+</div>
+
+            </div>
+        </div>
+
+        </div>
+    </body>
+    
+    <style>
+    /* CSS 파트 */
+    /* 메인페이지 영역 */
+        [role=region]{
+            background-color: aquamarine;
+            border: 1px crimson;
+        }
+    /* 공통사항 */
+        .contents{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin : 0.2% 0;
+        }
+    /* 헤더 */
+        .header{
+            height: 75px;
+            width : 1200px;
+            display: flex;
+            padding: 0 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+            /* 테스트용 */
+            background-color: bisque; 
+        }
+    /* 푸터 */
+        .footer{
+            height: 75px;
+            width : 1200px;
+            display: flex;
+            padding: 0 40px;
+            /* 테스트용 */
+            background-color: lightgray;
+        }
+    </style>
+</html>
