@@ -49,15 +49,15 @@ public class BookingServiceImpl implements BookingService {
         return bookings.map(booking -> {
             BookingResponseDto dto = new BookingResponseDto(booking);
 
-            Host host = hostRepository.findById(Long.valueOf(booking.getHostId())).orElse(null);
-            Room room = roomRepository.findById(Long.valueOf(booking.getRoomId())).orElse(null);
+            Host host = hostRepository.findById((booking.getHostId())).orElse(null);
+            Room room = roomRepository.findById((booking.getRoomId())).orElse(null);
 
             if (host != null) {
                 dto.setHostName(host.getHostName());
             }
 
             if (room != null) {
-                dto.setRoomName(room.getRoomName());
+                dto.setRoomName(room.getName());
             }
 
             dto.setFormattedCheckInDate(formatBookingDate(booking.getCheckInDate()));
