@@ -17,13 +17,14 @@ public class MemberRestController {
 	
 	@Autowired
 	private MailService service;
+
 	@Autowired
 	private MemberServiceImpl memberService;
 	@Autowired
 	private SecurityService securityservice;
 	
 	private String number="";
-	
+
 	@PostMapping("/email")
 	public boolean email(@RequestBody MemberDto dto) {
 		String email = dto.getMem_email();
@@ -32,7 +33,7 @@ public class MemberRestController {
 		int a = memberService.searchmember(dto);
 		if(a>0) {
 			result = false;
-			
+
 		} else { 
 		service.sendHTMLEmail(email,number);
 		System.out.println(number + "난수");
@@ -40,6 +41,7 @@ public class MemberRestController {
 		return result;
 	}
 	
+
 	//비밀번호 찾기 컨트롤러
 	@PostMapping("/emailpwd")
 	public boolean emailpwd(@RequestBody MemberDto dto) {
@@ -53,13 +55,17 @@ public class MemberRestController {
 			result = true;
 			service.sendHTMLEmail(email,number);
 			System.out.println(number + "난수");
+
 			
+
+
 		} else { 
+
 			result = false;
 		}
 		return result;
 	}
-	
+
 	
 	//마이페이지 비밀번호 일치여부 컨트롤러
 	@PostMapping("/mypwdChk")
@@ -79,7 +85,7 @@ public class MemberRestController {
 		memberService.randompwd(dto);
 		return true;
 	}
-	
+
 	@PostMapping("/emailOk")
 	public boolean emailOk(@RequestBody MemberDto dto) {
 		System.out.println(dto.getMem_email()+"인증번호 값");
@@ -87,8 +93,7 @@ public class MemberRestController {
 		System.out.println(result +" : boolean");
 		return result;
 	}
-	
-	
+
 	
 	//비밀번호 난수생성이후 메일발송
 	@PostMapping("/emailSendPwd")
@@ -108,5 +113,5 @@ public class MemberRestController {
 		
 	}
 	
-	
+
 }
