@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width, initial-scale=1, user-scalable=no" name="viewport"/>
+    <!-- 이건 무슨 설정인지 모르겠음 -->
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- layout.css 적용 -->
+    <link rel="stylesheet" th:href="@{/css/layout.css}"/>
+    <title>레이아웃.html</title>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <h1>예약정보 리스트</h1>
+        </div>
+    </div>
+    <div class="wrapper">
+        <div class="main-content">
+            <div class="row row-inline-block small-spacing">
+                <div class="col-xs-12">
+                    <div class="box-content">
+                        <div class="clearfix">
+                            <h4 class="box-title pull-left"></h4>
+                        </div>
+
+                        <!-- 페이지 Content 영역 -->
+                        <!--th:block layout:fragment="content"></th:block-->
+
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <ul class="list-inline">
+                    <li>2024 @ Jamie</li>
+                </ul>
+            </footer>
+        </div>
+    </div>
+
+    <!-- main.js 적용 -->
+    <script th:src="@{/js/main.js}"></script>
+
+    <!-- JavaScript 영역 -->
+    <!--th:block layout:fragment="script"></th:block-->
+
+</body>
+</html>

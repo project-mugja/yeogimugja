@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>여기묵자 - 홈</title>
+</head>
+<body>
+<p th:text="${#temporals.format(T(java.time.LocalDateTime).now(), 'yyyy-MM-dd HH:mm:ss')}">
+    현재 시간:
+</p>
+</body>
+</html>
