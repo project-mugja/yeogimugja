@@ -1,0 +1,157 @@
+/* mypage.css */
+.section-style {
+    margin-left: 15%;
+    margin-right: 15%;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    grid-column-gap: 20px;
+}
+.section-left {
+    margin-top: 10px;
+}
+.section-right {
+    margin-top: 10px;
+}
+.booklist-title {
+    font-size: 1rem;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.title-area {
+    display: grid;
+    grid-template-rows: 1fr 4fr;
+}
+.content-area {
+    display: grid;
+    grid-template-rows: 5fr 1fr;
+}
+.go-booking {
+    display: grid;
+    grid-template-rows: 0.5fr 1fr 1fr;
+    align-items: center;
+    border-radius: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
+    padding: 10px;
+    background: white;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    transition: box-shadow 0.3s ease-in-out;
+}
+.go-booking-message {
+    font-size: 0.8rem;
+    color: darkgray;
+    margin-left: 20px;
+}
+.go-booking-sub-message {
+    font-size: 0.8rem;
+    color: darkgray;
+    margin-left: 20px;
+    margin-top: 10px;
+    align-self: start;
+}
+.yogi-bold {
+    font-size: 1rem;
+    font-weight: bold;
+    color: black;
+}
+.go-booking-button {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 140px;
+    height: 70%;
+    border-radius: 10px;
+    background: #1c77bd;
+    color: white;
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.booklist-container {
+    display: grid;
+    grid-template-rows: repeat(5, 1fr);
+    gap: 20px;
+    margin: 20px;
+}
+.booklist-card {
+    display: grid;
+    grid-template-columns: 1fr 3fr 2fr;
+    gap: 20px;
+    background-color: white;
+    height: 150px;
+}
+.booklist-card img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+.booklist-card-content {
+    display: grid;
+    grid-template-rows: 1fr 2fr 3fr;
+    text-align: left;
+}
+.booklist-card-title {
+    font-size: 1rem;
+    font-weight: bold;
+}
+.booklist-card-subtitle {
+    font-size: 0.7rem;
+    color: grey;
+}
+.show-detail-button {
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+    width: 140px;
+    height: 70%;
+    border-radius: 10px;
+    background: #1c77bd;
+    color: white;
+    margin-left: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.booklist-card-bookstatus {
+    font-size: 1rem;
+    font-weight: bold;
+    color: grey;
+    margin-left: 20px;
+}
+.booklist-card-hostname {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: black;
+    margin-left: 20px;
+}
+.booklist-card-roomname {
+    font-size: 1rem;
+    font-weight: bold;
+    color: grey;
+    margin-left: 20px;
+}
+.booklist-card-viewinfo {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1.6;
+    font-weight: normal;
+    color: grey;
+    text-align: left;
+    margin-left: 20px;
+    height: 100%; /* 부모 요소의 높이에 맞춰 조정합니다 */
+}
+.booklist-card-viewinfo span {
+    display: inline-block;
+    margin-left: 10px;
+}
+.info-label, .info-data {
+    display: inline-block;
+    margin-right: 10px; /* 라벨과 데이터 사이의 간격 조절 */
+}
