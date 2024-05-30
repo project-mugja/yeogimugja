@@ -4,9 +4,10 @@ import lombok.Data;
 
 @Data
 public class HostTagDto {
-	String[] tag1;
-	String[] tag2;
-	String[] tag3;
-	String[] tag4;
+	int hostId;
+	String tag1;
+	String tag2="null";
+	String tag3="null";
+	String tag4="null";
 	
 }

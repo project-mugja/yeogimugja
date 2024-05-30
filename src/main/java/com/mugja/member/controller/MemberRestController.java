@@ -14,10 +14,9 @@ import com.mugja.member.service.SecurityService;
 @RestController
 @RequestMapping("/mugja")
 public class MemberRestController {
-
+	
 	@Autowired
 	private MailService service;
-<<<<<<< member
 	@Autowired
 	private MemberServiceImpl memberService;
 	@Autowired
@@ -25,13 +24,6 @@ public class MemberRestController {
 	
 	private String number="";
 	
-=======
-
-	@Autowired
-	private MemberServiceImpl memberService;
-	private String number="";
-
->>>>>>> Dev
 	@PostMapping("/email")
 	public boolean email(@RequestBody MemberDto dto) {
 		String email = dto.getMem_email();
@@ -40,7 +32,6 @@ public class MemberRestController {
 		int a = memberService.searchmember(dto);
 		if(a>0) {
 			result = false;
-<<<<<<< member
 			
 		} else { 
 		service.sendHTMLEmail(email,number);
@@ -49,16 +40,6 @@ public class MemberRestController {
 		return result;
 	}
 	
-=======
-
-		} else {
-			service.sendHTMLEmail(email,number);
-			System.out.println(number + "난수");
-		}
-		return result;
-	}
-
->>>>>>> Dev
 	//비밀번호 찾기 컨트롤러
 	@PostMapping("/emailpwd")
 	public boolean emailpwd(@RequestBody MemberDto dto) {
@@ -72,18 +53,12 @@ public class MemberRestController {
 			result = true;
 			service.sendHTMLEmail(email,number);
 			System.out.println(number + "난수");
-<<<<<<< member
 			
 		} else { 
-=======
-
-		} else {
->>>>>>> Dev
 			result = false;
 		}
 		return result;
 	}
-<<<<<<< member
 	
 	
 	//마이페이지 비밀번호 일치여부 컨트롤러
@@ -105,9 +80,6 @@ public class MemberRestController {
 		return true;
 	}
 	
-=======
-
->>>>>>> Dev
 	@PostMapping("/emailOk")
 	public boolean emailOk(@RequestBody MemberDto dto) {
 		System.out.println(dto.getMem_email()+"인증번호 값");
@@ -115,7 +87,6 @@ public class MemberRestController {
 		System.out.println(result +" : boolean");
 		return result;
 	}
-<<<<<<< member
 	
 	
 	
@@ -138,7 +109,4 @@ public class MemberRestController {
 	}
 	
 	
-=======
->>>>>>> Dev
 }
-
