@@ -26,7 +26,6 @@ public class MainController {
 		model.addAttribute("id",service.userId());
 		model.addAttribute("grade",service.userGrade());
 
-		req.getSession().setAttribute("user","들어감");
 
 		System.out.println("메인 컨트롤러"+service.userId());
 		return "view/main";

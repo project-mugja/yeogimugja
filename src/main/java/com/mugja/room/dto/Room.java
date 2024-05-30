@@ -32,7 +32,7 @@ public class Room {
     @Column(name = "room_name", nullable = false)
     private String name;
 
-    @Column(name = "room_status", nullable = false)
+    @Column(name = "room_isbooked", nullable = false)
     private Boolean status;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
