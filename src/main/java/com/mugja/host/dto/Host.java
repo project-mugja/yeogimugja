@@ -1,55 +1,58 @@
 package com.mugja.host.dto;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.extern.apachecommons.CommonsLog;
+
+import java.util.List;
 
 @Getter
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder
 @Entity
-@Table(name = "HOST")
+@NoArgsConstructor
+@Table(name = "host")
 public class Host {
 
     @Id
+    @Column(name = "host_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "HOST_ID")
-    private Integer hostId; // 숙소번호 PK
+    private Integer hostId;
 
-    @Column(name = "AVGSCORE")
-    private Integer avgScore; // 숙소평점
+    @Column(name = "avgscore")
+    private Byte avgScore;
 
-    @Column(name = "HOST_NAME", nullable = false)
-    private String hostName; // 숙소이름
+    @Column(name = "host_name", nullable = false)
+    private String hostName;
 
-    @Column(name = "HOST_ADDRESS", nullable = false)
-    private String hostAddress; // 숙소주소
+    @Column(name = "host_address", nullable = false)
+    private String hostAddress;
 
-    @Column(name = "HOST_CONTACT", nullable = false)
-    private String hostContact; // 숙소연락처
+    @Column(name = "host_contact", nullable = false)
+    private String hostContact;
 
-    @Column(name = "HOST_INTRO", nullable = false)
-    private String hostIntro; // 숙소소개글
+    @Column(name = "host_intro")
+    private String hostIntro;
 
-    @Column(name = "HOST_LAT", nullable = false)
-    private float hostLat; // 숙소 위도
+    @Column(name = "host_lat", nullable = false)
+    private Double lat;
 
-    @Column(name = "HOST_LNG", nullable = false)
-    private float hostLng; // 숙소 경도
+    @Column(name = "host_lng", nullable = false)
+    private Double lng;
 
+    @OneToMany(mappedBy = "host", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<HostImg> hostImgList;
 
     @Builder
-    public Host(Integer avgScore, String hostName, String hostAddress, String hostContact, String hostIntro, float hostLat, float hostLng) {
-        this.avgScore = avgScore;
-        this.hostName = hostName;
-        this.hostAddress = hostAddress;
-        this.hostContact = hostContact;
-        this.hostIntro = hostIntro;
-        this.hostLat = hostLat;
-        this.hostLng = hostLng;
-    }
-
+    public Host(Integer hostId, Byte avgScore, String hostName, String hostAddress, String hostContact, String hostIntro, Double lat, Double lng) {
+       this.hostId = hostId;
+       this.avgScore = avgScore;
+       this.hostName = hostName;
+       this.hostAddress = hostAddress;
+       this.hostContact = hostContact;
+       this.hostIntro = hostIntro;
+       this.lat = lat;
+       this.lng = lng;
+   }
 }

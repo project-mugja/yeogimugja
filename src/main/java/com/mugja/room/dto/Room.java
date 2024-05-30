@@ -2,16 +2,15 @@ package com.mugja.room.dto;
 
 import com.mugja.host.dto.Host;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Data;
+import org.apache.ibatis.annotations.Delete;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-@Getter
+@Data
 @Entity
-@NoArgsConstructor
-@Table(name = "ROOM")
+@Table(name = "room")
 public class Room {
 
     @Id
@@ -35,7 +34,10 @@ public class Room {
     @Column(name = "ROOM_ISBOOKED", nullable = false)
     private boolean roomIsBooked; // 예약가능여부
 
-
+    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RoomImg> roomImgList;
+  
+  
     @Builder
     public Room(Host host, Integer roomMaxCapacity, BigDecimal roomPrice, String roomName, boolean roomIsBooked) {
         this.host = host;
@@ -44,5 +46,5 @@ public class Room {
         this.roomName = roomName;
         this.roomIsBooked = roomIsBooked;
     }
-
 }
+

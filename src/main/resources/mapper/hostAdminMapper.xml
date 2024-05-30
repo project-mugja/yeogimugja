@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.mugja.host.mapper.HostAdminMapper">
+
+<select id="hostImgList" parameterType="int" resultType="String">
+select host_imgpath 
+from host_img where host_id=#{host_id}
+ order by host_img_id limit 1
+</select>
+
+<insert id="hostwrite" parameterType="com.mugja.host.dto.HostAdminDto">
+ insert into host
+ values(null,0,#{host_name},#{host_address},#{host_contact},#{host_intro},#{host_lat},#{host_lng});
+</insert>
+
+<select id="gethostId" resultType="int">
+select host_id from host
+ order by host_id desc limit 1;
+</select>
+
+<insert id="hostAddTags" parameterType="com.mugja.host.dto.HostTagDto">
+    insert into tag (host_id, tag1, tag2, tag3, tag4)
+    values (#{hostId}, #{tag1}, #{tag2}, #{tag3}, #{tag4})
+</insert>
+
+<select id="hostList" resultType="com.mugja.host.dto.HostAdminDto">
+select * from host order by host_id desc
+</select>
+
+<select id="hostDetailimg" parameterType="String" resultType="com.mugja.host.dto.HostImgDto">
+select * from host_img where host_id =#{hostid}
+</select>
+
+<select id="hostDetailHost" parameterType="String" resultType="com.mugja.host.dto.HostAdminDto">
+select * from host where host_id = #{hostid}
+</select>
+
+<select id="hostDetailTag" parameterType="String" resultType="com.mugja.host.dto.HostTagDto">
+select * from tag where host_id = #{hostid}
+</select>
+ <delete id="hostImgdelete" parameterType="String">
+ delete from host_img where host_id=#{hostid}
+ </delete>
+
+ <delete id="hostTagdelete" parameterType="String">
+ delete from tag where host_id=#{hostid}
+ </delete>
+
+ <delete id="hostDelete" parameterType="String">
+ delete from host where host_id=#{hostid}
+ </delete>
+ 
+ <update id="hostupdate" parameterType="com.mugja.host.dto.HostAdminDto">
+ update host
+ set host_name=#{host_name},host_address=#{host_address},host_contact=#{host_contact},host_intro=#{host_intro}
+ where host_id=#{host_id}
+ </update>
+ 
+ <update id="hostUpdateTags" parameterType="com.mugja.host.dto.HostTagDto">
+ update tag
+ set tag1=#{tag1},tag2=#{tag2},tag3=#{tag3},tag4=#{tag4}
+ where host_id=#{hostId}
+ </update>
+ 
+</mapper>

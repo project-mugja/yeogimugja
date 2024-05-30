@@ -2,38 +2,83 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>숙소 상세 페이지</title>
+    <title>Host Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .container1 {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .images {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .images img {
+            max-width: 200px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
 </head>
 <body>
-    <h1>숙소 상세 페이지</h1><hr/>
-    <h2 style="font-weight: bold">여기묵자 강남점</h2>
-    <table>
-        <thead>
-            <tr>
-                <th><input type="checkbox"/></th>
-                <th>숙소이름(HOST_NAM)</th>
-                <th>객실이름(ROOM_NAME)</th>
-                <th>객실정원(ROOM_MAXCAPACITY)</th>
-                <th>객실가격(ROOM_PRICE)</th>
-                <th>예약하기(버튼)</th>
-            </tr>
-        </thead>
-        <tbody>
-
-        </tbody>
-    </table>
+<th:block th:each="hostid : ${host}">
+<form th:action="@{'/mugja/admin/hostdetailupdate/'+${hostid.host_id}}"method="post">
+    <div class="container1">
+        <div class="host-info">
+            <th:block th:each="hostItem : ${host}">
+                <p th:text="'Host ID: ' + ${hostItem.host_id}"></p>
+                <p th:text="'Host Name: ' + ${hostItem.host_name}"></p>
+                <p th:text="'Host Address: ' + ${hostItem.host_address}"></p>
+                <p th:text="'Host Contact: ' + ${hostItem.host_contact}"></p>
+                <p th:text="'Host Introduction: ' + ${hostItem.host_intro}"></p>
+            </th:block>
+        </div>
+    </div>
+    <div class="container">
+        <h1>숙소 이미지</h1>
+        <div class="images">
+            <div th:each="image : ${hostImages}">
+                <img th:src="@{|/comFile/${image.host_imgpath}|}" th:alt="${image.host_img_id}">
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <h1>Host Tags</h1>
+        <div class="tags">
+            <th:block th:each="tagItem : ${hostTag}">
+                <p th:text="'Tag 1: ' + ${tagItem.tag1}"></p>
+                <p th:text="'Tag 2: ' + ${tagItem.tag2}"></p>
+                <p th:text="'Tag 3: ' + ${tagItem.tag3}"></p>
+                <p th:text="'Tag 4: ' + ${tagItem.tag4}"></p>
+            </th:block>
+        </div>
+    </div>
+ <input type="submit" value="수정하기"/>
+</form>
+<div>
+<a th:href="@{/mugja/admin/hostdelete/{hostid}(hostid=${hostid.host_id})}">
+            <button>삭제하기</button>
+        </a></div>
+        <button type="button" onclick="location.href='/mugja/admin/hostlist'">숙소 목록</button>
+         </th:block>
 </body>
 </html>
 
-use mugja; // 데이터 스키마명
-
-insert into HOST (HOST_NAME, HOST_ADDRESS, HOST_CONTACT, HOST_INTRO, HOST_API)
-values('여기묵자 강남점', '강남구 역삼동', '010-1234-5678', '여기묵자 강남점입니다.', '호스트 API가 뭔가요');
-
-insert into ROOM (HOST_ID, ROOM_MAXCAPACITY, ROOM_PRICE, ROOM_NAME)
-values(1, 2, 75000, '스탠다드 더블룸'),
-(1, 2, 100000, '디럭스 트윈룸'),
-(1, 2, 150000, '럭셔리 더블룸');
-
-insert into BOOK (MEM_ID, HOST_ID, ROOM_ID, CHECKIN_DATE, CHECKOUT_DATE, GUEST_NAME, GUEST_CONTACT, PAY_TYPE, PAY_PRICE, PAY_DATE)
-values(1, 1, 1, '2024-05-30', '2024-05-31', '재명', '010-1234-5678', 20, 75000, now());
