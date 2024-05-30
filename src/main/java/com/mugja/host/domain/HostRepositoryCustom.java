@@ -5,5 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface HostRepositoryCustom {
+
+    //숙소 검색
     Page<HostWishDTO> findByTagNative(String category, String search,Pageable pageable);
 }

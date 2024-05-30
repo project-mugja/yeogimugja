@@ -15,9 +15,11 @@ import java.util.Optional;
 @Repository
 public interface HostRepository extends JpaRepository<Host, Integer>, HostRepositoryCustom {
 
+    //호스트아이디로 숙소 정보 가져오기
     Optional<Host> findByHostId(Integer hostId);
 
-    @Query(value = "SELECT * FROM host WHERE host_id IN (SELECT host_id FROM wish WHERE mem_id = :memId) AND host_id IN (SELECT host_id FROM tag WHERE tag1 = :cat)", nativeQuery = true)
-    Page<Host> findHostByTagAndFavoriteNative(@Param("memId") Integer memId, @Param("cat") String cat, Pageable pageable);
+
+//    @Query(value = "SELECT * FROM host WHERE host_id IN (SELECT host_id FROM wish WHERE mem_id = :memId) AND host_id IN (SELECT host_id FROM tag WHERE tag1 = :cat)", nativeQuery = true)
+//    Page<Host> findHostByTagAndFavoriteNative(@Param("memId") Integer memId, @Param("cat") String cat, Pageable pageable);
 
 }

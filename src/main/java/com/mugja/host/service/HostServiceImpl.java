@@ -48,6 +48,7 @@ public class HostServiceImpl implements HostService{
 //        return hostRepository.findHostByTagAndFavoriteNative(memId,category,pageable);
 //    }
 
+    //로그인 상태에서 숙소 검색(찜한 숙소 정보도 같이 가져옴)
     @Override
     @Transactional
     public Page<HostWishDTO> findHostsAuth(Integer memId, String category, String search, Pageable pageable) {
@@ -62,6 +63,8 @@ public class HostServiceImpl implements HostService{
         });
         return page;
     }
+
+    //비로그인 상태에서 숙소 검색
     @Override
     @Transactional
     public Page<HostWishDTO> findHosts(String category, String search, Pageable pageable) {

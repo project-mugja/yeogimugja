@@ -18,6 +18,8 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
     @PersistenceContext
     private EntityManager em;
 
+
+    //숙소 검색
     @Override
     public Page<HostWishDTO> findByTagNative(String category, String search, Pageable pageable) {
         search = "%" + search + "%";

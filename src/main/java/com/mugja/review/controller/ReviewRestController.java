@@ -47,7 +47,7 @@ public class ReviewRestController {
         }
         try{
             review.setHostId(hostId);
-            review .setMemId(memberService.findByEmail(securityService.userId()));
+            review .setMemId(memberService.getMemId());
             reviewService.save(review);
             return ResponseEntity.ok().body("Success");
         }catch (IOException e){

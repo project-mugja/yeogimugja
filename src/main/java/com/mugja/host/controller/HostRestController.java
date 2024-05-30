@@ -37,7 +37,8 @@ public class HostRestController {
     }
 
     /*
-    숙소 카테고리 검색 메서드
+    숙소 카테고리 검색 메서드 
+    카테고리, 검색어, 페이지넘버 => 호스트목록 페이지 객체
     */
     @GetMapping("/category/{category}/{pageNo}/{search}")
     public ResponseEntity<Page<HostWishDTO>> getHostByCategory(@PathVariable String category, @PathVariable int pageNo, @PathVariable String search){

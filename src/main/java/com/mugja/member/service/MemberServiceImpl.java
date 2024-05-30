@@ -41,11 +41,8 @@ public class MemberServiceImpl implements MemberService {
 		return mapper.emailserach(dto.getMem_email());
 	}
 
-	@Override
-	public Integer findByEmail(String email) {
-		return mapper.findMemId(email);
-	}
 
+	// memId값을 가져옴
 	@Override
 	public Integer getMemId(){
 		return mapper.findMemId(securityService.userId());
