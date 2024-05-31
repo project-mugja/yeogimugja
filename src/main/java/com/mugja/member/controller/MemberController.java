@@ -1,9 +1,15 @@
 package com.mugja.member.controller;
 
+import com.mugja.jwt.JwtUtils;
+import com.mugja.member.dto.LoginRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -19,6 +25,14 @@ public class MemberController {
 	
 	@Autowired
 	private MemberServiceImpl service;
+
+	@Autowired
+	private JwtUtils jwtUtils;
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+
+	private AuthenticationManager authenticationManager;
 	
 	
 
@@ -35,12 +49,14 @@ public class MemberController {
 		System.out.println("admin");
 		return "/view/admin";
 	}
-	
-	@RequestMapping(value="/loginaction",method = {RequestMethod.GET,RequestMethod.POST})
-	public String logindo() {
-		System.out.println("로그인시도");
-		return "/view/loginOk";
-	}
+
+//	@RequestMapping(value="/loginaction",method = {RequestMethod.POST})
+//	public String logindo(@RequestBody LoginRequest req, HttpServletResponse res) {
+//		System.out.println("로그인시도");
+//		return "/view/loginOk";
+//	}
+
+
 	
 	@RequestMapping(value="/join",method = {RequestMethod.GET,RequestMethod.POST})
 	public String join(MemberDto dto) {
@@ -68,6 +84,7 @@ public class MemberController {
 	public String pwdchg() {
 		return "/view/pwdchgemail";
 	}
+
 	@RequestMapping(value="/myPwdChg",method = {RequestMethod.GET,RequestMethod.POST})
 	public String myPwdChg() {
 		return "/view/myPwdChg";

@@ -1,15 +1,25 @@
 package com.mugja.member.controller;
 
+import com.mugja.jwt.JwtUtils;
+import com.mugja.member.dto.LoginRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.bind.annotation.*;
 
 import com.mugja.member.dto.MemberDto;
 import com.mugja.member.service.MailService;
 import com.mugja.member.service.MemberServiceImpl;
 import com.mugja.member.service.SecurityService;
+
+import java.io.IOException;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/mugja")
@@ -22,10 +32,16 @@ public class MemberRestController {
 	private MemberServiceImpl memberService;
 	@Autowired
 	private SecurityService securityservice;
-	
+
+	@Autowired
+	private JwtUtils jwtUtils;
+
+	private AuthenticationManager authenticationManager;
+
 	private String number="";
 
-	@PostMapping("/email")
+
+    @PostMapping("/email")
 	public boolean email(@RequestBody MemberDto dto) {
 		String email = dto.getMem_email();
 		number = service.createnumber();
@@ -111,6 +127,39 @@ public class MemberRestController {
 		//해당값 메일전송
 		service.sendHTMLEmailpwd(dto.getMem_email(),number);
 		
+	}
+
+	
+	//로그인 버튼 누르면 이 메서드
+	@RequestMapping(value="/loginaction",method = {RequestMethod.POST})
+	public ResponseEntity doLogin(@RequestBody LoginRequest req, HttpServletResponse res){
+
+		System.out.println("doLogin");
+
+		System.out.println("name : "+req.getUsername()+ " password : "+req.getPassword());
+
+		// 사용자 인증
+		// 커스텀 유저 디테일 서비스
+
+		System.out.println("auth : "+authentication.getName());
+
+		Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+
+		authorities.forEach(authority -> {
+			if (authority.getAuthority().equals("ROLE_ADMIN")) {
+				try {
+					res.sendRedirect("/mugja/admin");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		});
+
+		// 인증이 성공하면 JWT 토큰 생성
+		String token = jwtUtils.createToken(memberService.getMemId()+"");
+
+		// 토큰을 응답에 포함하여 반환
+		return ResponseEntity.ok(token);
 	}
 	
 
