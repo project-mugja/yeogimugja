@@ -13,3 +13,4 @@ import java.util.List;
 public interface RoomRepository extends JpaRepository<Room, Integer> {
     List<Room> findByHost_HostIdOrderByPriceDesc(Integer hostId);
 }
+

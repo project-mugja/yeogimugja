@@ -2,39 +2,51 @@ package com.mugja.room.dto;
 
 import com.mugja.host.dto.Host;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
-import org.apache.ibatis.annotations.Delete;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @Entity
 @Table(name = "room")
+@NoArgsConstructor
 public class Room {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "room_id", nullable = false)
-    private Integer roomId;
+    @Column(name = "ROOM_ID")
+    private Integer roomId; // 객실번호 PK
 
     @ManyToOne
-    @JoinColumn(name = "host_id", nullable = false)
-    private Host host;
+    @JoinColumn(name = "HOST_ID", nullable = false)
+    private Host host; // 숙소번호 FK
 
-    @Column(name = "room_capacity", nullable = false)
-    private Byte capacity;
+    @Column(name = "ROOM_MAXCAPACITY", nullable = false)
+    private Integer capacity; // 객실정원
 
-    @Column(name = "room_price", nullable = false)
-    private Integer price;
+    @Column(name = "ROOM_PRICE", nullable = false)
+    private BigDecimal price; // 객실가격
 
-    @Column(name = "room_name", nullable = false)
-    private String name;
+    @Column(name = "ROOM_NAME", nullable = false)
+    private String name; // 객실이름
 
-    @Column(name = "room_status", nullable = false)
-    private Boolean status;
+    @Column(name = "ROOM_ISBOOKED", nullable = false)
+    private boolean status; // 예약가능여부
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<RoomImg> roomImgList;
+  
+  
+    @Builder
+    public Room(Host host, Integer roomMaxCapacity, BigDecimal roomPrice, String roomName, boolean roomIsBooked) {
+        this.host = host;
+        this.capacity = roomMaxCapacity;
+        this.price = roomPrice;
+        this.name = roomName;
+        this.status = roomIsBooked;
+    }
 }
+

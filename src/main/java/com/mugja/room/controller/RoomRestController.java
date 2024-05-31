@@ -19,6 +19,8 @@ public class RoomRestController {
 
     private final RoomService roomService;
 
+    //OK
+    //객실 목록 불러오기
     @GetMapping("/")
     public ResponseEntity<List<Room>> getRooms(
             @PathVariable int hostId) {
