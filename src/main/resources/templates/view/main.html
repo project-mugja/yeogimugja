@@ -24,41 +24,66 @@
                 <!-- 로그인/회원가입 버튼 or 유저정보 표출 -->
                 <div class="head_btn">
                     로그인/회원가입버튼 or 로그인시 정보표기
-                </div>
-
-                <!-----------구분선---------->
-
-                <!-- 햄버거/ 세줄짜리 메뉴버튼 -->
-                <div class="menulist_btn">
-                    헤더 메뉴 리스트
-                    <!-- 버튼 내부 메뉴1 -->
-                    <div class="menu1">
-                        메뉴 1 (마이페이지)
-                    </div>
-                    <!-- 버튼 내부 메뉴2 -->
-                    <div class="menu2">
-                        메뉴 2 (로그아웃)
+                        <!-- 햄버거/ 세줄짜리 메뉴버튼 -->
+                    <div class="login_btn">
+                        헤더 메뉴 리스트
+                        <!-- 버튼 내부 메뉴1 -->
+                        <div class="menu1">
+                            메뉴 1 (마이페이지)
+                        </div>
+                        <!-- 버튼 내부 메뉴2 -->
+                        <div class="menu2">
+                            메뉴 2 (로그아웃)
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
         
-        <!-----------구분선---------->
+        <!-----------헤더 - 메인컨텐츠 구분선---------->
         
         <!-- 메인페이지 -->
         <div class="contents">
             <div class="body_content">
                 Body_contents
                 <!-- 메인 이미지 + 검색창 -->
-                <section role="region" aria-label="메인비쥬얼"></section>
-                <section role="region" aria-label="이벤트카드"></section>
-                <section role="region" aria-label="지역별카드"></section>
-                <section role="region" aria-label="이벤트배너"></section>
-                <section role="region" aria-label="QR태그영역"></section>
+                <div class="banner">
+                    <!-- 검색창 -->
+                    <div class="search">
+                        <!-- 상단 소개글 -->
+                        <div class="search_intro">
+                            <span>국내부터 해외까지</span>
+                            <br>
+                            <span>여행할때 여기묵자</span>
+                        </div>
+                        <!-- 검색 바 -->
+                        <div class="search_bar">
+
+                        </div>
+                    </div>
+                    <!-- 배너이미지 -->
+                    <!-- <div class="banner_img"> -->
+                        <img src="../../static/img/banner.webp">
+                    <!-- </div> -->
+                </div>
+                <section role="region" aria-label="이벤트카드" class="event_card">이벤트 카드</section>
+                <section role="region" aria-label="지역별카드" class="city">국내 인기 여행지</section>
+                <section role="region" aria-label="이벤트배너" class="event_login">회원가입 혜택</section>
+                <section role="region" aria-label="인기 추천 숙소" class="recommand_host">인기 추천 숙소</section>
+                <section role="region" aria-label="QR태그영역" class="event_tag">
+                    <div class="QR_intro">
+                        <h2>QR태그하고 <br/> 더 많은 정보를 확인 해보세요</h2>
+                        <img src="../../static/img/QR_frame.png" style="width:96px;height:96px;border-radius: 10px;"/>
+                    </div>
+                    
+                
+                </section>
             </div>
         </div>
         
+        
+        <!-----------메인컨텐츠 - 푸터 구분선---------->
 
         <!-- footer -->
         <div class="contents">
@@ -75,9 +100,7 @@
                 </div>
                 <div class="introduce">
                 (주)여기묵자컴퍼니
-
 주소 : 서울 강남구 테헤란로 7길 7 1실 | 대표이사 : ??? | 사업자등록번호 : 123-45-09876사업자정보확인
-
 (주)여기묵자컴퍼니는 통신판매중개자로서 통신판매의 당사자가 아니며, 상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.
 </div>
 
@@ -90,10 +113,68 @@
     <style>
     /* CSS 파트 */
     /* 메인페이지 영역 */
+        .contents{
+            width: 100%;
+        }
         [role=region]{
             background-color: aquamarine;
             border: 1px crimson;
+            width: 1200px;
+            /* height: 100%; */
+            inset: 0px;
+            margin-top:20px;
+            margin-right: auto;
+            margin-left: auto;
+            
         }
+        .body_content{
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            padding-bottom: 96px;
+        }
+    /* 메인 배너 영역 */
+    .banner{
+        width:100%;
+        position: relative;
+        background-color: cadetblue;
+    }
+    .search{
+        height: 100%;
+        width: 100%;
+        max-width: 1200px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        z-index: 11;
+        position: relative;
+    }
+    .search_intro{
+        font-weight: 700;
+        color: rgb(255, 255, 255);
+    }
+    .search_bar{}
+        
+    /* QR태그영역 */
+        .event_tag{
+            background-color: #F6F6F6;
+            border-radius: 16px;
+            width: 1120px;
+            /* overflow: hidden; */
+            background-image: url( "../../static/img/QRtag.png" );
+        }
+        .QR_intro{
+            position: relative;
+            height: 264px;
+            width: 100%;
+            padding: 48px 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            overflow: hidden;
+        }
+
+
     /* 공통사항 */
         .contents{
             width: 100%;
@@ -101,21 +182,40 @@
             justify-content: center;
             margin : 0.2% 0;
         }
+
+
     /* 헤더 */
         .header{
             height: 75px;
             width : 1200px;
             display: flex;
-            padding: 0 40px;
             flex-wrap: wrap;
-            justify-content: center;
+            justify-content: space-between;
             /* 테스트용 */
             background-color: bisque; 
+            align-items: center;
+        }
+        /* 헤더 우측 로고 */
+        .head_logo{
+            outline:  2px solid transparent;
+            outline-offset: 2px;
+        }
+        /* 헤더 좌측 로그인 + 메뉴버튼 */
+        .head_btn{
+            line-height: inherit;
+        }
+
+
+        .login_btn{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 8px;
         }
     /* 푸터 */
         .footer{
             height: 75px;
-            width : 1200px;
+            width : 1120px;
             display: flex;
             padding: 0 40px;
             /* 테스트용 */
