@@ -58,11 +58,11 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
         authorities.forEach(authority -> {
             if (authority.getAuthority().equals("ROLE_ADMIN")) {
-                try {
-                    response.sendRedirect("/mugja/admin");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    response.sendRedirect("/mugja/admin");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
     }

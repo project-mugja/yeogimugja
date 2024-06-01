@@ -23,6 +23,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 		MemberDto dto = mapper.findByEmail(username);
 		
 		if(dto!=null) {
+			System.out.println("dto: " + dto.getMem_pwd());
 			return new CustomUserDetails(dto);
 		}
 		return null;

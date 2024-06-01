@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
             username: formData.get('username'),
             password: formData.get('password')
         };
-
+        console.log(loginData);
         fetch('/mugja/loginaction', {
             method: 'POST',
             headers: {
@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
                 setCookie('token', data.token, 1);
                 console.log(data);
                 console.log(document.cookie)
-                window.location.href = '/mugja/main';
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);

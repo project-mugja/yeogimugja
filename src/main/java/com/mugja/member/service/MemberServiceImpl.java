@@ -57,6 +57,7 @@ public class MemberServiceImpl implements MemberService {
 	public Integer getMemId(){
 		return mapper.findMemId(securityService.userId());
 	}
+
 	//현재비밀번호 -입력비밀번호 확인 메서드
 	@Override
 	public boolean pwdcheck(MemberDto dto) {
