@@ -2,9 +2,7 @@ package com.mugja.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mugja.member.dto.LoginRequest;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.ServletInputStream;
+import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -29,6 +27,8 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
                                      final AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
         super(defaultFilterProcessesUrl, authenticationManager);
         this.jwtUtils = jwtUtils;
+
+        System.out.println("defaultFilterProcessesUrl: " + defaultFilterProcessesUrl);
     }
 
     @Override
@@ -57,6 +57,7 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
 
     @Override
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+        System.out.println("in successfulAuthentication : "+ authResult);
         // Authentication 객체를 UserDetails 인스턴스로 캐스팅
         UserDetails userDetails = (UserDetails) authResult.getPrincipal();
 
@@ -78,12 +79,21 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         // JSON 문자열로 변환
         String jsonResponse = new ObjectMapper().writeValueAsString(responseMap);
 
+        System.out.println("jsonResponse : " + jsonResponse);
+
         // 응답 설정
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse);
+    }
 
-//        // Avoiding redirection
-//        clearAuthenticationAttributes(request);
+
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        // Authentication 실패 시 호출
+        System.out.println("in unsuccessfulAuthentication");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        response.getWriter().write("Authentication Failed: " + failed.getMessage());
     }
 }

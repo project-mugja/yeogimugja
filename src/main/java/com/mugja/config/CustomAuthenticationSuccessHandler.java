@@ -32,27 +32,6 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                                         Authentication authentication) throws IOException, ServletException {
 
         System.out.println("successhandler");
-//        String token = jwtUtils.createToken(authentication.getName());
-//
-//        System.out.println("============================");
-//        System.out.println("request " + request.toString());
-//        System.out.println("on Login Success : "+token);
-//
-//        ResponseCookie cookie = ResponseCookie.from("token",token)
-//                .httpOnly(true)
-//                .path("/")
-//                .secure(true)
-//                .sameSite("None")
-//                .domain("main--mugja.netlify.app")
-//                .build();
-//
-//        System.out.println("cookie : "+cookie.getName());
-//        System.out.println("sameSite : "+cookie.getSameSite());
-//        response.addHeader("Set-Cookie",cookie.toString());
-//
-//
-//        System.out.println("header : "+response.getHeaderNames());
-//        System.out.println("cookie name : "+cookie.getName()+"  cookie value : "+cookie.getValue()+"");
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 
