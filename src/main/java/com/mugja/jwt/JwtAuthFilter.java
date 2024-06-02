@@ -42,7 +42,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 token = token.substring(7);
                 if (jwtUtils.validateToken(token)) {
                     Claims claims = jwtUtils.getClaimsFromToken(token);
-                    String username = claims.getSubject();
+                    String username = claims.getIssuer();
 
                     System.out.println("username: " + username);
 
