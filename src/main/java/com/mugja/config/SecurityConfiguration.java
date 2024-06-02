@@ -19,6 +19,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -74,6 +75,9 @@ public class SecurityConfiguration {
 				.logoutSuccessUrl("/mugja/login")
 				.logoutSuccessHandler((request, response, authentication) ->
 						response.sendRedirect("/mugja/login"))
+				)
+				.securityContext(securityContext -> securityContext
+						.securityContextRepository(new HttpSessionSecurityContextRepository())
 				)
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.addFilterBefore(new JwtAuthFilter(jwtUtils,userDetailsService), UsernamePasswordAuthenticationFilter.class);

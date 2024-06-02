@@ -2,6 +2,7 @@ package com.mugja.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mugja.member.dto.LoginRequest;
+import com.mugja.member.service.SecurityService;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -22,6 +23,7 @@ import java.util.Map;
 public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
     private final JwtUtils jwtUtils;
+    private SecurityService securityService = new SecurityService();
 
     public LoginAuthenticationFilter(final String defaultFilterProcessesUrl,
                                      final AuthenticationManager authenticationManager, JwtUtils jwtUtils) {
@@ -66,6 +68,11 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         context.setAuthentication(authResult);
         SecurityContextHolder.setContext(context);
 
+        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
+        System.out.println("======");
+        System.out.println("get userId : "+securityService.userId());
+        System.out.println("======");
+
         // 인증된 사용자 정보 추출
         String username = authResult.getName();
 
@@ -85,6 +92,8 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         response.getWriter().write(jsonResponse);
+
+        request.getSession(true).setAttribute("SPRING_SECURITY_CONTEXT", context);
     }
 
 
