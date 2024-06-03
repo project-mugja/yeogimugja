@@ -50,9 +50,9 @@
             <div class="login_frm">
                 <!-- 로그인 폼 시작 -->
                 <form action="/mugja/loginaction" method="post" id="login-form" style="gap:10px">
-                    <input placeholder="&nbsp;&nbsp;&nbsp;아이디" class="input_info" type="text" id="username" name="username" />
-                    <input placeholder="&nbsp;&nbsp;&nbsp;비밀번호" class="input_info" type="password"  id="password" name="password"  >
-                    <input type="submit" value="로그인">
+                    <input placeholder="이메일" class="input_info" type="text" id="username" name="username" style=" padding-left:20px;" />
+                    <input placeholder="비밀번호" class="input_info" type="password"  id="password" name="password" style=" padding-left:20px;" >
+                    <input class="input_button" type="submit" value="로그인">
                 </form>
             </div>
             <!-- 하단 추가 내용 -->
@@ -243,6 +243,7 @@ window.onclick = function(event) {
 .dropdown a:hover {background-color: #ddd;}
 
 .show {display: block;}
+
 /* 로그인 폼 관련 부분 */
 .contents_login{
     width: 1200px;
@@ -275,7 +276,40 @@ window.onclick = function(event) {
     padding:0;
 }
 .input_info{
-    padding-left: 10px;
+    border-radius: 10px;
+    align-items: center;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    height: 48px !important;
+    justify-content: center;
+    background-color: #f5f5f5;
+    border: 1.5px solid #f5f5f5;
+}
+.login_frm .input_button{
+    height :54.5px;
+    width: 100%;
+    border-radius: 10px;
+    
+    border: none;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    outline-style: unset;
+    text-align: center;
+
+    border-radius: 10px;
+    height: 48px;
+    line-height: 19px;
+    padding: 0 18px;
+
+    background: #fff;
+    border: 1.5px solid #ebebeb;
+    color: #333;
+
+    -webkit-appearance: button;
+
+    user-select: none;
 }
 .signup{
     display: flex;
