@@ -14,15 +14,16 @@
 
 <script>
 // header _ 햄버거 메뉴 버튼
+/* 사용자가 버튼을 클릭할 때, 드롭다운 내용을 토글 */
 function myFunction() {
   document.getElementById("myDropdown").classList.toggle("show");
 }
 
+// 사용자가 버튼 외부를 클릭하면 드롭다운을 닫음
 window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
+  if (!event.target.matches('.dropbtn') && !event.target.closest('.dropbtn')) {
     var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
+    for (var i = 0; i < dropdowns.length; i++) {
       var openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
@@ -70,26 +71,25 @@ window.onclick = function(event) {
         <div class="header">
             <!-- 로고 img -->
             <div class="head_logo">
-                <img src="../../static/img/logo_002.png">
+                <a href=""><img src="../../static/img/logo_002.png"></a>
             </div>
             <!-- 로그인/회원가입 버튼 or 유저정보 표출 -->
             <div class="head_btn">
-                로그인 하세요.
+                <div class="login_info">로그인 하세요</div>
                     <!-- 햄버거/ 세줄짜리 메뉴버튼 -->
-                   <div class="dropdown">
-                <div class="login_btn" id="login_btn">
+                <div class="dropdown">
                     <button onclick="myFunction()" class="dropbtn">
+                    <div class="login_btn" id="login_btn">
                         <div></div>
                         <div></div>
                         <div></div>
+                    </div>
                     </button>
-                </div>
                     <div id="myDropdown" class="dropdown-content">
-                  <a href="#">로그인/로그아웃</a>
-                  <a href="#">마이페이지</a>
-                  <!-- <a href="#">로그아웃</a> -->
-                </div>
-              </div> 
+                        <a href="#">로그인/로그아웃</a>
+                        <a href="#">마이페이지</a>
+                    </div>
+                </div> 
                     <!-- 버튼 내부 메뉴 -->
                     <!-- <div class="menu" id="menu"> -->
                     <div id="myDropdown" class="dropdown-content">    
@@ -749,7 +749,7 @@ window.onclick = function(event) {
         flex-wrap: nowrap;
         justify-content: space-between;
         /* 테스트용 */
-        background-color: bisque; 
+        /* background-color: bisque;  */
         align-items: center;
     }
     /* 헤더 우측 로고 */
@@ -767,7 +767,8 @@ window.onclick = function(event) {
         display: flex;
         line-height: inherit;
         width:200px;
-        justify-content: space-between;
+        justify-content: flex-end;
+        align-items: center;
     }
     /* 메뉴 진입버튼 */
     .login_btn{
@@ -786,34 +787,8 @@ window.onclick = function(event) {
         margin: 2px 0;
     }
 
-    .menu {
-        display: none;
-        position: absolute;
-        top: 100%; /* 버튼 바로 아래에 메뉴가 나타나도록 설정 */
-        right: 0; /* 버튼과 메뉴가 오른쪽 정렬되도록 설정 */
-        background-color: white;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        border-radius: 4px;
-        overflow: hidden;
-        z-index: 1; /* 메뉴가 다른 요소 위에 나타나도록 설정 */
-    }
-    .menu a {
-        display: block;
-        padding: 10px 15px;
-        text-decoration: none;
-        color: black;
-        border-bottom: 1px solid #eee;
-    }
-
-    .menu a:hover {
-        background-color: #f0f0f0;
-    }
-
-    .menu a:last-child {
-        border-bottom: none;
-    }
     .dropbtn {
-  /* background-color: #3498DB; */
+  background-color: #FFFFFF;
   color: white;
   padding: 16px;
   font-size: 16px;
@@ -833,10 +808,10 @@ window.onclick = function(event) {
 .dropdown-content {
   display: none;
   position: absolute;
-  background-color: #f1f1f1;
-  min-width: 160px;
+  background-color: #FFFFFF;
+  width: 160px;
   overflow: auto;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
   z-index: 1;
 }
 
