@@ -1,6 +1,7 @@
 package com.mugja.member.mapper;
 
 
+import com.mugja.member.dto.LoginRequest;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
@@ -19,4 +20,7 @@ public interface MemberMapper {
 
 	@Select("SELECT mem_id from mem where mem_email = #{email}")
 	Integer findMemId(String email);
+
+	@Select("SELECT count(*) from mem where mem_")
+	Integer findMem(LoginRequest loginRequest);
 }

@@ -19,10 +19,11 @@ public class CustomUserDetailsService implements UserDetailsService {
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		
+		System.out.println("username: " + username);
 		MemberDto dto = mapper.findByEmail(username);
 		
 		if(dto!=null) {
+			System.out.println("dto: " + dto.getMem_pwd());
 			return new CustomUserDetails(dto);
 		}
 		return null;

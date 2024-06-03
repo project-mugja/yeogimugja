@@ -1,3 +1,5 @@
+import java.util.concurrent.ForkJoinWorkerThread
+
 plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.2.5'
@@ -47,6 +49,10 @@ runtimeOnly 'com.mysql:mysql-connector-j'
 
 	implementation 'org.modelmapper:modelmapper:3.0.0'
 
+	//JWT
+	implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
+	runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 }
 
 tasks.named('test') {

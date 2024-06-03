@@ -8,7 +8,7 @@ public class CorsMvcConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry corsRegistry) {
 
         corsRegistry.addMapping("/**")
-                .allowedOrigins("https://main--yeogimugja.netlify.app/");
+                .allowedOrigins("https://main--mugja.netlify.app/");
     }
 
 }

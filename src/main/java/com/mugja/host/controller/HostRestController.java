@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/host")
+@RequestMapping("/api/host")
 public class HostRestController {
 
     private final HostService hostService;
