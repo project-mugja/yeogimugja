@@ -24,6 +24,8 @@ import com.mugja.member.service.SecurityService;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/mugja")
@@ -89,11 +91,15 @@ public class MemberRestController {
 	
 	//마이페이지 비밀번호 일치여부 컨트롤러
 	@PostMapping("/mypwdChk")
-	public boolean mypwdChk(@RequestBody MemberDto dto) {
-		System.out.println(dto.getMem_pwd());
+	public ResponseEntity mypwdChk(@RequestParam("password") String password) {
+		System.out.println(password);
+		MemberDto dto = new MemberDto();
 		//비밀번호 일치여부 확인
+		dto.setMem_pwd(password);
 		dto.setMem_email(securityservice.userId());
-		return memberService.pwdcheck(dto);
+		Map<String, Boolean> response = new HashMap<String, Boolean>();
+		response.put("isValid", memberService.pwdcheck(dto));
+		return ResponseEntity.ok(response);
 	}
 	
 	
@@ -143,6 +149,7 @@ public class MemberRestController {
 		// 토큰을 응답에 포함하여 반환
 		return ResponseEntity.ok(Collections.singletonMap("token",token));
 	}
+
 	
 
 }

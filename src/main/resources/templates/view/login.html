@@ -47,7 +47,7 @@
                     console.log(data);
                     console.log(document.cookie)
                     localStorage.setItem("token",data.token);
-                    // window.location.href = '/mugja/main';
+                    window.location.href = '/mugja/main';
                 })
                 .catch(error => {
                     console.error('There was a problem with the fetch operation:', error);
