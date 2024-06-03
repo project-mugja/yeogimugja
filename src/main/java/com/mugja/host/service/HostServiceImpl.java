@@ -5,7 +5,9 @@ import com.mugja.host.domain.HostImgRepository;
 import com.mugja.host.domain.HostRepository;
 import com.mugja.host.dto.Host;
 import com.mugja.host.dto.HostWishDTO;
+import com.mugja.room.domain.RoomRepository;
 import com.mugja.wishlist.domain.WishListRepository;
+import com.mugja.wishlist.service.WishListService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,12 +22,14 @@ public class HostServiceImpl implements HostService{
     private final HostRepository hostRepository;
     private final HostImgRepository hostImgRepository;
     private final WishListRepository wishListRepository;
+    private final RoomRepository roomRepository;
 
     @Autowired
-    public HostServiceImpl(HostRepository hostRepository, HostImgRepository hostImgRepository, WishListRepository wishListRepository) {
+    public HostServiceImpl(HostRepository hostRepository, HostImgRepository hostImgRepository, WishListRepository wishListRepository, RoomRepository roomRepository) {
         this.hostRepository = hostRepository;
         this.hostImgRepository = hostImgRepository;
         this.wishListRepository = wishListRepository;
+        this.roomRepository = roomRepository;
     }
 
     /*
@@ -60,6 +64,9 @@ public class HostServiceImpl implements HostService{
             hostWishDTO.setIsFav(
                     wishListRepository.findByMemIdAndHost_HostId(memId,hostWishDTO.getHostId()).isPresent() ? true : false
             );
+            hostWishDTO.setPrice(
+                    roomRepository.findByHost_HostIdOrderByPriceAsc(hostWishDTO.getHostId()).get(0).getPrice()
+            );
         });
         return page;
     }
@@ -69,11 +76,14 @@ public class HostServiceImpl implements HostService{
     @Transactional
     public Page<HostWishDTO> findHosts(String category, String search, Pageable pageable) {
         Page<HostWishDTO> page = hostRepository.findByTagNative(category, search, pageable);
-        page.forEach(hostWishDTO ->
-                    hostWishDTO.setHostImgList(
-                            hostImgRepository.findAllByHost_HostId(hostWishDTO.getHostId())
-                    )
-        );
+        page.forEach(hostWishDTO -> {
+            hostWishDTO.setHostImgList(
+                    hostImgRepository.findAllByHost_HostId(hostWishDTO.getHostId())
+            );
+            hostWishDTO.setPrice(
+                    roomRepository.findByHost_HostIdOrderByPriceAsc(hostWishDTO.getHostId()).get(0).getPrice()
+            );
+        });
         return page;
     }
 
