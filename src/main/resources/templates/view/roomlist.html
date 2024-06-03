@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>숙소 상세페이지 - 객실리스트</title>
+    <!-- css 파일 링크 -->
+    <link rel="stylesheet" th:href="@{/css/booking.css}"/>
+</head>
+<body>
+<header>
+    <h1>객실 리스트</h1>
+</header>
+<main>
+    <form id="bookingForm" th:action="@{/booking}" method="post">
+        <!-- memberId 값 받기 -->
+        <div>
+            <label for="memberId">회원정보: </label>
+            <input type="text" id="memberId" name="memberId" required/>
+        </div>
+
+        <!-- hostId 값 받기 -->
+        <div>
+            <label for="hostId">숙소정보: </label>
+            <input type="text" id="hostId" name="hostId" required/>
+        </div>
+
+        <!-- roomId 값 받기 -->
+        <div>
+            <label for="roomId">객실정보: </label>
+            <input type="text" id="roomId" name="roomId" required/>
+        </div>
+
+        <!-- payPrice 값 받기 -->
+        <div>
+            <label for="payPrice">객실가격: </label>
+            <input type="text" id="payPrice" name="payPrice" required/>
+        </div>
+
+        <!-- 예약 버튼 -->
+        <button type="submit">객실 선택</button>
+    </form>
+</main>
+</body>
+</html>

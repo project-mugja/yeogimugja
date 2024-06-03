@@ -2,9 +2,101 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>숙소 예약 페이지</title>
+    <title>객실 예약 상세페이지</title>
+    <!-- css 파일 링크 -->
+    <link rel="stylesheet" th:href="@{/css/booking.css}"/>
 </head>
 <body>
+<header>
+    <h1>예약하기</h1>
+</header>
+<main>
+    <!-- 전달된 히든 필드 값을 화면에 출력 -->
+    <div>
+        회원정보: <span th:text="${memberId}"></span><br/>
+        숙소정보: <span th:text="${hostId}"></span><br/>
+        객실정보: <span th:text="${roomId}"></span><br/>
+        객실가격: <span th:text="${payPrice}"></span><br/>
+    </div>
+
+    <form id="bookingForm">
+        <!-- memberId, hostId, roomId, payPrice는 hidden으로 전달 -->
+        <input type="hidden" id="memberId" name="memberId" th:value="${memberId}"/>
+        <input type="hidden" id="hostId" name="hostId" th:value="${hostId}"/>
+        <input type="hidden" id="roomId" name="roomId" th:value="${roomId}"/>
+        <input type="hidden" id="payPrice" name="payPrice" th:value="${payPrice}"/>
+
+        <!-- 체크인 날짜 입력 -->
+        <div>
+            <label for="checkInDate">체크인 날짜: </label>
+            <input type="date" id="checkInDate" name="checkInDate" required/>
+        </div>
+
+        <!-- 체크아웃 날짜 입력 -->
+        <div>
+            <label for="checkOutDate">체크아웃 날짜: </label>
+            <input type="date" id="checkOutDate" name="checkOutDate" required/>
+        </div>
+
+        <!-- 예약자명 입력 -->
+        <div>
+            <label for="guestName">예약자명: </label>
+            <input type="text" id="guestName" name="guestName" required/>
+        </div>
+
+        <!-- 예약자 연락처 입력 -->
+        <div>
+            <label for="guestContact">예약자 연락처: </label>
+            <input type="text" id="guestContact" name="guestContact" required/>
+        </div>
+
+        <!-- 결제수단 선택 -->
+        <div>
+            <label for="payType">결제수단: </label>
+            <select id="payType" name="payType" required>
+                <option value="10">무통장입금</option>
+                <option value="20">카드</option>
+            </select>
+        </div>
+
+        <!-- 예약 버튼 -->
+        <button type="button" onclick="submitForm()">예약하기</button>
+    </form>
+</main>
+
+<script>
+    function submitForm() {
+        const form = document.getElementById('bookingForm');
+        const data = {
+            memberId: document.getElementById('memberId').value,
+            hostId: document.getElementById('hostId').value,
+            roomId: document.getElementById('roomId').value,
+            payPrice: document.getElementById('payPrice').value,
+            checkInDate: document.getElementById('checkInDate').value,
+            checkOutDate: document.getElementById('checkOutDate').value,
+            guestName: document.getElementById('guestName').value,
+            guestContact: document.getElementById('guestContact').value,
+            payType: document.getElementById('payType').value,
+        };
+
+        fetch('/api/addbooking/new', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Success:', data);
+                alert('예약이 완료되었습니다.');
+            })
+            .catch((error) => {
+                console.error('Error', error);
+                alert('예약 중 오류가 발생했습니다.');
+            });
+    }
+</script>
 
 </body>
 </html>
