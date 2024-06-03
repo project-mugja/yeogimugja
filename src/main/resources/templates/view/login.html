@@ -46,14 +46,16 @@
             <div class="logo_img">
                 <img src="../../static/img/logo_square2.jpg">
             </div>
+            <!-- 로그인 정보 입력 영역 -->
             <div class="login_frm">
+                <!-- 로그인 폼 시작 -->
                 <form action="/mugja/loginaction" method="post" id="login-form" style="gap:10px">
                     <input placeholder="&nbsp;&nbsp;&nbsp;아이디" class="input_info" type="text" id="username" name="username" />
                     <input placeholder="&nbsp;&nbsp;&nbsp;비밀번호" class="input_info" type="password"  id="password" name="password"  >
                     <input type="submit" value="로그인">
                 </form>
             </div>
-            
+            <!-- 하단 추가 내용 -->
             <div class="signup">
                 <a th:href="@{/mugja/pwdfind}">비밀번호 찾기</a>
                 <input type="button"  onclick="location.href='join'" value="회원가입" id="login-btn"/>
