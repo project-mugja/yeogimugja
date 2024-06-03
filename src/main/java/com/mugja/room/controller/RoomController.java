@@ -16,11 +16,11 @@ public class RoomController {
 	@Autowired
 	private RoomServiceImpl service;
 	
-	@RequestMapping(value="/roomview/{hostid}",method = {RequestMethod.GET,RequestMethod.POST})
-	public String  roomview(@PathVariable("hostid") int hostid,Model model) {
+	@RequestMapping(value="/roomadd/{hostid}",method = {RequestMethod.GET,RequestMethod.POST})
+	public String  roomadd(@PathVariable("hostid") int hostid,Model model) {
 		System.out.println("hostid:" + hostid);
 		model.addAttribute("hostid",hostid);
-		return "/view/roomview";
+		return "/view/roomadd";
 	}
 	
 	
@@ -36,8 +36,7 @@ public class RoomController {
 	
 	
 	@PostMapping("/roomplus")
-    public String roomplus(RoomDto dto, @RequestParam("room_imgpath") MultipartFile[] files) {
-        System.out.println(dto.getHost_id());
+    public String roomplus(RoomDto dto, @RequestParam("roomimgpath") MultipartFile[] files) {
 
         service.hostRoomWrite(dto, files);
         

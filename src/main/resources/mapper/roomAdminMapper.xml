@@ -29,7 +29,7 @@ select * from room order by room_id desc limit 1;
 </select>
 
 <select id="roomList" resultType="com.mugja.room.dto.RoomDto" parameterType="int">
- select * from room where host_id=#{hostid}
+ select * from room where host_id=#{hostid} order by room_id desc
 </select>
 
 <select id="roomImgList" parameterType="int" resultType="String">

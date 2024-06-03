@@ -31,26 +31,20 @@ public class RoomServiceImpl implements RoomService {
 
 	private final RoomMapper mapper;
     private final RoomRepository roomRepository;
-  //  private String uploadPath ="C:\\yogimugja\\img\\room";
+
 
 
 	//객실생성 메서드
 	@Transactional
 	public void hostRoomWrite(RoomDto dto,MultipartFile[] files) {
-		System.out.println("----1---");
-		System.out.println(dto.getHost_id() + " : 호스트아이디");
 		
 		//객실생성 매퍼
 		mapper.roomwrite(dto);
-		
-		System.out.println(mapper.roomid(dto) + "mapper.getroomId(dto)");
 		dto.setRoom_id(mapper.roomid(dto));
-
-		System.out.println(dto.getRoom_id());
 		hostImgWrite(dto,files);
 	}
 	
-	//객실수정 메서드
+	//객실수정 메서드 -미구현
 	@Transactional
 	public int hostRoomUpdate(RoomDto dto,MultipartFile[] files) {
 //		mapper.hostupdate(dto);

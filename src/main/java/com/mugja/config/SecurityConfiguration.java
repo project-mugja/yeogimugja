@@ -45,6 +45,7 @@ public class SecurityConfiguration {
 	        http.formLogin((auth) -> auth
 	                .loginPage("/mugja/login")
 	                .loginProcessingUrl("/mugja/loginaction")
+	                .failureUrl("/mugja/login")
 	                .successHandler(customAuthenticationSuccessHandler)  // Custom Authentication Success Handler 설정
 	                .permitAll()
 	        );
