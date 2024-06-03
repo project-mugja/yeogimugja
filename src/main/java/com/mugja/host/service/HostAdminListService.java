@@ -17,6 +17,8 @@ public class HostAdminListService {
 	@Autowired
 	private HostAdminMapper mapper;
 	
+	
+	
 	public List<HostAdminDto> hostlist() {
 		List<HostAdminDto> list = mapper.hostList();
 		

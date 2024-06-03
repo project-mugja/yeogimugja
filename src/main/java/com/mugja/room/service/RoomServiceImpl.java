@@ -39,16 +39,18 @@ public class RoomServiceImpl implements RoomService {
 	public void hostRoomWrite(RoomDto dto,MultipartFile[] files) {
 		System.out.println("----1---");
 		System.out.println(dto.getHost_id() + " : 호스트아이디");
+		
+		//객실생성 매퍼
 		mapper.roomwrite(dto);
-		dto.setRoom_id(mapper.getroomId(dto));
+		
+		System.out.println(mapper.roomid(dto) + "mapper.getroomId(dto)");
+		dto.setRoom_id(mapper.roomid(dto));
 
 		System.out.println(dto.getRoom_id());
-		System.out.println("----2---");
 		hostImgWrite(dto,files);
-		System.out.println("업로드완료");
 	}
 	
-	//숙소수정 메서드
+	//객실수정 메서드
 	@Transactional
 	public int hostRoomUpdate(RoomDto dto,MultipartFile[] files) {
 //		mapper.hostupdate(dto);
@@ -71,15 +73,11 @@ public class RoomServiceImpl implements RoomService {
 				String filename = orgfile.substring(orgfile.lastIndexOf("/")+1);
 				String storename = UUID.randomUUID().toString()+"_"+filename.substring(filename.lastIndexOf("."));
 				try {
-					System.out.println("----3----");
 					makeFolder();
-					System.out.println("----4----");
 					file.transferTo(Paths.get("C:\\yogimugja\\img\\room",storename));
-					System.out.println("----5----");
 					System.out.println(dto.getRoom_id());
 					System.out.println(storename);
 					mapper.hostRoomImgWrite(dto,storename);
-					System.out.println("----6----");
 					
 				} catch (IllegalStateException e) {
 					e.printStackTrace();
@@ -118,7 +116,23 @@ public class RoomServiceImpl implements RoomService {
 			
 		}
 		
-    
+    public List<RoomDto> roomlist(int hostid){
+    	List<RoomDto> list = mapper.roomList(hostid);
+    	
+    	  for(RoomDto a : list) {
+    		  
+    		  String img = mapper.roomImgList(a.getRoom_id()); 
+    		  if(img==null) {
+    			  img="default.jpg"; 
+    			  } 
+    		  a.setRoom_imgpath(img); 
+    			  
+    		  }
+    	return list;
+    }
+    public String hostname(int hostid) {
+    	return mapper.hostname(hostid);
+    }
     
     @Override
     public List<Room> findRooms(Integer hostId) {

@@ -23,16 +23,18 @@ public class RoomController {
 		return "/view/roomview";
 	}
 	
-//    @PostMapping("/roomplus")
-//    public String roomplus(RoomDto dto, @RequestParam("room_imgpath") MultipartFile[] files) {
-//        System.out.println("mmmmmmmmmm1mmmmmm");
-//        dto.setHost_id(hostid);
-//        
-//        service.hostRoomWrite(dto, files);
-//        
-//        return "/mugja/admin/hostlist";
-//    }
-   
+	
+	//해당숙소 객실리스트
+	@RequestMapping(value="/roomlist/{hostid}",method = {RequestMethod.GET,RequestMethod.POST})
+	public String  roomlist(@PathVariable("hostid") int hostid,Model model) {
+		
+		model.addAttribute("list",service.roomlist(hostid));
+		model.addAttribute("hostname",service.hostname(hostid));
+		return "/view/roomlist";
+	}
+	
+	
+	
 	@PostMapping("/roomplus")
     public String roomplus(RoomDto dto, @RequestParam("room_imgpath") MultipartFile[] files) {
         System.out.println(dto.getHost_id());
