@@ -21,7 +21,6 @@ public class HostAdminListService {
 		List<HostAdminDto> list = mapper.hostList();
 		
 		  for(HostAdminDto a : list) {
-		  System.out.println(a.getHost_id());
 		  String img = mapper.hostImgList(a.getHost_id()); 
 		  if(img==null) {
 			  img="default.jpg"; 

@@ -35,6 +35,7 @@ public interface HostAdminMapper {
 	List<HostImgDto> hostDetailimg(String hostid);
 	List<HostAdminDto> hostDetailHost(String hostid);
 	List<HostTagDto> hostDetailTag(String hostid);
+	
 	void hostImgdelete(String hostid);
 	void hostTagdelete(String hostid);
 	void hostDelete(String hostid);

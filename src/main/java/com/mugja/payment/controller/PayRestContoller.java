@@ -2,6 +2,7 @@
 import java.util.HashMap;
 import java.util.Map;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,7 +14,7 @@ import com.mugja.payment.dto.PayDto;
 import com.mugja.payment.service.PaymentService;
 
 @RestController
-@RequestMapping("/payments")
+@RequestMapping("/mugja")
 public class PayRestContoller {
 	
 	@Autowired
@@ -25,21 +26,25 @@ public class PayRestContoller {
 
 
     @PostMapping("/completetest")
-    public Map<String, Object> completetest(@RequestBody Map<String, String> request,PayDto dto) {
+    public Map<String, Object> completetest(@RequestBody Map<String, String> request, PayDto dto) {
+    	
+    	
         String impUid = request.get("imp_uid");
+        System.out.println(dto.getImp_uid() + ": IMP_uid");
+        System.out.println(impUid + "impuid");
         String merchantUid = request.get("merchant_uid");
-        System.out.println(request.get("book_price"));
-        System.out.println(request.get("book_name"));
-        System.out.println(request.get("book_contact"));
-        
-        
+
         Map<String, Object> response = new HashMap<>();
         try {
+        	System.out.println("----------0------");
             Map<String, Object> paymentInfo = paymentService.getPaymentInfo(impUid);
-
+            System.out.println("----------1------");
             if (paymentInfo != null && "paid".equals(paymentInfo.get("status"))) {
+                System.out.println("--------2------------");
+                System.out.println(paymentInfo.get("status"));
                 response.put("success", true);
             } else {
+                System.out.println("-----3---");
                 response.put("success", false);
                 response.put("error", "결제 정보가 유효하지 않습니다.");
             }

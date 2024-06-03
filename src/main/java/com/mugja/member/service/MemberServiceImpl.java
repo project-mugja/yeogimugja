@@ -36,7 +36,7 @@ public class MemberServiceImpl implements MemberService {
 		mapper.createmember(dto);
 	}
 	
-	//랜덤비밀번호 생성후 메일발송
+	//마이페이지 비밀번호변경
 		@Override
 		public void randompwd(MemberDto dto) {
 			dto.setMem_pwd(bCryptPasswordEncoder.encode(dto.getMem_pwd()));

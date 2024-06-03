@@ -26,15 +26,19 @@ public class PaymentService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-
+        System.out.println("Headers: " + headers);
+        
         Map<String, String> body = new HashMap<>();
         body.put("imp_key", IMP_KEY);
         body.put("imp_secret", IMP_SECRET);
+        System.out.println("Request Body: " + body);
 
         HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, headers);
-
-        ResponseEntity<Map> response = restTemplate.postForEntity(TOKEN_URL, entity, Map.class);
+        System.out.println("------1------");
+        ResponseEntity<Map> response = restTemplate.postForEntity(TOKEN_URL,entity, Map.class);
+        System.out.println("------2------");
         if (response.getStatusCode() == HttpStatus.OK) {
+        	System.out.println("------3------");
             Map<String, Object> responseBody = response.getBody();
             if (responseBody != null && responseBody.get("response") != null) {
                 Map<String, Object> responseData = (Map<String, Object>) responseBody.get("response");
@@ -47,7 +51,8 @@ public class PaymentService {
 
     public Map<String, Object> getPaymentInfo(String impUid) {
         String token = getToken();
-
+        System.out.println("token: " + token);
+        
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
