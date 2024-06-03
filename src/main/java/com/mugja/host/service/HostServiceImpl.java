@@ -38,6 +38,7 @@ public class HostServiceImpl implements HostService{
     @Override
     @Transactional
     public Host findHost(Integer hostId) throws HostNotFoundException {
+        System.out.println("findhost");
         //숙소 정보 가져오기
         Host host = hostRepository
                 .findByHostId(hostId)
@@ -57,13 +58,15 @@ public class HostServiceImpl implements HostService{
     @Transactional
     public Page<HostWishDTO> findHostsAuth(Integer memId, String category, String search, Pageable pageable) {
         Page<HostWishDTO> page = hostRepository.findByTagNative(category, search, pageable);
+        System.out.println("findHostsAuth");
         page.forEach(hostWishDTO -> {
             hostWishDTO.setHostImgList(
                     hostImgRepository.findAllByHost_HostId(hostWishDTO.getHostId())
             );
             hostWishDTO.setIsFav(
-                    wishListRepository.findByMemIdAndHost_HostId(memId,hostWishDTO.getHostId()).isPresent() ? true : false
+                    wishListRepository.findByMemIdAndHost_HostId(memId, hostWishDTO.getHostId()).isPresent()
             );
+            System.out.println("isFav = " + hostWishDTO.isFav());
             hostWishDTO.setPrice(
                     roomRepository.findByHost_HostIdOrderByPriceAsc(hostWishDTO.getHostId()).get(0).getPrice()
             );
