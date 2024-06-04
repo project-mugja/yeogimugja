@@ -20,24 +20,19 @@ import java.nio.file.Paths;
 @RequestMapping("/api/image")
 public class ImageController {
 
-    private final Path fileStorageLocation;
+    @Value("${file.base-dir}")
+    private String baseDir;
 
-    public ImageController(@Value("file.upload-dir") String uploadDir) {
-        this.fileStorageLocation = Paths.get(uploadDir)
-                .toAbsolutePath().normalize();
-
+    @GetMapping("/{folderName}/images/{fileName:.+}")
+    public ResponseEntity<Resource> getImage(
+            @PathVariable String folderName,
+            @PathVariable String fileName) {
+        System.out.println("get image for " + folderName + "/" + fileName);
         try {
-            Files.createDirectories(this.fileStorageLocation);
-        } catch (Exception ex) {
-            throw new RuntimeException("Could not create the directory where the uploaded files will be stored.", ex);
-        }
-    }
-
-    @GetMapping("/images/{fileName:.+}")
-    public ResponseEntity<Resource> getImage(@PathVariable String fileName) {
-        try {
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Path folderPath = Paths.get(baseDir, folderName).toAbsolutePath().normalize();
+            Path filePath = folderPath.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
+
             if (resource.exists()) {
                 return ResponseEntity.ok()
                         .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")

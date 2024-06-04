@@ -165,6 +165,11 @@ public class MemberRestController {
 		return ResponseEntity.ok(Collections.singletonMap("token",token));
 	}
 
-
-
+	@GetMapping("/email/{memId}")
+	public ResponseEntity getEmailByMemId(@PathVariable Integer memId){
+		System.out.println("memId:"+memId);
+		String email = memberService.findEmailById(memId);
+		System.out.println("email:"+email);
+		return ResponseEntity.ok(Collections.singletonMap("memEmail",email));
+	}
 }
