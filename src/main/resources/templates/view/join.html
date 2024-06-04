@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 <head>
 <meta charset="UTF-8">
 <title>여기묵자 회원가입</title>
@@ -81,7 +81,7 @@
 
             <!-- 이메일 인증번호 입력 영역 -->
             <div class="mail_check" id="mail_check">
-                <input placeholder="인증번호를 입력해주세요" type="text" id="number" class="number"/>
+                <input class="input" placeholder="인증번호를 입력해주세요" type="text" id="number" class="number"/>
                 <button type="button" id="mailcheck" class="mailcheck">확인</button>
             </div> 
             <input type="hidden" id="mailOk" class="mailOk" value="false"/>
@@ -96,7 +96,7 @@
             <div>
                 <div class="pwdcheck_title">비밀번호 확인</div>
                 <input class="input" placeholder="비밀번호 확인" type="password" name="mem_pwd_ck" id="mem_pwd_ck" style="width:400px">
-                <div id="passwordMessage"></div>
+                <div id="passwordMessage">비밀번호가 일치하지 않습니다.</div>
             </div>
 
             <!-- 특이사항 발생 +회원 가입 버튼 영역 -->

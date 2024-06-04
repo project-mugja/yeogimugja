@@ -1,5 +1,4 @@
 package com.mugja.jwt;
-
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -35,6 +34,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
         String origin = request.getHeader("Origin");
 
+        System.out.println("filter");
 
         if (requestURI.startsWith("/api/") && "https://main--mugja.netlify.app".equals(origin)) {
             String token = request.getHeader("Authorization");
