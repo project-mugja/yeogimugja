@@ -1,18 +1,34 @@
 package com.mugja.member.controller;
 
+import com.mugja.jwt.JwtUtils;
+import com.mugja.member.dto.LoginRequest;
+import com.mugja.member.service.CustomUserDetailsService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.*;
 
 import com.mugja.member.dto.MemberDto;
 import com.mugja.member.service.MailService;
 import com.mugja.member.service.MemberServiceImpl;
 import com.mugja.member.service.SecurityService;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
-@RequestMapping("/mugja")
+@RequestMapping("api/member")
 public class MemberRestController {
 	
 	@Autowired
@@ -22,10 +38,16 @@ public class MemberRestController {
 	private MemberServiceImpl memberService;
 	@Autowired
 	private SecurityService securityservice;
-	
+
+	@Autowired
+	private JwtUtils jwtUtils;
+
+	private AuthenticationManager authenticationManager;
+	private CustomUserDetailsService customUserDetailsService;
 	private String number="";
 
-	@PostMapping("/email")
+
+    @PostMapping("/email")
 	public boolean email(@RequestBody MemberDto dto) {
 		String email = dto.getMem_email();
 		number = service.createnumber();
@@ -69,21 +91,40 @@ public class MemberRestController {
 	
 	//마이페이지 비밀번호 일치여부 컨트롤러
 	@PostMapping("/mypwdChk")
-	public boolean mypwdChk(@RequestBody MemberDto dto) {
-		System.out.println(dto.getMem_pwd());
+	public ResponseEntity mypwdChk(@RequestParam("password") String password) {
+		System.out.println(password);
+		MemberDto dto = new MemberDto();
 		//비밀번호 일치여부 확인
+		dto.setMem_pwd(password);
 		dto.setMem_email(securityservice.userId());
-		return memberService.pwdcheck(dto);
+		Map<String, Boolean> response = new HashMap<String, Boolean>();
+		response.put("isValid", memberService.pwdcheck(dto));
+		return ResponseEntity.ok(response);
 	}
 	
 	
 	//마이페이지 비밀번호 변경 컨트롤러
-	@PostMapping("/mypwdChg")
-	public boolean mypwdChg(@RequestBody MemberDto dto) {
+	@PutMapping("/mypwdChg")
+	public ResponseEntity mypwdChg(@RequestParam("password") String password) {
+		Map<String, Boolean> response = new HashMap<String, Boolean>();
+		MemberDto dto = new MemberDto();
+
+		System.out.println(password + "mem_pwd");
+
+		dto.setMem_pwd(password);
 		dto.setMem_email(securityservice.userId());
-		System.out.println(dto.getMem_pwd() + "mem_pwd");
 		memberService.randompwd(dto);
-		return true;
+		return ResponseEntity.ok(response.put("pwdChange",true));
+	}
+
+	@GetMapping("/email")
+	public ResponseEntity getMemEmail(){
+		String email = securityservice.userId();
+		if(email==null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		} else {
+			return ResponseEntity.ok(Collections.singletonMap("email",email));
+		}
 	}
 
 	@PostMapping("/emailOk")
@@ -112,6 +153,23 @@ public class MemberRestController {
 		service.sendHTMLEmailpwd(dto.getMem_email(),number);
 		
 	}
-	
 
+	
+	//로그인 버튼 누르면 이 메서드
+	@RequestMapping(value="/loginaction",method = {RequestMethod.POST})
+	public ResponseEntity doLogin(@RequestBody LoginRequest req, HttpServletResponse res){
+		// 인증이 성공하면 JWT 토큰 생성
+		String token = jwtUtils.createToken(memberService.getMemId()+"");
+
+		// 토큰을 응답에 포함하여 반환
+		return ResponseEntity.ok(Collections.singletonMap("token",token));
+	}
+
+	@GetMapping("/email/{memId}")
+	public ResponseEntity getEmailByMemId(@PathVariable Integer memId){
+		System.out.println("memId:"+memId);
+		String email = memberService.findEmailById(memId);
+		System.out.println("email:"+email);
+		return ResponseEntity.ok(Collections.singletonMap("memEmail",email));
+	}
 }

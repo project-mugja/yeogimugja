@@ -1,11 +1,13 @@
 package com.mugja.member.dto;
 
+import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Setter
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

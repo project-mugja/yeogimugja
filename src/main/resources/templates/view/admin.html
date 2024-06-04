@@ -5,8 +5,45 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>어드민페이지</h3>
-<button type="button" onclick="location.href='/mugja/admin/hostadd'">숙소 생성</button>
-<button type="button" onclick="location.href='/mugja/admin/hostlist'">숙소 관리</button>
+    <!-- -----------공통 헤더 시작------------- -->
+    <!-- 헤더 /푸터 import jquery -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">   
+    $(document).ready( function() {
+    $("#headers").load("../view/common_head.html");  // 원하는 파일 경로를 삽입하면 된다
+    $("#footers").load("../view/common_footer.html");  // 원하는 파일 경로를 삽입하면 된다
+    });
+    </script>
+    <!-- 헤더 / 푸터 삽입 -->
+    <div id="headers"></div>
+    <!-- <div id="footers"></div> -->
+    <!-- -----------공통 헤더 /푸터 종료------------- -->
+<div class="body">
+    <div class="contents">
+        <h2>관리자 페이지</h2>
+        <button type="button" onclick="location.href='/mugja/admin/hostadd'">숙소 생성</button>
+        <button type="button" onclick="location.href='/mugja/admin/hostlist'" >숙소 관리</button>
+    </div>
+</div>
 </body>
+<style>
+    .body{
+        width:100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top:100px;
+
+    }
+    .contents{
+        width:165px;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap:20px;
+    }
+    .contents button{
+        height:50px;
+    }
+</style>
 </html>

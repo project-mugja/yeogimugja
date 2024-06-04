@@ -14,11 +14,13 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/host/{hostId}/rooms")
+@RequestMapping("/api/host/{hostId}/rooms")
 public class RoomRestController {
 
     private final RoomService roomService;
 
+    //OK
+    //객실 목록 불러오기
     @GetMapping("/")
     public ResponseEntity<List<Room>> getRooms(
             @PathVariable int hostId) {

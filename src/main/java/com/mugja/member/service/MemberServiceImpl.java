@@ -16,8 +16,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	
+    @Autowired
+    private SecurityService securityService;
+
+
 	public MemberServiceImpl(MemberMapper mapper) {
 	        this.mapper = mapper;
 	    }
@@ -48,8 +50,14 @@ public class MemberServiceImpl implements MemberService {
 	public int searchmember(MemberDto dto) {
 		return mapper.emailserach(dto.getMem_email());
 	}
-	
-	
+
+
+	// memId값을 가져옴
+	@Override
+	public Integer getMemId(){
+		return mapper.findMemId(securityService.userId());
+	}
+
 	//현재비밀번호 -입력비밀번호 확인 메서드
 	@Override
 	public boolean pwdcheck(MemberDto dto) {
@@ -70,6 +78,11 @@ public class MemberServiceImpl implements MemberService {
 		dto.setMem_pwd(bCryptPasswordEncoder.encode(dto.getMem_pwd()));
 		mapper.randompwd(dto);
 	}
-	
-	
+
+	@Override
+	public String findEmailById(Integer memId) {
+		return mapper.findMemEmail(memId);
+	}
+
+
 }

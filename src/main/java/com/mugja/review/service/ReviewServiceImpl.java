@@ -37,6 +37,8 @@ public class ReviewServiceImpl implements ReviewService{
 
     /*
     리뷰 작성
+
+    이미지 파일 크기 설정 아직 안했음..
      */
     @Override
     @Transactional

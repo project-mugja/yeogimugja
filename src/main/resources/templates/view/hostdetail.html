@@ -36,11 +36,34 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+        .button-container {
+            display: flex;
+            gap: 10px; /* 간격을 조정합니다 */
+            margin-top: 20px;
+        }
+        .button-container button:hover {
+            background-color: #0056b3;
+        }
+        .button-container a {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 <th:block th:each="hostid : ${host}">
-<form th:action="@{'/mugja/admin/hostdetailupdate/'+${hostid.host_id}}"method="post">
+<div class="button-container">
+    <a th:href="@{/mugja/admin/roomadd/{hostid}(hostid=${hostid.host_id})}">
+        <button>객실 추가</button>
+    </a>
+    <a th:href="@{/mugja/admin/roomlist/{hostid}(hostid=${hostid.host_id})}">
+        <button>객실목록</button>
+    </a>
+    <a th:href="@{/mugja/admin/hostdelete/{hostid}(hostid=${hostid.host_id})}">
+        <button>삭제하기</button>
+    </a>
+    <button type="button" onclick="location.href='/mugja/admin/hostlist'">숙소 목록</button>
+</div>
+<form th:action="@{'/mugja/admin/hostdetailupdate/'+${hostid.host_id}}" method="post">
     <div class="container1">
         <div class="host-info">
             <th:block th:each="hostItem : ${host}">
@@ -71,14 +94,8 @@
             </th:block>
         </div>
     </div>
- <input type="submit" value="수정하기"/>
+    <input type="submit" value="수정하기"/>
 </form>
-<div>
-<a th:href="@{/mugja/admin/hostdelete/{hostid}(hostid=${hostid.host_id})}">
-            <button>삭제하기</button>
-        </a></div>
-        <button type="button" onclick="location.href='/mugja/admin/hostlist'">숙소 목록</button>
-         </th:block>
+</th:block>
 </body>
 </html>
-

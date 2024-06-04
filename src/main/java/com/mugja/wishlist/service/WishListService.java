@@ -6,9 +6,11 @@ import org.springframework.data.domain.Pageable;
 
 public interface WishListService {
 
-    public Page<Wish> findWishes(Integer memId, Pageable pageable);
+    Page<Wish> findWishes(Integer memId, Pageable pageable);
 
-    public void save(Wish wish);
+    void save(Wish wish);
 
-    public void delete(Wish wish);
+    void delete(Wish wish);
+
+    Boolean isFav(Integer hostId, Integer memId);
 }
