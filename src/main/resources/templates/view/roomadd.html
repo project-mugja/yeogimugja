@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>관리자 객실생성</title>
+<style>
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .checkbox-group label {
+            display: block;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .checkbox-group input[type="checkbox"] {
+            display: none;
+        }
+        .checkbox-group input[type="checkbox"]:checked + label {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+    </style>
+    
+</head>
+<body>
+<form action="/mugja/admin/roomplus" method="post" enctype="multipart/form-data" >
+<div>객실이름<input type="text" id="room_name" name="room_name"/></div>
+<div>객실 최대인원<input type="text" id="room_maxcapacity" name="room_maxcapacity"/></div>
+<div>객실 가격<input type="text" id="room_price" name="room_price"/></div>
+<div>객실 이미지<input type="file" id="roomimgpath" name="roomimgpath" multiple accept="image/*"/></div>
+<p th:text="'Tag 4: ' + ${hostid}"></p>
+<input type="hidden" name="host_id" th:value="${hostid}" />
+<input type="submit" value="전송"/>
+</form>
+<!-- <form action="/mugja/admin/roomplus" method="post" enctype="multipart/form-data">
+<div>객실이름<input type="text" id="room_name" name="room_name"/></div>
+<div>객실 최대인원<input type="text" id="room_maxcapacity" name="room_maxcapacity"/></div>
+<div>객실 가격<input type="text" id="room_price" name="room_price"/></div>
+<div>객실 이미지<input type="file" id="room_imgpath" name="room_imgpath" multiple accept="image/*"/></div>
+<p th:text="'Tag 4: ' + ${hostid}"></p>
+<input type="submit" value="전송"/>
+</form> -->
+</body>
+</html>
