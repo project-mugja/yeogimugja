@@ -62,7 +62,7 @@ public class SecurityConfiguration {
 				.formLogin(AbstractHttpConfigurer::disable)
 				.httpBasic(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests((auth) -> auth
-					.requestMatchers("/mugja/main", "/mugja/login", "/mugja/loginaction", "/mugja/join", "/mugja/create", "/mugja/email", "/mugja/emailOk",
+					.requestMatchers("/api","/mugja/main", "/mugja/login", "/mugja/loginaction", "/mugja/join", "/mugja/create", "/mugja/email", "/mugja/emailOk",
 							"/mugja/pwdfind", "/mugja/emailpwd", "/mugja/pwdchgemail", "/mugja/emailSendPwd").permitAll()
 					.requestMatchers("/mugja/admin/**").hasRole("ADMIN")
 					.requestMatchers("/mugja/**").hasAnyRole("ADMIN","USER")
