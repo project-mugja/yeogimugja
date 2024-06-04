@@ -11,25 +11,6 @@
 
 <!-- 자바스크립트 입력부 -->
 <script>
-////////////////////////////////////////////////
-// header _ 햄버거 메뉴 버튼
-/* 사용자가 버튼을 클릭할 때, 드롭다운 내용을 토글 */
-function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// 사용자가 버튼 외부를 클릭하면 드롭다운을 닫음
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn') && !event.target.closest('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    for (var i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
     //////////////////////////////////////////////////////////
     // Main 캘린더가 들어가는 부분
     $(function() {
@@ -140,7 +121,7 @@ window.onclick = function(event) {
                 </div>
                 <!-- 배너이미지 -->
                 <!-- <div class="banner_img"> -->
-                    <img src="../../static/img/banner.webp" class="banner_img" />
+                    <img src="/img/banner.webp" class="banner_img" />
                 <!-- </div> -->
             </div>
 
@@ -148,21 +129,21 @@ window.onclick = function(event) {
             <!-- 이벤트 카드 -->
             <section role="region" aria-label="이벤트카드" class="event_card">
                 <div class="event_title">이벤트</div>
-                <div class="event_img"><img src="../../static/img/Event (10).jpeg"></div>
-                <div class="event_img"><img src="../../static/img/Event (9).jpeg"></div>
-                <div class="event_img"><img src="../../static/img/Event (1).jpeg"></div>
+                <div class="event_img"><img src="/img/Event (10).jpeg"></div>
+                <div class="event_img"><img src="/img/Event (9).jpeg"></div>
+                <div class="event_img"><img src="/img/Event (1).jpeg"></div>
             </section>
 
             <!-- -------------------------------------------------------------- -->
             <!-- 지역별 카테고리 -->
             <section role="region" aria-label="지역별카드" class="city">
                 <div class="city_title">국내 인기 여행지</div>
-                <div class="city_img"><a href=""><img src="../../static/img/city_seoul.jpeg">서울</div></a>
-                <div class="city_img"><a href=""><img src="../../static/img/city_jeju.jpeg">제주</div></a>
-                <div class="city_img"><a href=""><img src="../../static/img/city_busan.jpeg">부산</div></a>
-                <div class="city_img"><a href=""><img src="../../static/img/city_gang.jpeg">강릉</div></a>
-                <div class="city_img"><a href=""><img src="../../static/img/city_inchon.jpeg">인천</div></a>
-                <div class="city_img"><a href=""><img src="../../static/img/city_gyung.jpeg">경주</div></a>
+                <div class="city_img"><a href=""><img src="/img/city_seoul.jpeg">서울</div></a>
+                <div class="city_img"><a href=""><img src="/img/city_jeju.jpeg">제주</div></a>
+                <div class="city_img"><a href=""><img src="/img/city_busan.jpeg">부산</div></a>
+                <div class="city_img"><a href=""><img src="/img/city_gang.jpeg">강릉</div></a>
+                <div class="city_img"><a href=""><img src="/img/city_inchon.jpeg">인천</div></a>
+                <div class="city_img"><a href=""><img src="/img/city_gyung.jpeg">경주</div></a>
             </section>
             <!-- 이벤트 배너 (회원가입 페이지로 이동 필요) -->
             <section role="region" aria-label="이벤트배너" class="event_login">
@@ -177,7 +158,7 @@ window.onclick = function(event) {
                     </div>
                 </div>
                 <div class="event_right">
-                    <img src="../../static/img/membership_event.webp" style="color: transparent;">
+                    <img src="/img/membership_event.webp" style="color: transparent;">
                 </div>
             </section>
 
@@ -191,7 +172,7 @@ window.onclick = function(event) {
                 <div class="QR_intro">
                     <h2>QR태그하고 <br/> 더 많은 정보를 확인 해보세요</h2>
                     국내 숙소부터 맛집까지 <br>다양한 정보를 확인해보세요.
-                    <img src="../../static/img/QR_frame.png" style="width:96px;height:96px;border-radius: 10px;"/>
+                    <img src="/img/QR_frame.png" style="width:96px;height:96px;border-radius: 10px;"/>
                 </div>
             </section>
 
@@ -673,7 +654,7 @@ window.onclick = function(event) {
         border-radius: 10px;
         width: 1200px;
         /* overflow: hidden; */
-        background-image: url( "../../static/img/QRtag.png" );
+        background-image: url( "/img/QRtag.png" );
     }
     .QR_intro{
         top:-20px;
