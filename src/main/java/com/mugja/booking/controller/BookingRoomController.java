@@ -20,7 +20,7 @@ public class BookingRoomController {
 
     @Autowired
     private RoomService roomService;
-    @Qualifier("memberService")
+
     @Autowired
     private MemberService memberService;
 

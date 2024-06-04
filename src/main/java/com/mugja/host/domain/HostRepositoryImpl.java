@@ -23,6 +23,7 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
     @Override
     public Page<HostWishDTO> findByTagNative(String category, String search, Pageable pageable) {
         System.out.println("category: " + category);
+        System.out.println("search: " + search);
         search = "%" + search + "%";
         String baseQuery =
                 "select a.host_id as hostId, a.avgscore as avgScore, a.host_name as hostName, a.host_address as hostAddress " +

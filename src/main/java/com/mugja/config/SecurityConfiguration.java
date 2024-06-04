@@ -93,7 +93,7 @@ public class SecurityConfiguration {
 
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOriginPatterns(Arrays.asList(
-				"http://localhost:3000",	
+				"http://localhost:3000",
 				"https://main--mugja.netlify.app/"
 		));	
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));

@@ -11,6 +11,16 @@
 
 <!-- 자바스크립트 입력부 -->
 <script>
+    const token = localStorage.getItem("token")
+    console.log("token : ", token)
+    const searchBtn = document.getElementById("search-button");
+    const goSearch = (event)=>{
+        event.preventDefault();
+        console.log("clicked")
+        const searchInput = document.getElementById("search-input")
+        console.log(searchInput.value)
+        window.location = `https://main--mugja.netlify.app/search/all/${searchInput.value}/${token}`
+    };
     //////////////////////////////////////////////////////////
     // Main 캘린더가 들어가는 부분
     $(function() {
@@ -42,6 +52,13 @@
             }
         });
     });
+
+
+
+//    searchForm.addEventListener("submit", (event) => {
+ //       event.preventDefault();
+  //      window.location = `https://main--mugja.netlify.app/search/all/${searchInput.value}/${token}`
+   // })
 </script>
 </head>
 
@@ -54,7 +71,7 @@
     });
     </script>
     <!-- -----------공통 헤더 시작------------- -->
-    <div id="headers"></div>
+
     
 
 
@@ -87,7 +104,7 @@
                                     <div class="input_bar">
                                         <div class="input_text1">
                                             <!-- 실제 검색값 입력하는곳 -->
-                                            <input name="search_item" type="text" placeholder="여행지나 숙소를 검색해보세요" maxlength="100" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" class="input_text2" value="" method="post">
+                                            <input id="search-result" name="search_item" type="text" placeholder="여행지나 숙소를 검색해보세요" maxlength="100" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" class="input_text2" value="" method="post">
                                         </div>
                                     </div>
                                 </div>
@@ -105,15 +122,15 @@
                                             <label for="endDate" class="label1">퇴실 날짜</label>
                                             <input type="text" id="endDate" name="endDate">
                                             </div>                 
+                                        </form>
                                     </div>
                                 </div>
                                 <!-- 검색버튼 영역 -->
                                 <div class="search_btn">
                                     <!-- 버튼 액션 -->
-                                    <button type="submit" class="search_btn1">
+                                    <a id="search-button" class="search_btn1" onclick="goSearch(event)">
                                         <span>검색</span>
-                                    </button>
-                                    </form>
+                                    </a>
                                 </div>
                             </form>
                         </div>
