@@ -19,7 +19,6 @@ import com.mugja.member.service.MemberServiceImpl;
 @Controller
 @RequestMapping("/mugja")
 @ComponentScan
-//@MapperScan("com.mugja.member.mapper")
 public class MemberController {
 	
 	
@@ -44,17 +43,13 @@ public class MemberController {
 	public String login() {
 		return "/view/login";
 	}
+	
 	@RequestMapping(value="/admin",method = {RequestMethod.GET,RequestMethod.POST})
 	public String loginadmin() {
 		System.out.println("admin");
 		return "/view/admin";
 	}
 
-//	@RequestMapping(value="/loginaction",method = {RequestMethod.POST})
-//	public String logindo(@RequestBody LoginRequest req, HttpServletResponse res) {
-//		System.out.println("로그인시도");
-//		return "/view/loginOk";
-//	}
 
 
 	
@@ -70,8 +65,6 @@ public class MemberController {
 	
 	@RequestMapping(value="/create",method = {RequestMethod.GET,RequestMethod.POST})
 	public String create(MemberDto dto) {
-		System.out.println("회원가입시도");
-		System.out.println(dto);
 		service.createmember(dto);
 		return "redirect:/mugja/login";
 	}

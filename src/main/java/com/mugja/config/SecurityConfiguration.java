@@ -32,12 +32,14 @@ import java.util.Arrays;
 public class SecurityConfiguration {
 
  	private final JwtUtils jwtUtils;
+ 	private final CustomAuthenticationHandler CustomAuthenticationHandler;
 	private final UserDetailsService userDetailsService;
 
 	@Autowired
-	public SecurityConfiguration(JwtUtils jwtUtils, UserDetailsService userDetailsService, CustomAuthenticationSuccessHandler customAuthenticationSuccessHandler) {
+	public SecurityConfiguration(JwtUtils jwtUtils, UserDetailsService userDetailsService, CustomAuthenticationHandler CustomAuthenticationHandler) {
 		this.jwtUtils = jwtUtils;
 		this.userDetailsService = userDetailsService;
+		this.CustomAuthenticationHandler = CustomAuthenticationHandler;
 	}
 
 	@Bean
@@ -73,15 +75,23 @@ public class SecurityConfiguration {
 				.logout(auth -> auth
 				.logoutUrl("/mugja/logout")
 				.logoutSuccessUrl("/mugja/login")
-				.logoutSuccessHandler((request, response, authentication) ->
-						response.sendRedirect("/mugja/login"))
+				.logoutSuccessHandler(CustomAuthenticationHandler)
 				)
 				.securityContext(securityContext -> securityContext
 						.securityContextRepository(new HttpSessionSecurityContextRepository())
 				)
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.addFilterBefore(new JwtAuthFilter(jwtUtils,userDetailsService), UsernamePasswordAuthenticationFilter.class);
-
+		
+		http.formLogin((auth) -> auth
+	                .loginPage("/mugja/login")
+	                .loginProcessingUrl("/mugja/loginaction")
+	                .failureUrl("/mugja/login")
+	                .successHandler(CustomAuthenticationHandler)  // Custom Authentication Success Handler 설정
+	                .failureHandler(CustomAuthenticationHandler)
+	                .permitAll()
+	                );
+		
 		http.sessionManagement(s -> s.maximumSessions(1).maxSessionsPreventsLogin(false));
 				return http.build();
 		}
@@ -110,4 +120,3 @@ public class SecurityConfiguration {
 	}
 
 }
-

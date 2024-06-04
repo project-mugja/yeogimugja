@@ -18,7 +18,7 @@ public class BookingRestController {
     }
 
     // 예약정보 생성
-    @PostMapping("/booking")
+    @PostMapping("/addbooking/new")
     public Long save(@RequestBody final BookingRequestDto params) {
         return bookingService.save(params);
     }
