@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-@Controller
+@Controller()
 public class BookingProcessController {
 
     private final BookingService bookingService;
@@ -15,7 +15,7 @@ public class BookingProcessController {
         this.bookingService = bookingService;
     }
 
-    @GetMapping("/booking/addbooking")
+    @GetMapping("/mugja/booking/addbooking")
     public String addBooking() {
         return "view/booking.html";
     }
