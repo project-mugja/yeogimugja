@@ -78,6 +78,11 @@ public class MemberServiceImpl implements MemberService {
 		dto.setMem_pwd(bCryptPasswordEncoder.encode(dto.getMem_pwd()));
 		mapper.randompwd(dto);
 	}
-	
-	
+
+	@Override
+	public String findEmailById(Integer memId) {
+		return mapper.findMemEmail(memId);
+	}
+
+
 }
