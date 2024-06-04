@@ -1,20 +1,89 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+    <!-- 타임리프 프래그먼트 테스트? -->
+<!-- <head th:replace="fragments/common_header :: main-head"> </head> -->
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>여기묵자 / Yogimugja</title>
+
+
 </head>
 <body>
-<form action="/mugja/loginaction" method="post" id="login-form">
-아이디 :<input type="text" id="username" name="username"/>
-비밀번호 : <input type="password"  id="password" name="password">
-<input type="submit" value="로그인">
-</form>
-<input type="button"  onclick="location.href='join'" value="회원가입" id="login-btn"/>
+<!-- -----------공통 헤더 시작------------- -->
+<div class="contents_header">
+    <div class="header">
+        <!-- 로고 img -->
+        <div class="head_logo">
+            <a href=""><img src="../../static/img/logo_002.png"></a>
+        </div>
+        <!-- 로그인/회원가입 버튼 or 유저정보 표출? (용도 확인 필요)-->
+        <div class="head_btn">
+            <!-- <div class="login_info">로그인 하세요</div> -->
+                <!-- 햄버거/ 세줄짜리 메뉴버튼 -->
+            <div class="dropdown">
+                <!-- 세줄/메뉴버튼 구현 -->
+                <button onclick="myFunction()" class="dropbtn">
+                <div class="login_btn" id="login_btn">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+                </button>
+                <!-- 세줄/메뉴버튼 하위메뉴 (메뉴구성과 링크 필요)-->
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">로그인/로그아웃</a>
+                    <a href="#">마이페이지</a>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+    <!--로그인 컨텐츠 영역  -->
 
-<a th:href="@{/mugja/pwdfind}">비밀번호 찾기</a>
+    <div class="contents">
+        <div class="contents_login">
+            <!-- 로고이미지는 여기로 들어갑니다 -->
+            <div class="logo_img">
+                <img src="../../static/img/logo_square2.jpg">
+            </div>
+            <!-- 로그인 정보 입력 영역 -->
+            <div class="login_frm">
+                <!-- 로그인 폼 시작 -->
+                <form action="/mugja/loginaction" method="post" id="login-form" style="gap:10px">
+                    <input placeholder="이메일" class="input_info" type="text" id="username" name="username" style=" padding-left:20px;" />
+                    <input placeholder="비밀번호" class="input_info" type="password"  id="password" name="password" style=" padding-left:20px;" >
+                    <input class="input_button" type="submit" value="로그인">
+                </form>
+            </div>
+            <!-- 하단 추가 내용 -->
+            <div class="signup">
+                <a th:href="@{/mugja/pwdfind}">비밀번호 찾기</a>
+                <input type="button"  onclick="location.href='join'" value="회원가입" id="login-btn"/>
+            </div>
+        </div>
+    </div>
 </body>
 <script>
+////////////////////////////////////////////////
+// header _ 햄버거 메뉴 버튼
+/* 사용자가 버튼을 클릭할 때, 드롭다운 내용을 토글 */
+function myFunction() {
+  document.getElementById("myDropdown").classList.toggle("show");
+}
+
+// 사용자가 버튼 외부를 클릭하면 드롭다운을 닫음
+window.onclick = function(event) {
+  if (!event.target.matches('.dropbtn') && !event.target.closest('.dropbtn')) {
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    for (var i = 0; i < dropdowns.length; i++) {
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+////////////////////기존 로그인 JS////////////////////////    
     document.addEventListener("DOMContentLoaded", function() {
         const form = document.getElementById('login-form');
 
@@ -62,4 +131,198 @@
         }
     });
 </script>
+
+<style>
+/* CSS 파트 */
+/* 메인페이지 영역 */
+/* 공통사항 */
+.contents{
+        width: 100%;
+        margin : 0.2% 0;
+    }
+    
+    [role=region]{
+        /* background-color: aquamarine; */
+        border: 1px crimson;
+        width: 1200px;
+        /* height: 100%; */
+        inset: 0px;
+        margin-top:20px;
+        margin-right: auto;
+        margin-left: auto;
+        
+    }
+    .body_content{
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        padding-bottom: 96px;
+    }
+/* //////////////////////////////////////////////////////// */
+/* 헤더 */
+    .contents_header{
+        width:100%;
+        display:flex;
+        justify-content: center;
+    }
+    .header{
+        height: 75px;
+        width : 1200px;
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        /* 테스트용 */
+        /* background-color: bisque;  */
+        align-items: center;
+    }
+    /* 헤더 우측 로고 */
+    .head_logo{
+        height: 100%;
+        width:100%;
+        outline:  2px solid transparent;
+        outline-offset: 2px;
+    }
+    .head_logo img {
+        height:100%;
+    }
+    /* 헤더 좌측 로그인 + 메뉴버튼 */
+    .head_btn{
+        display: flex;
+        line-height: inherit;
+        width:200px;
+        justify-content: flex-end;
+        align-items: center;
+    }
+    /* 메뉴 진입버튼 */
+    .login_btn{
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    /* gap: 8px; */
+    }
+    .login_btn div {
+        width: 25px;
+        height: 4px;
+        background-color: black;
+        margin: 2px 0;
+    }
+
+    .dropbtn {
+  background-color: #FFFFFF;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #FFFFFF;
+  width: 160px;
+  overflow: auto;
+  /* box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); */
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown a:hover {background-color: #ddd;}
+
+.show {display: block;}
+
+/* 로그인 폼 관련 부분 */
+.contents_login{
+    width: 1200px;
+    display: grid;
+    justify-content: center;
+    grid-template-rows: repeat(15,60px);
+    margin:auto;
+    height:100%;
+}
+.logo_img{
+    grid-row: 3/8;
+    display: flex;
+    justify-content: center;
+    height:100%;
+}
+.login_frm{
+    grid-row: 9 / 11;
+
+
+}
+.login_frm form{
+    display: flex;
+    flex-direction: column;
+    width: 422px;
+}
+.login_frm input{
+    border-radius: 10px;
+    height:50px;
+    width:100%;
+    padding:0;
+}
+.input_info{
+    border-radius: 10px;
+    align-items: center;
+    border-radius: 8px;
+    box-sizing: border-box;
+    display: flex;
+    height: 48px !important;
+    justify-content: center;
+    background-color: #f5f5f5;
+    border: 1.5px solid #f5f5f5;
+}
+.login_frm .input_button{
+    height :54.5px;
+    width: 100%;
+    border-radius: 10px;
+    
+    border: none;
+    box-sizing: border-box;
+    color: #fff;
+    cursor: pointer;
+    outline-style: unset;
+    text-align: center;
+
+    border-radius: 10px;
+    height: 48px;
+    line-height: 19px;
+    padding: 0 18px;
+
+    background: #fff;
+    border: 1.5px solid #ebebeb;
+    color: #333;
+
+    -webkit-appearance: button;
+
+    user-select: none;
+}
+.signup{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    grid-row: 12/13;
+}
+.signup a{
+    padding-left:10px;
+}
+.signup input{
+    padding-right:10px;
+    width:80px;
+}
+</style>
 </html>
