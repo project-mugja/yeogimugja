@@ -22,22 +22,29 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
     //숙소 검색
     @Override
     public Page<HostWishDTO> findByTagNative(String category, String search, Pageable pageable) {
+        System.out.println("category: " + category);
+        System.out.println("search: " + search);
         search = "%" + search + "%";
-        String baseQuery = "select a.host_id as hostId, a.avgscore as avgScore, a.host_name as hostName, a.host_address as hostAddress " +
-                "from host a left join tag c on a.host_id = c.host_id";
-        String searchQuery = " where a.host_name like :search or a.host_address like :search ";
+        String baseQuery =
+                "select a.host_id as hostId, a.avgscore as avgScore, a.host_name as hostName, a.host_address as hostAddress " +
+                "from host a left join tag c on a.host_id = c.host_id ";
 
-        String tagSearchQuery = "or tag1 like :search " +
+        String where = "where ";
+        String condition1 = "c.tag1 = :category ";
+        String and = "and ";
+        String searchQuery = "a.host_name like :search or a.host_address like :search ";
+
+        String tagSearchQuery =
+                "or tag1 like :search " +
                 "or tag2 like :search " +
                 "or tag3 like :search " +
                 "or tag4 like :search " +
                 "or tag5 like :search " +
                 "or tag6 like :search " +
                 "or tag7 like :search " +
-                "or tag8 like :search";
+                "or tag8 like :search ";
 
-        String condition1 = " and c.tag1 = :category";
-        String orderBy = " order by " +
+        String orderBy = "order by " +
                 "case " +
                 "when a.host_name like :search then 0 " +
                 "when a.host_name like :search then 1 " +
@@ -51,14 +58,16 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
                 "when a.host_address like :search then 2 " +
                 "else 4 end";
         String queryStr = category.equals("all")?
-                baseQuery + searchQuery + tagSearchQuery + orderBy :
-                baseQuery + searchQuery + tagSearchQuery + condition1 + orderBy;
+                baseQuery + where + searchQuery + tagSearchQuery + orderBy :
+                baseQuery + where + condition1 + and + searchQuery + tagSearchQuery + orderBy;
 
         System.out.println("queryStr: " + queryStr);
         Query query = em.createNativeQuery(queryStr).setParameter("search", search);
+
         if(!category.equals("all")){
             query.setParameter("category", category);
         }
+
         query.setFirstResult((int)pageable.getOffset());
         query.setMaxResults(pageable.getPageSize());
         List<Object[]> results = query.getResultList();
