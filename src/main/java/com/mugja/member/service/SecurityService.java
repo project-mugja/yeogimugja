@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class SecurityService {
 
-	//로그인 아이디 정보
+	//로그인 아이디(메일) 정보
 	public String userId() {
 		
 		return SecurityContextHolder.getContext().getAuthentication().getName();

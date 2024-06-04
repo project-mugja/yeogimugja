@@ -11,7 +11,7 @@
 <button onclick="location.href='/mugja/mypage'">마이페이지</button>
 [[${id}]]
 [[${grade}]]
-<a href="" id="mypage">마이페이지</a>
+<a href="" id="mypage">마이페이지 내 정보 수정</a>
 <a href="https://main--yeogimugja.netlify.app/host/3">숙소 3</a>
 </body>
 <script>
@@ -20,7 +20,7 @@
     const mypageBtn = document.getElementById("mypage");
     mypageBtn.addEventListener("click",(event)=>{
         event.preventDefault();
-        window.location = `https://main--mugja.netlify.app/mypage/${token}`
+        window.location = `https://main--mugja.netlify.app/mypage/info/${token}`
         // window.location = `http://localhost:3000/mypage/${token}`
     })
 

@@ -5,7 +5,9 @@ import com.mugja.host.domain.HostImgRepository;
 import com.mugja.host.domain.HostRepository;
 import com.mugja.host.dto.Host;
 import com.mugja.host.dto.HostWishDTO;
+import com.mugja.room.domain.RoomRepository;
 import com.mugja.wishlist.domain.WishListRepository;
+import com.mugja.wishlist.service.WishListService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,12 +22,14 @@ public class HostServiceImpl implements HostService{
     private final HostRepository hostRepository;
     private final HostImgRepository hostImgRepository;
     private final WishListRepository wishListRepository;
+    private final RoomRepository roomRepository;
 
     @Autowired
-    public HostServiceImpl(HostRepository hostRepository, HostImgRepository hostImgRepository, WishListRepository wishListRepository) {
+    public HostServiceImpl(HostRepository hostRepository, HostImgRepository hostImgRepository, WishListRepository wishListRepository, RoomRepository roomRepository) {
         this.hostRepository = hostRepository;
         this.hostImgRepository = hostImgRepository;
         this.wishListRepository = wishListRepository;
+        this.roomRepository = roomRepository;
     }
 
     /*
@@ -34,6 +38,7 @@ public class HostServiceImpl implements HostService{
     @Override
     @Transactional
     public Host findHost(Integer hostId) throws HostNotFoundException {
+        System.out.println("findhost");
         //숙소 정보 가져오기
         Host host = hostRepository
                 .findByHostId(hostId)
@@ -53,12 +58,17 @@ public class HostServiceImpl implements HostService{
     @Transactional
     public Page<HostWishDTO> findHostsAuth(Integer memId, String category, String search, Pageable pageable) {
         Page<HostWishDTO> page = hostRepository.findByTagNative(category, search, pageable);
+        System.out.println("findHostsAuth");
         page.forEach(hostWishDTO -> {
             hostWishDTO.setHostImgList(
                     hostImgRepository.findAllByHost_HostId(hostWishDTO.getHostId())
             );
             hostWishDTO.setIsFav(
-                    wishListRepository.findByMemIdAndHost_HostId(memId,hostWishDTO.getHostId()).isPresent() ? true : false
+                    wishListRepository.findByMemIdAndHost_HostId(memId, hostWishDTO.getHostId()).isPresent()
+            );
+            System.out.println("isFav = " + hostWishDTO.isFav());
+            hostWishDTO.setPrice(
+                    roomRepository.findByHost_HostIdOrderByPriceAsc(hostWishDTO.getHostId()).get(0).getPrice()
             );
         });
         return page;
@@ -69,11 +79,14 @@ public class HostServiceImpl implements HostService{
     @Transactional
     public Page<HostWishDTO> findHosts(String category, String search, Pageable pageable) {
         Page<HostWishDTO> page = hostRepository.findByTagNative(category, search, pageable);
-        page.forEach(hostWishDTO ->
-                    hostWishDTO.setHostImgList(
-                            hostImgRepository.findAllByHost_HostId(hostWishDTO.getHostId())
-                    )
-        );
+        page.forEach(hostWishDTO -> {
+            hostWishDTO.setHostImgList(
+                    hostImgRepository.findAllByHost_HostId(hostWishDTO.getHostId())
+            );
+            hostWishDTO.setPrice(
+                    roomRepository.findByHost_HostIdOrderByPriceAsc(hostWishDTO.getHostId()).get(0).getPrice()
+            );
+        });
         return page;
     }
 

@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/mugja")
+@RequestMapping("api/member")
 public class MemberRestController {
 	
 	@Autowired
@@ -104,12 +104,27 @@ public class MemberRestController {
 	
 	
 	//마이페이지 비밀번호 변경 컨트롤러
-	@PostMapping("/mypwdChg")
-	public boolean mypwdChg(@RequestBody MemberDto dto) {
+	@PutMapping("/mypwdChg")
+	public ResponseEntity mypwdChg(@RequestParam("password") String password) {
+		Map<String, Boolean> response = new HashMap<String, Boolean>();
+		MemberDto dto = new MemberDto();
+
+		System.out.println(password + "mem_pwd");
+
+		dto.setMem_pwd(password);
 		dto.setMem_email(securityservice.userId());
-		System.out.println(dto.getMem_pwd() + "mem_pwd");
 		memberService.randompwd(dto);
-		return true;
+		return ResponseEntity.ok(response.put("pwdChange",true));
+	}
+
+	@GetMapping("/email")
+	public ResponseEntity getMemEmail(){
+		String email = securityservice.userId();
+		if(email==null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		} else {
+			return ResponseEntity.ok(Collections.singletonMap("email",email));
+		}
 	}
 
 	@PostMapping("/emailOk")
@@ -150,6 +165,11 @@ public class MemberRestController {
 		return ResponseEntity.ok(Collections.singletonMap("token",token));
 	}
 
-	
-
+	@GetMapping("/email/{memId}")
+	public ResponseEntity getEmailByMemId(@PathVariable Integer memId){
+		System.out.println("memId:"+memId);
+		String email = memberService.findEmailById(memId);
+		System.out.println("email:"+email);
+		return ResponseEntity.ok(Collections.singletonMap("memEmail",email));
+	}
 }

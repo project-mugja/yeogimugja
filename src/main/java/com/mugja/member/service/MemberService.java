@@ -11,5 +11,5 @@ public interface MemberService {
 	void randompwd(MemberDto dto);
 	boolean pwdcheck(MemberDto dto);
 	void pwdchange(MemberDto dto);
-
+	String findEmailById(Integer memId);
 }
