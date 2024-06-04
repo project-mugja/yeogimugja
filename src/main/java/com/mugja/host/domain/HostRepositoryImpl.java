@@ -24,24 +24,26 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
     public Page<HostWishDTO> findByTagNative(String category, String search, Pageable pageable) {
         System.out.println("category: " + category);
         search = "%" + search + "%";
-        String baseQuery = "select a.host_id as hostId, a.avgscore as avgScore, a.host_name as hostName, a.host_address as hostAddress " +
-                "from host a left join tag c on a.host_id = c.host_id";
+        String baseQuery =
+                "select a.host_id as hostId, a.avgscore as avgScore, a.host_name as hostName, a.host_address as hostAddress " +
+                "from host a left join tag c on a.host_id = c.host_id ";
 
-        String where = " where";
-        String condition1 = " c.tag1 = :category";
-        String and = " and";
-        String searchQuery = " a.host_name like :search or a.host_address like :search ";
+        String where = "where ";
+        String condition1 = "c.tag1 = :category ";
+        String and = "and ";
+        String searchQuery = "a.host_name like :search or a.host_address like :search ";
 
-        String tagSearchQuery = "or tag1 like :search " +
+        String tagSearchQuery =
+                "or tag1 like :search " +
                 "or tag2 like :search " +
                 "or tag3 like :search " +
                 "or tag4 like :search " +
                 "or tag5 like :search " +
                 "or tag6 like :search " +
                 "or tag7 like :search " +
-                "or tag8 like :search";
+                "or tag8 like :search ";
 
-        String orderBy = " order by " +
+        String orderBy = "order by " +
                 "case " +
                 "when a.host_name like :search then 0 " +
                 "when a.host_name like :search then 1 " +
