@@ -24,7 +24,7 @@ import com.mugja.host.mapper.HostAdminMapper;
 @Service
 public class HostAdminServiceImpl implements HostAdminService {
 	
-	@Value("C:\\yogimugja\\img\\host")
+	@Value("${spring.servlet.multipart.location}")
 	private String uploadPath;
 	
 	@Autowired
@@ -41,7 +41,7 @@ public class HostAdminServiceImpl implements HostAdminService {
 		hashdto.setHostId(mapper.gethostId(dto));
 		hostImgWrite(dto,files);
 		//hostHashAdd(hashdto);
-		addTags(hashdto,
+		addTags(hashdto, 
 		hashdto.getTag1() != null ? hashdto.getTag1().split(",") : null,
 		hashdto.getTag2() != null ? hashdto.getTag2().split(",") : null,
 		hashdto.getTag3() != null ? hashdto.getTag3().split(",") : null,
@@ -79,7 +79,6 @@ public class HostAdminServiceImpl implements HostAdminService {
 				String filename = orgfile.substring(orgfile.lastIndexOf("/")+1);
 				String storename = UUID.randomUUID().toString()+"_"+filename.substring(filename.lastIndexOf("."));
 				try {
-					makeFolder();
 					file.transferTo(Paths.get(uploadPath,storename));
 					mapper.hostImgWirte(dto,storename);
 					
@@ -147,13 +146,9 @@ public class HostAdminServiceImpl implements HostAdminService {
 	//게시글 삭제요청
 	@Transactional
 	public void hostdelete(String hostid) {
-		System.out.println("--1--");
 		mapper.hostImgdelete(hostid);
-		System.out.println("--2--");
 		mapper.hostTagdelete(hostid);
-		System.out.println("--3--");
 		mapper.hostDelete(hostid);
-		System.out.println("--4--");
 		
 	}
 	

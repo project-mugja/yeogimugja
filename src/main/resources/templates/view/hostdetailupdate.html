@@ -86,7 +86,7 @@
         <h1>숙소 이미지</h1>
         <div class="images">
             <div th:each="image : ${hostImages}">
-                <img th:src="@{|/comFile/${image.host_imgpath}|}" th:alt="${image.host_img_id}">
+                <img th:src="@{|/comFile/${image.host_imgdir}/${image.host_imgpath}|}" th:alt="${image.host_img_id}">
             </div>
                 <div>숙소이미지<input type="file" id="hostimgpath" name="hostimgpath" multiple accept="image/*"/></div>
         </div>

@@ -17,15 +17,14 @@ public class HostAdminListService {
 	@Autowired
 	private HostAdminMapper mapper;
 	
-	
-	
 	public List<HostAdminDto> hostlist() {
 		List<HostAdminDto> list = mapper.hostList();
 		
 		  for(HostAdminDto a : list) {
+		  System.out.println(a.getHost_id());
 		  String img = mapper.hostImgList(a.getHost_id()); 
 		  if(img==null) {
-			  img="default.jpg"; 
+			  img="default.png"; 
 			  } 
 		  a.setHost_imgpath(img); 
 			  

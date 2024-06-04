@@ -37,7 +37,6 @@ public class RoomController {
 	
 	@PostMapping("/roomplus")
     public String roomplus(RoomDto dto, @RequestParam("roomimgpath") MultipartFile[] files) {
-
         service.hostRoomWrite(dto, files);
         
     	return "redirect:/mugja/admin/hostlist";
