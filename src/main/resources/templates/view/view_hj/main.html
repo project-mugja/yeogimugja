@@ -65,35 +65,15 @@ window.onclick = function(event) {
 </head>
 
 <body>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">   
+    $(document).ready( function() {
+    $("#headers").load("../view/common_head.html");  // 원하는 파일 경로를 삽입하면 된다
+    });
+    </script>
     <!-- -----------공통 헤더 시작------------- -->
-    <div class="contents_header">
-        <div class="header">
-            <!-- 로고 img -->
-            <div class="head_logo">
-                <a href=""><img src="../../static/img/logo_002.png"></a>
-            </div>
-            <!-- 로그인/회원가입 버튼 or 유저정보 표출? (용도 확인 필요)-->
-            <div class="head_btn">
-                <div class="login_info">로그인 하세요</div>
-                    <!-- 햄버거/ 세줄짜리 메뉴버튼 -->
-                <div class="dropdown">
-                    <!-- 세줄/메뉴버튼 구현 -->
-                    <button onclick="myFunction()" class="dropbtn">
-                    <div class="login_btn" id="login_btn">
-                        <div></div>
-                        <div></div>
-                        <div></div>
-                    </div>
-                    </button>
-                    <!-- 세줄/메뉴버튼 하위메뉴 (메뉴구성과 링크 필요)-->
-                    <div id="myDropdown" class="dropdown-content">
-                        <a href="#">로그인/로그아웃</a>
-                        <a href="#">마이페이지</a>
-                    </div>
-                </div> 
-            </div>
-        </div>
-    </div>
+    <div id="headers"></div>
+    
 
 
     <!-----------헤더 - 메인컨텐츠 구분선---------->

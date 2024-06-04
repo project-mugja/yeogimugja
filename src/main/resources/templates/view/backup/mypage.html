@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>마이페이지</title>
+</head>
+<body>
+    <!-- -----------공통 헤더 시작------------- -->
+    <!-- 헤더 /푸터 import jquery -->
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript">   
+    $(document).ready( function() {
+    $("#headers").load("../view/common_head.html");  // 원하는 파일 경로를 삽입하면 된다
+    $("#footers").load("../view/common_footer.html");  // 원하는 파일 경로를 삽입하면 된다
+    });
+    </script>
+    <!-- 헤더 / 푸터 삽입 -->
+    <div id="headers"></div>
+    <!-- <div id="footers"></div> -->
+    <!-- -----------공통 헤더 /푸터 종료------------- -->
+<div>
+이메일 : <input type="text"/>
+
+<button onclick="location.href='myPwdChg'">비밀번호 변경</button>
+</div>
+</body>
+</html>
