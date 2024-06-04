@@ -43,6 +43,9 @@ public class BookingResponseDto {
 
     @Setter
     private String formattedBookStatus; // 예약상태 한글로 변경
+    
+    @Setter
+    private String roomImgPath; // 객실이미지 테이블의 객실이미지 가져오기
 
     public BookingResponseDto(Booking entity) {
         this.bookId = entity.getBookId();

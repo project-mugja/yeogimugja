@@ -11,13 +11,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
-public class BookingViewController {
+@Controller("/mugja")
+public class ViewMyBookingController {
 
     private final BookingService bookingService;
 
     @Autowired
-    public BookingViewController(BookingService bookingService) {
+    public ViewMyBookingController(BookingService bookingService) {
         this.bookingService = bookingService;
     }
 
