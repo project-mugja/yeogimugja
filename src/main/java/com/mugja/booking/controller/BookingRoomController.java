@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-@Controller
+@Controller()
 public class BookingRoomController {
 
     @Autowired
@@ -18,13 +18,13 @@ public class BookingRoomController {
     @Autowired
     private RoomService roomService;
 
-    @GetMapping("/roomlist")
+    @GetMapping("/mugja/roomlistforbooking")
     public String showRoomList(Model model) {
         // 필요한 데이터를 모델에 추가
-        return "view/roomlist";
+        return "view/roomlistforbooking";
     }
     
-    @PostMapping("/booking")
+    @PostMapping("/mugja/booking")
     public String submitBooking(@RequestParam String memberId,
                                 @RequestParam String hostId,
                                 @RequestParam String roomId,

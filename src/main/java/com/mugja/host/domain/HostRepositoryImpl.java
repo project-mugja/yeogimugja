@@ -70,7 +70,8 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
                         (String) result[3],
                         null,
                         false,
-                        category
+                        category,
+                        null
                         )
                 )
                 .collect(Collectors.toList());

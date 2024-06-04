@@ -23,4 +23,7 @@ public interface MemberMapper {
 
 	@Select("SELECT count(*) from mem where mem_")
 	Integer findMem(LoginRequest loginRequest);
+
+	@Select("SELECT mem_email FROM mem WHERE mem_id = #{memId}")
+	String findMemEmail(Integer memId);
 }

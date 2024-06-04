@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>마이페이지</title>
 </head>
 <body>
     <!-- -----------공통 헤더 시작------------- -->
@@ -18,32 +18,10 @@
     <div id="headers"></div>
     <!-- <div id="footers"></div> -->
     <!-- -----------공통 헤더 /푸터 종료------------- -->
-<div class="body">
-    <div class="contents">
-        <h2>관리자 페이지</h2>
-        <button type="button" onclick="location.href='/mugja/admin/hostadd'">숙소 생성</button>
-        <button type="button" onclick="location.href='/mugja/admin/hostlist'" >숙소 관리</button>
-    </div>
+<div>
+이메일 : <input type="text"/>
+
+<button onclick="location.href='myPwdChg'">비밀번호 변경</button>
 </div>
 </body>
-<style>
-    .body{
-        width:100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-top:100px;
-
-    }
-    .contents{
-        width:165px;
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        gap:20px;
-    }
-    .contents button{
-        height:50px;
-    }
-</style>
 </html>

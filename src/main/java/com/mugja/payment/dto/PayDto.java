@@ -6,8 +6,8 @@ import lombok.Data;
 public class PayDto {
 	
 	private String imp_uid;
-	private String book_name;
-	private String book_contact;
-	private String book_price;
+	private String guestName;
+	private String guestContact;
+	private String payPrice;
 	
 }

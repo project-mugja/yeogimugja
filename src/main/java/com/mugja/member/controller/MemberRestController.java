@@ -4,7 +4,21 @@ import com.mugja.jwt.JwtUtils;
 import com.mugja.member.dto.LoginRequest;
 import com.mugja.member.service.CustomUserDetailsService;
 import jakarta.servlet.http.HttpServletResponse;
+import com.mugja.jwt.JwtUtils;
+import com.mugja.member.dto.LoginRequest;
+import com.mugja.member.service.CustomUserDetailsService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,8 +41,14 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
-@RequestMapping("/mugja")
+@RequestMapping("api/member")
 public class MemberRestController {
 	
 	@Autowired
@@ -44,9 +64,17 @@ public class MemberRestController {
 
 	private AuthenticationManager authenticationManager;
 	private CustomUserDetailsService customUserDetailsService;
+
+	@Autowired
+	private JwtUtils jwtUtils;
+
+	private AuthenticationManager authenticationManager;
+	private CustomUserDetailsService customUserDetailsService;
 	private String number="";
 
 
+
+    @PostMapping("/email")
     @PostMapping("/email")
 	public boolean email(@RequestBody MemberDto dto) {
 		String email = dto.getMem_email();
@@ -94,9 +122,16 @@ public class MemberRestController {
 	public ResponseEntity mypwdChk(@RequestParam("password") String password) {
 		System.out.println(password);
 		MemberDto dto = new MemberDto();
+	public ResponseEntity mypwdChk(@RequestParam("password") String password) {
+		System.out.println(password);
+		MemberDto dto = new MemberDto();
 		//비밀번호 일치여부 확인
 		dto.setMem_pwd(password);
+		dto.setMem_pwd(password);
 		dto.setMem_email(securityservice.userId());
+		Map<String, Boolean> response = new HashMap<String, Boolean>();
+		response.put("isValid", memberService.pwdcheck(dto));
+		return ResponseEntity.ok(response);
 		Map<String, Boolean> response = new HashMap<String, Boolean>();
 		response.put("isValid", memberService.pwdcheck(dto));
 		return ResponseEntity.ok(response);
@@ -104,12 +139,27 @@ public class MemberRestController {
 	
 	
 	//마이페이지 비밀번호 변경 컨트롤러
-	@PostMapping("/mypwdChg")
-	public boolean mypwdChg(@RequestBody MemberDto dto) {
+	@PutMapping("/mypwdChg")
+	public ResponseEntity mypwdChg(@RequestParam("password") String password) {
+		Map<String, Boolean> response = new HashMap<String, Boolean>();
+		MemberDto dto = new MemberDto();
+
+		System.out.println(password + "mem_pwd");
+
+		dto.setMem_pwd(password);
 		dto.setMem_email(securityservice.userId());
-		System.out.println(dto.getMem_pwd() + "mem_pwd");
 		memberService.randompwd(dto);
-		return true;
+		return ResponseEntity.ok(response.put("pwdChange",true));
+	}
+
+	@GetMapping("/email")
+	public ResponseEntity getMemEmail(){
+		String email = securityservice.userId();
+		if(email==null) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+		} else {
+			return ResponseEntity.ok(Collections.singletonMap("email",email));
+		}
 	}
 
 	@PostMapping("/emailOk")

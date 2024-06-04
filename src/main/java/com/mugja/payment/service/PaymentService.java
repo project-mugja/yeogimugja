@@ -3,6 +3,7 @@ package com.mugja.payment.service;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -16,8 +17,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class PaymentService {
-	private static final String IMP_KEY = "7637670348464136";
-    private static final String IMP_SECRET = "i8cNg6JKWRmRTKDjiCOlPuROVLAUPSO9cNO7VIJMBQfAP1UwFFxRxHFwsO6t1xd1DShFsR7bqLGaEvqZ";
+
+    @Value("${iamport.key}")
+    private String IMP_KEY;
+
+    @Value("${iamport.secret}")
+    private String IMP_SECRET;
+
     private static final String TOKEN_URL = "https://api.iamport.kr/users/getToken";
     private static final String PAYMENT_URL = "https://api.iamport.kr/payments/{imp_uid}";
 
@@ -26,33 +32,37 @@ public class PaymentService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        System.out.println("Headers: " + headers);
-        
+
         Map<String, String> body = new HashMap<>();
         body.put("imp_key", IMP_KEY);
         body.put("imp_secret", IMP_SECRET);
-        System.out.println("Request Body: " + body);
 
         HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, headers);
-        System.out.println("------1------");
-        ResponseEntity<Map> response = restTemplate.postForEntity(TOKEN_URL,entity, Map.class);
-        System.out.println("------2------");
+
+        ResponseEntity<Map> response = restTemplate.postForEntity(TOKEN_URL, entity, Map.class);
         if (response.getStatusCode() == HttpStatus.OK) {
-        	System.out.println("------3------");
             Map<String, Object> responseBody = response.getBody();
             if (responseBody != null && responseBody.get("response") != null) {
                 Map<String, Object> responseData = (Map<String, Object>) responseBody.get("response");
                 return (String) responseData.get("access_token");
             }
         }
+//        ResponseEntity<Map> response = restTemplate.postForEntity(TOKEN_URL, entity, Map.class);
+//
+//        if (response.getStatusCode() == HttpStatus.OK) {
+//            Map<String, Object> responseBody = response.getBody();
+//            if (responseBody != null && responseBody.get("response") != null) {
+//                Map<String, Object> responseData = (Map<String, Object>) responseBody.get("response");
+//                return (String) responseData.get("access_token");
+//            }
+//        }
 
         throw new RuntimeException("Failed to get Iamport token");
     }
 
     public Map<String, Object> getPaymentInfo(String impUid) {
         String token = getToken();
-        System.out.println("token: " + token);
-        
+
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
@@ -70,6 +80,68 @@ public class PaymentService {
 
         throw new RuntimeException("Failed to get payment info");
     }
+
+//@Service
+//public class PaymentService {
+//
+//    @Value("${iamport.key")
+//    private String IMP_KEY;
+//
+//    @Value("${iamport.secret")
+//    private String IMP_SECRET;
+//
+//    private static final String TOKEN_URL = "https://api.iamport.kr/users/getToken";
+//    private static final String PAYMENT_URL = "https://api.iamport.kr/payments/{imp_uid}";
+//
+//    public String getToken() {
+//        RestTemplate restTemplate = new RestTemplate();
+//
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        System.out.println("Headers: " + headers);
+//
+//        Map<String, String> body = new HashMap<>();
+//        body.put("imp_key", IMP_KEY);
+//        body.put("imp_secret", IMP_SECRET);
+//        System.out.println("Request Body: " + body);
+//
+//        HttpEntity<Map<String, String>> entity = new HttpEntity<>(body, headers);
+//        System.out.println("------1------");
+//        ResponseEntity<Map> response = restTemplate.postForEntity(TOKEN_URL,entity, Map.class);
+//        System.out.println("------2------");
+//        if (response.getStatusCode() == HttpStatus.OK) {
+//        	System.out.println("------3------");
+//            Map<String, Object> responseBody = response.getBody();
+//            if (responseBody != null && responseBody.get("response") != null) {
+//                Map<String, Object> responseData = (Map<String, Object>) responseBody.get("response");
+//                return (String) responseData.get("access_token");
+//            }
+//        }
+//
+//        throw new RuntimeException("Failed to get Iamport token");
+//    }
+//
+//    public Map<String, Object> getPaymentInfo(String impUid) {
+//        String token = getToken();
+//        System.out.println("token: " + token);
+//
+//        RestTemplate restTemplate = new RestTemplate();
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(MediaType.APPLICATION_JSON);
+//        headers.setBearerAuth(token);
+//
+//        HttpEntity<String> entity = new HttpEntity<>(headers);
+//
+//        ResponseEntity<Map> response = restTemplate.exchange(PAYMENT_URL, HttpMethod.GET, entity, Map.class, impUid);
+//        if (response.getStatusCode() == HttpStatus.OK) {
+//            Map<String, Object> responseBody = response.getBody();
+//            if (responseBody != null && responseBody.get("response") != null) {
+//                return (Map<String, Object>) responseBody.get("response");
+//            }
+//        }
+//
+//        throw new RuntimeException("Failed to get payment info");
+//    }
 	
 	
     
