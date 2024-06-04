@@ -1,11 +1,14 @@
 package com.mugja.booking.controller;
 
+import com.mugja.member.service.MemberService;
 import com.mugja.member.service.SecurityService;
 import com.mugja.room.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,6 +20,9 @@ public class BookingRoomController {
 
     @Autowired
     private RoomService roomService;
+    @Qualifier("memberService")
+    @Autowired
+    private MemberService memberService;
 
     @GetMapping("/mugja/roomlistforbooking")
     public String showRoomList(Model model) {
@@ -24,15 +30,14 @@ public class BookingRoomController {
         return "view/roomlistforbooking";
     }
     
-    @PostMapping("/mugja/booking")
-    public String submitBooking(@RequestParam String memberId,
-                                @RequestParam String hostId,
-                                @RequestParam String roomId,
-                                @RequestParam String payPrice,
+    @GetMapping("/mugja/booking/{hostId}/{roomId}/{payPrice}")
+    public String submitBooking(@PathVariable String hostId,
+                                @PathVariable String roomId,
+                                @PathVariable String payPrice,
                                 Model model) {
         
         // 전달 받은 값을 모델에 추가하여 booking.html로 전달
-        model.addAttribute("memberId", memberId);
+        model.addAttribute("memberId", memberService.getMemId());
         model.addAttribute("hostId", hostId);
         model.addAttribute("roomId", roomId);
         model.addAttribute("payPrice", payPrice);
