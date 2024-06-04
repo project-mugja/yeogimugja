@@ -82,7 +82,16 @@ public class SecurityConfiguration {
 				)
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.addFilterBefore(new JwtAuthFilter(jwtUtils,userDetailsService), UsernamePasswordAuthenticationFilter.class);
-
+		
+		http.formLogin((auth) -> auth
+	                .loginPage("/mugja/login")
+	                .loginProcessingUrl("/mugja/loginaction")
+	                .failureUrl("/mugja/login")
+	                .successHandler(CustomAuthenticationHandler)  // Custom Authentication Success Handler 설정
+	                .failureHandler(CustomAuthenticationHandler)
+	                .permitAll()
+	                );
+		
 		http.sessionManagement(s -> s.maximumSessions(1).maxSessionsPreventsLogin(false));
 				return http.build();
 		}
