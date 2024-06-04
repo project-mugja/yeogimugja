@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<iframe id="csrPage" src="https://main--mugja.netlify.app" style="display:none;"></iframe>
+<title>Insert title here</title>
+</head>
+<body>
+<h3>메인</h3>
+<button onclick="location.href='/mugja/logout'">로그아웃</button>
+<button onclick="location.href='/mugja/mypage'">마이페이지</button>
+[[${id}]]
+[[${grade}]]
+<a href="" id="mypage">마이페이지</a>
+<a href="https://main--yeogimugja.netlify.app/host/3">숙소 3</a>
+</body>
+<script>
+    const token = localStorage.getItem("token")
+    console.log("token : ", token)
+    const mypageBtn = document.getElementById("mypage");
+    mypageBtn.addEventListener("click",(event)=>{
+        event.preventDefault();
+        window.location = `https://main--mugja.netlify.app/mypage/${token}`
+        // window.location = `http://localhost:3000/mypage/${token}`
+    })
+
+</script>
+</html>

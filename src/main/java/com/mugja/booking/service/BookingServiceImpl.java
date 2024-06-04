@@ -7,9 +7,12 @@ import com.mugja.booking.dto.Booking;
 
 import com.mugja.host.domain.HostRepository;
 import com.mugja.host.dto.Host;
+import com.mugja.room.domain.RoomImgRepository;
 import com.mugja.room.domain.RoomRepository;
 import com.mugja.room.dto.Room;
+import com.mugja.room.dto.RoomImg;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,12 +29,14 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
     private final HostRepository hostRepository;
     private final RoomRepository roomRepository;
+    private final RoomImgRepository roomImgRepository;
 
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, HostRepository hostRepository, RoomRepository roomRepository) {
+    public BookingServiceImpl(BookingRepository bookingRepository, HostRepository hostRepository, RoomRepository roomRepository, @Qualifier("roomImgRepository") RoomImgRepository roomImgRepository) {
         this.bookingRepository = bookingRepository;
         this.hostRepository = hostRepository;
         this.roomRepository = roomRepository;
+        this.roomImgRepository = roomImgRepository;
     }
 
     // 예약정보 생성

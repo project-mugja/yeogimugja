@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>객실 예약 상세페이지</title>
+    <!-- <link rel="stylesheet" type="text/css" href="../../../resources/css/common/Mainpage.css"> -->
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" th:href="@{/css/booking.css}"/>
+
+    <!-- JavaScript 부분 -->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script>
+        // header _ 햄버거 메뉴 버튼
+        /* 사용자가 버튼을 클릭할 때, 드롭다운 내용을 토글 */
+        function myFunction() {
+            document.getElementById("myDropdown").classList.toggle("show");
+        }
+
+        // 사용자가 버튼 외부를 클릭하면 드롭다운을 닫음
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropbtn') && !event.target.closest('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="body-style">
+<header>
+    <!-- 공통 header -->
+    <div class="contents_header">
+        <div class="header">
+            <!-- 로고 img -->
+            <div class="head_logo">
+                <a href=""><img src="../../static/img/logo_002.png"></a>
+            </div>
+            <!-- 로그인/회원가입 버튼 or 유저정보 표출 -->
+            <div class="head_btn">
+                <div class="login_info">로그인 하세요</div>
+                <!-- 햄버거/ 세줄짜리 메뉴버튼 -->
+                <div class="dropdown">
+                    <button onclick="myFunction()" class="dropbtn">
+                        <div class="login_btn" id="login_btn">
+                            <div></div>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </button>
+                    <div id="myDropdown" class="dropdown-content">
+                        <a href="#">로그인/로그아웃</a>
+                        <a href="#">마이페이지</a>
+                    </div>
+                </div>
+                <!-- 버튼 내부 메뉴 -->
+                <!-- <div class="menu" id="menu"> -->
+                <div id="myDropdown" class="dropdown-content">
+                    <a href="#">로그인</a>
+                    <a href="#">로그아웃</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<br/>
+<main class="body-style">
+    <h1>예약하기</h1>
+    <!-- 전달된 히든 필드 값을 화면에 출력 -->
+    <h2>객실정보 확인</h2>
+    <div class="roomInfo-card">
+        <div class="roomInfo-card-col">
+            숙소정보: <span class="roomInfo-center" th:text="${hostId}"></span>
+        </div>
+        <div class="roomInfo-card-col">
+            객실정보: <span class="roomInfo-center" th:text="${roomId}"></span>
+        </div>
+        <div class="roomInfo-card-col">
+            객실가격: <span class="roomInfo-center" th:text="${payPrice}"></span>
+        </div>
+    </div><br/><hr/>
+    <h2>예약정보 확인</h2>
+    <form id="bookingForm" class="bookingInfo-card">
+        <input type="hidden" id="memberId" name="memberId" th:value="${memberId}"/>
+        <input type="hidden" id="hostId" name="hostId" th:value="${hostId}"/>
+        <input type="hidden" id="roomId" name="roomId" th:value="${roomId}"/>
+        <input type="hidden" id="payPrice" name="payPrice" th:value="${payPrice}"/>
+        <input type="hidden" id="payType" name="payType" value="20"/>
+
+        <div class="bookingInfo-card-col">
+            <div>
+                <label class="bookingInfo-label" for="checkInDate">체크인 날짜 : </label>
+            </div>
+            <div>
+                <input class="bookingInfo-center input-style" type="date" id="checkInDate" name="checkInDate" required/>
+            </div>
+            <div></div>
+        </div>
+        <div class="bookingInfo-card-col">
+            <div>
+                <label class="bookingInfo-label" for="checkOutDate">체크아웃 날짜 : </label>
+            </div>
+            <div>
+                <input class="bookingInfo-center input-style" type="date" id="checkOutDate" name="checkOutDate" required/>
+            </div>
+            <div></div>
+        </div>
+        <div class="bookingInfo-card-col">
+            <div>
+                <label class="bookingInfo-label" for="guestName">예약자명 : </label>
+            </div>
+            <div>
+                <input class="bookingInfo-center input-style" type="text" id="guestName" name="guestName" required/>
+            </div>
+            <div></div>
+        </div>
+        <div class="bookingInfo-card-col">
+            <div>
+                <label class="bookingInfo-label" for="guestContact">예약자 연락처 : </label>
+            </div>
+            <div>
+                <input class="bookingInfo-center input-style" type="text" id="guestContact" name="guestContact" required/>
+            </div>
+            <div>
+                <button class="payBtn input-style" type="button" id="payButton">결제하기</button>
+            </div>
+        </div>
+    </form><br/><br/>
+</main>
+<footer>
+    <!-- footer -->
+    <div class="contents_footer">
+        <div class="footer">
+            <div class="footer_top">
+                <div class="cs_contect">
+                    <h3>고객센터</h3>
+                    오전 9시 - 새벽 3시 <br>
+                    운영안함
+                </div>
+                <div class="footer_menu">
+                    <div class="footer_menu1">
+                        <div class="footer_menu2">
+                            회사
+                        </div>
+                        <div class="footer_menu3">
+                            회사소개
+                        </div>
+                    </div>
+
+                    <div class="footer_menu1">
+                        <div class="footer_menu2">
+                            서비스
+                        </div>
+                        <div class="footer_menu3">
+                            공지사항
+                        </div>
+                        <div class="footer_menu3">
+                            자주묻는질문
+                        </div>
+                    </div>
+
+                    <div class="footer_menu1">
+                        <div class="footer_menu2">
+                            혜택
+                        </div>
+                        <div class="footer_menu3">
+                            엘리트 멤버십
+                        </div>
+                        <div class="footer_menu3">
+                            트립홀릭 혜택 안내
+                        </div>
+                        <div class="footer_menu3">
+                            여기어때 상품권 조회
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="introduce">
+                (주)여기묵자컴퍼니<br>
+                주소 : 서울 강남구 테헤란로 7길 7 1실 | 대표이사 : 카페인 | 사업자등록번호 : 123-45-09876<br>
+                (주)여기묵자컴퍼니는 어쩌고저쩌고로서 아아 드디어 끝났다, 상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.
+            </div>
+
+        </div>
+    </div>
+
+    </div>
+</footer>
+
+<!--<script>-->
+<!--    $(document).ready(function() {-->
+<!--        $("#payButton").click(function() {-->
+<!--            requestPay();-->
+<!--        });-->
+<!--    });-->
+
+<!--    function requestPay() {-->
+<!--        const IMP = window.IMP;-->
+<!--        IMP.init("imp43706580");-->
+
+<!--        var guestName = $('#guestName').val();-->
+<!--        var guestContact = $('#guestContact').val();-->
+<!--        var payPrice = $('#payPrice').val();-->
+
+<!--        if (!IMP) {-->
+<!--            console.error("IMP 객체가 초기화되지 않았습니다.");-->
+<!--            return;-->
+<!--        }-->
+
+<!--        IMP.request_pay({-->
+<!--            pg: 'html5_inicis',-->
+<!--            pay_method: 'card',-->
+<!--            merchant_uid: 'merchant_' + new Date().getTime(),-->
+<!--            name: '주문명:결제테스트',-->
+<!--            amount: payPrice,-->
+<!--            buyer_name: guestName,-->
+<!--            buyer_tel: guestContact,-->
+<!--            buyer_addr: '서울특별시 강남구 삼성동',-->
+<!--            buyer_postcode: '123-456'-->
+<!--        }, function (rsp) {-->
+<!--            if (rsp.success) {-->
+<!--                const formData = {-->
+<!--                    imp_uid: rsp.imp_uid,-->
+<!--                    merchant_uid: rsp.merchant_uid,-->
+<!--                    payPrice: payPrice,-->
+<!--                    guestName: guestName,-->
+<!--                    guestContact: guestContact,-->
+<!--                    memberId: $('#memberId').val(),-->
+<!--                    hostId: $('#hostId').val(),-->
+<!--                    roomId: $('#roomId').val(),-->
+<!--                    checkInDate: $('#checkInDate').val(),-->
+<!--                    checkOutDate: $('#checkOutDate').val(),-->
+<!--                    payType: $('#payType').val()-->
+<!--                };-->
+
+<!--                $.ajax({-->
+<!--                    url: '/mugja/completetest',-->
+<!--                    method: 'POST',-->
+<!--                    contentType: 'application/json',-->
+<!--                    data: JSON.stringify(formData),-->
+<!--                    success: function(data) {-->
+<!--                        if (data.success) {-->
+<!--                            alert('결제가 완료되었습니다.');-->
+<!--                            window.location.href = '/mypage/bookinglist';-->
+<!--                        } else {-->
+<!--                            alert('결제 실패: ' + data.error);-->
+<!--                        }-->
+<!--                    },-->
+<!--                    error: function(xhr, status, error) {-->
+<!--                        alert('결제 실패: ' + error);-->
+<!--                    }-->
+<!--                });-->
+<!--            } else {-->
+<!--                alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);-->
+<!--            }-->
+<!--        });-->
+<!--    }-->
+<!--</script>-->
+<script>
+    $(document).ready(function() {
+        $("#payButton").click(function() {
+            requestPay();
+        });
+    });
+
+    function requestPay() {
+        const IMP = window.IMP;
+        IMP.init("imp43706580");
+
+        var guestName = $('#guestName').val();
+        var guestContact = $('#guestContact').val();
+        var payPrice = $('#payPrice').val();
+
+        if (!IMP) {
+            console.error("IMP 객체가 초기화되지 않았습니다.");
+            return;
+        }
+
+        IMP.request_pay({
+            pg: 'html5_inicis',
+            pay_method: 'card',
+            merchant_uid: 'merchant_' + new Date().getTime(),
+            name: '주문명:결제테스트',
+            amount: payPrice,
+            buyer_name: guestName,
+            buyer_tel: guestContact,
+            buyer_addr: '서울특별시 강남구 삼성동',
+            buyer_postcode: '123-456'
+        }, function (rsp) {
+            console.log(rsp);
+            if (rsp.success) {
+                const formData = {
+                    imp_uid: rsp.imp_uid,
+                    merchant_uid: rsp.merchant_uid,
+                    payPrice: payPrice,
+                    guestName: guestName,
+                    guestContact: guestContact,
+                    memberId: $('#memberId').val(),
+                    hostId: $('#hostId').val(),
+                    roomId: $('#roomId').val(),
+                    checkInDate: $('#checkInDate').val(),
+                    checkOutDate: $('#checkOutDate').val(),
+                    payType: $('#payType').val()
+                };
+
+                $.ajax({
+                    url: '/mugja/completetest',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(formData),
+                    success: function(data) {
+                        if (data.success) {
+                            alert('결제가 완료되었습니다.');
+                            window.location.href = '/mypage/bookinglist?memberId={memberId}';
+                        } else {
+                            alert('결제 실패: ' + data.error);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('결제 실패: ' + error);
+                    }
+                });
+            } else {
+                alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+            }
+        });
+    }
+</script>
+
+
+</body>
+</html>
