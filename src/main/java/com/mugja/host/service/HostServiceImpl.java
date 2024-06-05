@@ -57,6 +57,7 @@ public class HostServiceImpl implements HostService{
     @Override
     @Transactional
     public Page<HostWishDTO> findHostsAuth(Integer memId, String category, String search, Pageable pageable) {
+        System.out.println("search service : "+search);
         Page<HostWishDTO> page = hostRepository.findByTagNative(category, search, pageable);
         System.out.println("findHostsAuth");
         page.forEach(hostWishDTO -> {
@@ -78,6 +79,7 @@ public class HostServiceImpl implements HostService{
     @Override
     @Transactional
     public Page<HostWishDTO> findHosts(String category, String search, Pageable pageable) {
+        System.out.println("search service : "+search);
         Page<HostWishDTO> page = hostRepository.findByTagNative(category, search, pageable);
         page.forEach(hostWishDTO -> {
             hostWishDTO.setHostImgList(

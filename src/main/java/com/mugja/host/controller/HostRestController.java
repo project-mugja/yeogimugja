@@ -44,6 +44,7 @@ public class HostRestController {
     @GetMapping("/category/{category}/{pageNo}/{search}")
     public ResponseEntity<Page<HostWishDTO>> getHostByCategory(@PathVariable String category, @PathVariable int pageNo, @PathVariable String search){
 //        try {
+        System.out.println("search: " + search);
             if(memberService.getMemId() != null){
                 System.out.println("authed");
                 return new ResponseEntity<Page<HostWishDTO>>(
