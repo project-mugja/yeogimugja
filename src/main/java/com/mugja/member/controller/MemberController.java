@@ -73,10 +73,12 @@ public class MemberController {
 
 	@RequestMapping(value="/create",method = {RequestMethod.GET,RequestMethod.POST})
 	public String create(MemberDto dto) {
+		System.out.println(dto.getMem_email_hidden()+"dto이메일값");
 		dto.setMem_email(dto.getMem_email_hidden());
 		service.createmember(dto);
 		return "redirect:/mugja/login";
 	}
+	
 	@RequestMapping(value="/pwdfind",method = {RequestMethod.GET,RequestMethod.POST})
 	public String pwdfind() {
 		return "/view/pwdfind";
