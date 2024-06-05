@@ -1,21 +1,24 @@
-<!DOCTYPE html> 
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
+<title>header</title>
 <!-- css불러오는 부분 -->
 <!-- <link rel="stylesheet" type="text/css" href="../../../resources/css/common/Mainpage.css"> -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/css/common/header.css">
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- 자바스크립트 입력부 -->
-<script>
+<!--<script>-->
 
-</script>
+<!--</script>-->
 </head>
 
 <body>
+    <header>
     <!-- -----------공통 헤더 시작------------- -->
     <div class="contents_header">
         <div class="header">
@@ -31,110 +34,6 @@
             </div>
         </div>
     </div>
-
+    </header>
 </body>
-
-<style>
-.head_btn a{
-    text-decoration: none;
-    color:black;
-}
-  .signinbtn{
-    margin:0px;
-    overflow: visible;
-    text-transform: none;
-    font-weight: 600;
-    font-size:12px;
-    text-align: center;
-    outline-style: unset;
-    cursor:pointer;
-    box-sizing: border-box;
-    display:block;
-    border-radius: 8px;
-    height: 40px;
-    line-height: 17px;
-    padding: 0 14px;
-    background: #fff;
-    border: 1.5px solid #ebebeb;
-    color: #333;
-    width:128px;
-    
-  }
-/* CSS 파트 */
-/* 메인페이지 영역 */
-/* 공통사항 */
-.contents{
-        width: 100%;
-        margin : 0.2% 0;
-    }
-    
-    [role=region]{
-        /* background-color: aquamarine; */
-        border: 1px crimson;
-        width: 1200px;
-        /* height: 100%; */
-        inset: 0px;
-        margin-top:20px;
-        margin-right: auto;
-        margin-left: auto;
-        
-    }
-    .body_content{
-        display: flex;
-        flex-direction: column;
-        background-color: white;
-        padding-bottom: 96px;
-    }
-/* //////////////////////////////////////////////////////// */
-/* 헤더 */
-    .contents_header{
-        width:100%;
-        display:flex;
-        justify-content: center;
-    }
-    .header{
-        height: 75px;
-        width : 1200px;
-        display: flex;
-        flex-wrap: nowrap;
-        justify-content: space-between;
-        /* 테스트용 */
-        /* background-color: bisque;  */
-        align-items: center;
-    }
-    /* 헤더 우측 로고 */
-    .head_logo{
-        height: 100%;
-        width:100%;
-        outline:  2px solid transparent;
-        outline-offset: 2px;
-    }
-    .head_logo img {
-        height:100%;
-    }
-    /* 헤더 좌측 로그인 + 메뉴버튼 */
-    .head_btn{
-        display: flex;
-        line-height: inherit;
-        width:200px;
-        justify-content: flex-end;
-        align-items: center;
-    }
-    /* 메뉴 진입버튼 */
-    .login_btn{
-        cursor: pointer;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-    /* gap: 8px; */
-    }
-    .login_btn div {
-        width: 25px;
-        height: 4px;
-        background-color: black;
-        margin: 2px 0;
-    }
-</style>
 </html>

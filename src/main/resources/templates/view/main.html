@@ -1,63 +1,64 @@
-<!DOCTYPE html> 
-<html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <!-- css불러오는 부분 -->
-<!-- <link rel="stylesheet" type="text/css" href="../../../resources/css/common/Mainpage.css"> -->
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/css/common/header.css">
+<link rel="stylesheet" href="/css/common/main.css">
+<link rel="stylesheet" href="/css/common/footer.css">
+
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!-- 자바스크립트 입력부 -->
-<script>
-    //////////////////////////////////////////////////////////
-    // Main 캘린더가 들어가는 부분
-    $(function() {
-        // jQuery UI Datepicker의 기본 설정
-        $.datepicker.setDefaults({
-            dateFormat: "yy-mm-dd",
-            firstDay: 0, // 일요일을 첫 번째 요일로 설정
-            dayNamesMin: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], // 요일 약어
-        });
+<!--<script>-->
+<!--    //////////////////////////////////////////////////////////-->
+<!--    // Main 캘린더가 들어가는 부분-->
+<!--    $(function() {-->
+<!--        // jQuery UI Datepicker의 기본 설정-->
+<!--        $.datepicker.setDefaults({-->
+<!--            dateFormat: "yy-mm-dd",-->
+<!--            firstDay: 0, // 일요일을 첫 번째 요일로 설정-->
+<!--            dayNamesMin: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], // 요일 약어-->
+<!--        });-->
 
-        var startDateTextBox = $("#startDate");
-        var endDateTextBox = $("#endDate");
+<!--        var startDateTextBox = $("#startDate");-->
+<!--        var endDateTextBox = $("#endDate");-->
 
-        // 시작 날짜 선택 시 호출되는 함수
-        startDateTextBox.datepicker({
-            onSelect: function(selectedDate) {
-                // 시작 날짜를 선택하면 끝 날짜의 최소 날짜를 설정
-                var minDate = $(this).datepicker('getDate');
-                endDateTextBox.datepicker('option', 'minDate', minDate);
-            }
-        });
+<!--        // 시작 날짜 선택 시 호출되는 함수-->
+<!--        startDateTextBox.datepicker({-->
+<!--            onSelect: function(selectedDate) {-->
+<!--                // 시작 날짜를 선택하면 끝 날짜의 최소 날짜를 설정-->
+<!--                var minDate = $(this).datepicker('getDate');-->
+<!--                endDateTextBox.datepicker('option', 'minDate', minDate);-->
+<!--            }-->
+<!--        });-->
 
-        // 끝 날짜 선택 시 호출되는 함수
-        endDateTextBox.datepicker({
-            onSelect: function(selectedDate) {
-                // 끝 날짜를 선택하면 시작 날짜의 최대 날짜를 설정
-                var maxDate = $(this).datepicker('getDate');
-                startDateTextBox.datepicker('option', 'maxDate', maxDate);
-            }
-        });
-    });
-</script>
+<!--        // 끝 날짜 선택 시 호출되는 함수-->
+<!--        endDateTextBox.datepicker({-->
+<!--            onSelect: function(selectedDate) {-->
+<!--                // 끝 날짜를 선택하면 시작 날짜의 최대 날짜를 설정-->
+<!--                var maxDate = $(this).datepicker('getDate');-->
+<!--                startDateTextBox.datepicker('option', 'maxDate', maxDate);-->
+<!--            }-->
+<!--        });-->
+<!--    });-->
+
+
+
+<!--//    searchForm.addEventListener("submit", (event) => {-->
+<!-- //       event.preventDefault();-->
+<!--  //      window.location = `https://main&#45;&#45;mugja.netlify.app/search/all/${searchInput.value}/${token}`-->
+<!--   // })-->
+<!--</script>-->
 </head>
 
 <body>
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript">   
-    $(document).ready( function() {
-        $("#headers").load("../view/common_head.html");  // 원하는 파일 경로를 삽입하면 된다
-        $("#footers").load("../view/common_footer.html");  // 원하는 파일 경로를 삽입하면 된다
-    });
-    </script>
+<!--    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>-->
     <!-- -----------공통 헤더 시작------------- -->
-    <div id="headers"></div>
-    
-
-
+    <div th:include="view/common_head :: header"></div>
     <!-----------헤더 - 메인컨텐츠 구분선---------->
 
     <!-- 메인페이지 -->
@@ -87,7 +88,7 @@
                                     <div class="input_bar">
                                         <div class="input_text1">
                                             <!-- 실제 검색값 입력하는곳 -->
-                                            <input name="search_item" type="text" placeholder="여행지나 숙소를 검색해보세요" maxlength="100" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" class="input_text2" value="" method="post">
+                                            <input id="search-result" name="search_item" type="text" placeholder="여행지나 숙소를 검색해보세요" maxlength="100" autocomplete="off" autocapitalize="none" autocorrect="off" spellcheck="false" class="input_text2" value="" method="post">
                                         </div>
                                     </div>
                                 </div>
@@ -105,15 +106,15 @@
                                             <label for="endDate" class="label1">퇴실 날짜</label>
                                             <input type="text" id="endDate" name="endDate">
                                             </div>                 
+                                        </form>
                                     </div>
                                 </div>
                                 <!-- 검색버튼 영역 -->
                                 <div class="search_btn">
                                     <!-- 버튼 액션 -->
-                                    <button type="submit" class="search_btn1">
+                                    <button id="search-button" class="search_btn1">
                                         <span>검색</span>
                                     </button>
-                                    </form>
                                 </div>
                             </form>
                         </div>
@@ -263,6 +264,7 @@
 
     </div>
 </body>
+<script src="/js/main-search.js" type="text/javascript"></script>
 <style>
 /* CSS 파트 */
 /* 메인페이지 영역 */
