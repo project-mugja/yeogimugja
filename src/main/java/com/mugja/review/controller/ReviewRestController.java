@@ -1,12 +1,10 @@
 package com.mugja.review.controller;
 
 
-import com.mugja.member.dto.MemberDto;
 import com.mugja.member.service.MemberService;
 import com.mugja.member.service.SecurityService;
 import com.mugja.review.dto.Review;
 import com.mugja.review.service.ReviewService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;

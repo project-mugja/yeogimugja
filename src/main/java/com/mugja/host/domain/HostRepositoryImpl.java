@@ -35,7 +35,6 @@ public class HostRepositoryImpl implements HostRepositoryCustom{
         String searchQuery = "a.host_name like :search or a.host_address like :search ";
 
         String tagSearchQuery =
-                "or tag1 like :search " +
                 "or tag2 like :search " +
                 "or tag3 like :search " +
                 "or tag4 like :search " +

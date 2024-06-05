@@ -1,26 +1,15 @@
 package com.mugja.member.controller;
 
 import com.mugja.jwt.JwtUtils;
-import com.mugja.member.dto.LoginRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import com.mugja.jwt.JwtUtils;
-import com.mugja.member.dto.LoginRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.mugja.member.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mugja.member.dto.MemberDto;
 import com.mugja.member.service.MemberServiceImpl;
 
 @Controller
