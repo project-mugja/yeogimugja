@@ -27,7 +27,6 @@ public class ImageController {
     public ResponseEntity<Resource> getImage(
             @PathVariable String folderName,
             @PathVariable String fileName) {
-        System.out.println("get image for " + folderName + "/" + fileName);
         try {
             Path folderPath = Paths.get(baseDir, folderName).toAbsolutePath().normalize();
             Path filePath = folderPath.resolve(fileName).normalize();
