@@ -5,7 +5,7 @@
 <mapper namespace="com.mugja.member.mapper.MemberMapper">
 
 <insert id="createmember" parameterType="MemberDto">
- insert into mem	
+ insert into mem(mem_id,mem_email,mem_pwd,mem_point,mem_grade)	
  value(null,#{mem_email},#{mem_pwd},0,#{mem_grade});
  </insert> 
  

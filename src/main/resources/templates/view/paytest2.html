@@ -1,0 +1,97 @@
+	<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>결제페이지</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+   <script>
+    $(document).ready(function() {
+        $("#payButton").click(function() {
+            requestPay();
+        });
+    });
+
+    function requestPay() {
+        const IMP = window.IMP; // 생략해도 괜찮습니다.
+        IMP.init("imp43706580"); //
+        
+        var book_name = $('#book_name').val();
+        var book_contact = $('#book_contact').val();
+        var book_price = $('#book_price').val();
+        
+        // IMP 객체가 제대로 초기화되었는지 확인
+        if (!IMP) {
+            console.error("IMP 객체가 초기화되지 않았습니다.");
+            return;
+        }
+
+        IMP.request_pay({
+            pg: 'html5_inicis', // 사용할 PG사
+            pay_method: 'card', // 결제수단
+            merchant_uid: 'merchant_' + new Date().getTime(), // 주문번호
+            name: '주문명:결제테스트', // 주문명
+            amount: book_price, // 금액
+            buyer_name: book_name,
+            buyer_tel: book_contact,
+            buyer_addr: '서울특별시 강남구 삼성동',
+            buyer_postcode: '123-456'
+        }, function (rsp) { // callback
+            if (rsp.success) {
+            	console.log(rsp.imp_uid)
+            	
+                $.ajax({
+                    url: '/mugja/completetest',
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        imp_uid: rsp.imp_uid,
+                        merchant_uid: rsp.merchant_uid,
+                        book_price : book_price,
+                        book_name : book_name,
+                        book_contact : book_contact
+                    }),
+                    
+                    success: function(data) {
+                    	console.log('ㅇㅇ');
+                        if (data.success) {
+                            alert('결제 성공');
+                        } else {
+                            alert('결제 실패: ' + data.error);
+                        	console.log(imp_uid);
+                        	console.log(merchant_uid);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('결제 실패: ' + error);
+                    }
+                });
+            } else {
+                // 결제 실패 시 로직
+                alert('결제에 실패하였습니다. 에러 내용: ' + rsp.error_msg);
+            }
+        });
+    }
+</script>
+</head>
+<body>
+<hr/>
+<h3>받아올 값</h3>
+체크인<input type="text" class="checkin"><br/>
+체크아웃<input type="text" class="checkout"><br/>
+회원아이디<input type="text" name="userid" th:text="${userid}" id="userid" class="userid"><br/>
+<hr/>
+
+<h3>입력값</h3>
+<form action="" method="post">
+<input type="hidden" name="userid" th:value="${userid}"><br/>
+<input type="hidden" name="checkin">
+<input type="hidden" name="checkout">
+예약자 성함<input type="text" name="book_name" id="book_name" ><br/>
+예약자 연락처<input type="text" name="book_contact" id="book_contact"><br/>
+예약금액<input type="text" name="book_price" id="book_price"><br/>
+<hr/>
+</form>
+    <button id="payButton">결제하기</button>
+</body>
+</html>
