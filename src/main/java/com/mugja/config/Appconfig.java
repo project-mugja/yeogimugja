@@ -12,6 +12,7 @@ public class Appconfig implements WebMvcConfigurer {
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		
 		registry.addResourceHandler("/comFile/**")
+		.addResourceLocations("file:///C:/yogimugja/img/room/")
         .addResourceLocations("file:///C:/yogimugja/img/host/");
 	}
 

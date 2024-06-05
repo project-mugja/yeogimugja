@@ -11,6 +11,11 @@ $(document).ready(function() {
     });
 });
 
+function disableEmailField() {
+            document.getElementById("mem_email").disabled = true;
+            document.getElementById("email_auth").disabled = true;
+        }
+        
 function checkPasswordMatch() {
     var password = $('#password').val();
     var confirmPassword = $('#mem_pwd_ck').val();
@@ -121,6 +126,7 @@ function fn_emailOk() {
 					alert("인증이 완료되었습니다.");
 					$("#mail_check").slideUp();
 					emailOk ='true';
+					disableEmailField();
 					return;
 				} else if(response==false){
 					alert("인증번호가 일치하지 않습니다.");

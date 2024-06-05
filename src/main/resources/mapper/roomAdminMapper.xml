@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        
+<mapper namespace="com.mugja.room.mapper.RoomMapper">
+
+<insert id="roomwrite" parameterType="com.mugja.room.dto.RoomDto">
+insert into room(room_id,host_id,room_maxcapacity,room_name,room_price,room_isbooked)	
+ value(null,#{host_id},#{room_maxcapacity},#{room_name},#{room_price},0)
+</insert> 
+
+
+
+<!--host 게시글값  -->
+<select id="gethostId" resultType="int">
+select host_id from host
+ order by host_id desc limit 1;
+</select>
+
+
+
+<select id="hostidcheck" resultType="int" parameterType="com.mugja.room.dto.RoomDto">
+select * from room where host_id=#{host_id}
+</select>
+
+
+<select id="roomid" resultType="int" parameterType="com.mugja.room.dto.RoomDto">
+select * from room order by room_id desc limit 1;
+</select>
+
+<select id="roomList" resultType="com.mugja.room.dto.RoomDto" parameterType="int">
+ select * from room where host_id=#{hostid} order by room_id desc
+</select>
+
+<select id="roomImgList" parameterType="int" resultType="String">
+select room_imgpath 
+from room_img where room_id=#{room_id}
+ order by room_img_id limit 1
+</select>
+
+<select id="hostname" resultType="String" parameterType="int">
+select host_name from host where host_id=#{hostid};
+</select>
+
+
+</mapper>
