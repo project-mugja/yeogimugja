@@ -34,41 +34,7 @@
     </script>
 </head>
 <body class="body-style">
-<header>
-    <!-- 공통 header -->
-    <div class="contents_header">
-        <div class="header">
-            <!-- 로고 img -->
-            <div class="head_logo">
-                <a href=""><img src="../../static/img/logo_002.png"></a>
-            </div>
-            <!-- 로그인/회원가입 버튼 or 유저정보 표출 -->
-            <div class="head_btn">
-                <div class="login_info">로그인 하세요</div>
-                <!-- 햄버거/ 세줄짜리 메뉴버튼 -->
-                <div class="dropdown">
-                    <button onclick="myFunction()" class="dropbtn">
-                        <div class="login_btn" id="login_btn">
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                    </button>
-                    <div id="myDropdown" class="dropdown-content">
-                        <a href="#">로그인/로그아웃</a>
-                        <a href="#">마이페이지</a>
-                    </div>
-                </div>
-                <!-- 버튼 내부 메뉴 -->
-                <!-- <div class="menu" id="menu"> -->
-                <div id="myDropdown" class="dropdown-content">
-                    <a href="#">로그인</a>
-                    <a href="#">로그아웃</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
+<div th:include="view/common_head :: header"></div>
 <br/>
 <main class="body-style">
     <h1>예약하기</h1>

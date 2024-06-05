@@ -75,19 +75,6 @@
     <button type="button" onclick="location.href='/mugja/admin/hostlist'">숙소 목록</button>
 </div>
 <form th:action="@{'/mugja/admin/hostdetailupdate/'+${hostid.host_id}}" method="post">
-<div class="button-container">
-    <a th:href="@{/mugja/admin/roomadd/{hostid}(hostid=${hostid.host_id})}">
-        <button>객실 추가</button>
-    </a>
-    <a th:href="@{/mugja/admin/roomlist/{hostid}(hostid=${hostid.host_id})}">
-        <button>객실목록</button>
-    </a>
-    <a th:href="@{/mugja/admin/hostdelete/{hostid}(hostid=${hostid.host_id})}">
-        <button>삭제하기</button>
-    </a>
-    <button type="button" onclick="location.href='/mugja/admin/hostlist'">숙소 목록</button>
-</div>
-<form th:action="@{'/mugja/admin/hostdetailupdate/'+${hostid.host_id}}" method="post">
     <div class="container1">
         <div class="host-info">
             <th:block th:each="hostItem : ${host}">
@@ -118,7 +105,6 @@
             </th:block>
         </div>
     </div>
-    <input type="submit" value="수정하기"/>
     <input type="submit" value="수정하기"/>
 </form>
 </th:block>
