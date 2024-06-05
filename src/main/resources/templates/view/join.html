@@ -1,49 +1,37 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>여기묵자 회원가입</title>
- <link rel="stylesheet" href="/css/member.css">
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/js/mail.js"></script>
-
-<!-- 자바스크립트 입력부 -->
-<script>
-    ////////////////////////////////////////////////
-    // header _ 햄버거 메뉴 버튼
-    /* 사용자가 버튼을 클릭할 때, 드롭다운 내용을 토글 */
-    function myFunction() {
-      document.getElementById("myDropdown").classList.toggle("show");
-    }
-    
-    // 사용자가 버튼 외부를 클릭하면 드롭다운을 닫음
-    window.onclick = function(event) {
-      if (!event.target.matches('.dropbtn') && !event.target.closest('.dropbtn')) {
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        for (var i = 0; i < dropdowns.length; i++) {
-          var openDropdown = dropdowns[i];
-          if (openDropdown.classList.contains('show')) {
-            openDropdown.classList.remove('show');
-          }
-        }
-      }
-    }
-    </script>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>여기묵자 회원가입</title>
+        <link rel="stylesheet" href="/css/member.css">
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="/js/mail.js"></script>
+        
+        <!-- 자바스크립트 입력부 -->
+        <script>
+            ////////////////////////////////////////////////
+            // header _ 햄버거 메뉴 버튼
+            /* 사용자가 버튼을 클릭할 때, 드롭다운 내용을 토글 */
+            function myFunction() {
+                document.getElementById("myDropdown").classList.toggle("show");
+            }
+            
+            // 사용자가 버튼 외부를 클릭하면 드롭다운을 닫음
+            window.onclick = function(event) {
+                if (!event.target.matches('.dropbtn') && !event.target.closest('.dropbtn')) {
+                    var dropdowns = document.getElementsByClassName("dropdown-content");
+                    for (var i = 0; i < dropdowns.length; i++) {
+                        var openDropdown = dropdowns[i];
+                        if (openDropdown.classList.contains('show')) {
+                            openDropdown.classList.remove('show');
+                        }
+                    }
+                }
+            }
+            </script>
 </head>
 <body>
-    <!-- -----------공통 헤더 시작------------- -->
-    <!-- 헤더 import jquery -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript">   
-    $(document).ready( function() {
-    $("#headers").load("../view/common_head.html");  // 원하는 파일 경로를 삽입하면 된다
-    $("#footer").load("../view/common_footer.html");  // 원하는 파일 경로를 삽입하면 된다
-    
-    });
-    </script>
-    <!-- 헤더 삽입 -->
-    <div id="headers"></div>
-    <!-- -----------공통 헤더 종료------------- -->
+    <div th:include="view/common_head :: header"></div>
     <!-- ------------------회원가입 폼 시작---------------------------------- -->
 <div class="contents">
 <div class="contents_body">
