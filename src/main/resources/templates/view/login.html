@@ -2,8 +2,11 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <!-- 타임리프 프래그먼트 테스트? -->
 <!-- <head th:replace="fragments/common_header :: main-head"> </head> -->
+    <!-- 타임리프 프래그먼트 테스트? -->
+<!-- <head th:replace="fragments/common_header :: main-head"> </head> -->
 <head>
 <meta charset="UTF-8">
+<title>여기묵자 / Yogimugja</title>
 <title>여기묵자 / Yogimugja</title>
 </head>
 <body>
@@ -31,6 +34,11 @@ $("#headers").load("../view/common_head.html");  // 원하는 파일 경로를 �
                     <input placeholder="비밀번호" class="input_info" type="password"  id="password" name="password" style=" padding-left:20px;" >
                     <input class="input_button" type="submit" value="로그인">
                 </form>
+                <!-- @@@@ 240604 로그인실패시 메세지출력@@@@@ -->
+		 <div id="error-message" style="display: none;">
+        <p style="color: red;">로그인 실패: 아이디 또는 비밀번호를 확인하세요.</p>
+    </div>
+                <!-- @@@@ 240604 로그인실패시 메세지출력@@@@@ -->
             </div>
             <!-- 하단 추가 내용 -->
             <div class="signup">
@@ -82,6 +90,9 @@ window.onclick = function(event) {
             })
                 .then(response => {
                     if (!response.ok) {
+                    	/* @@@ @@@@@ */
+                    	document.getElementById('error-message').style.display = 'block';
+                    	/* @@@ @@@@@ */
                         throw new Error('Network response was not ok');
                     }
                     console.log("response : ",response)

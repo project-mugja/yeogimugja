@@ -30,7 +30,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("api/member")
 public class MemberRestController {
-	
+
 	@Autowired
 	private MailService service;
 
@@ -47,8 +47,9 @@ public class MemberRestController {
 	private String number="";
 
 
-    @PostMapping("/email")
+	@PostMapping("/email")
 	public boolean email(@RequestBody MemberDto dto) {
+		System.out.println("--1--");
 		String email = dto.getMem_email();
 		number = service.createnumber();
 		boolean result=true;
@@ -56,13 +57,13 @@ public class MemberRestController {
 		if(a>0) {
 			result = false;
 
-		} else { 
-		service.sendHTMLEmail(email,number);
-		System.out.println(number + "난수");
+		} else {
+			service.sendHTMLEmail(email,number);
+			System.out.println(number + "난수");
 		}
 		return result;
 	}
-	
+
 
 	//비밀번호 찾기 컨트롤러
 	@PostMapping("/emailpwd")
@@ -78,17 +79,17 @@ public class MemberRestController {
 			service.sendHTMLEmail(email,number);
 			System.out.println(number + "난수");
 
-			
 
 
-		} else { 
+
+		} else {
 
 			result = false;
 		}
 		return result;
 	}
 
-	
+
 	//마이페이지 비밀번호 일치여부 컨트롤러
 	@PostMapping("/mypwdChk")
 	public ResponseEntity mypwdChk(@RequestParam("password") String password) {
@@ -101,8 +102,8 @@ public class MemberRestController {
 		response.put("isValid", memberService.pwdcheck(dto));
 		return ResponseEntity.ok(response);
 	}
-	
-	
+
+
 	//마이페이지 비밀번호 변경 컨트롤러
 	@PutMapping("/mypwdChg")
 	public ResponseEntity mypwdChg(@RequestParam("password") String password) {
@@ -135,26 +136,26 @@ public class MemberRestController {
 		return result;
 	}
 
-	
+
 	//비밀번호 난수생성이후 메일발송
 	@PostMapping("/emailSendPwd")
 	public void emailSednPwd(@RequestBody MemberDto dto) {
-		
+
 		//10자리 난수생성
 		number=service.createnumberpwd();
 		//dto에 pwd값으로 저장
 		dto.setMem_pwd(number);
 		System.out.println(number+"임시 비밀번호값");
-		
+
 		//db에 해당pwd 시큐리티토큰으로 저장
 		memberService.randompwd(dto);
-		
+
 		//해당값 메일전송
 		service.sendHTMLEmailpwd(dto.getMem_email(),number);
-		
+
 	}
 
-	
+
 	//로그인 버튼 누르면 이 메서드
 	@RequestMapping(value="/loginaction",method = {RequestMethod.POST})
 	public ResponseEntity doLogin(@RequestBody LoginRequest req, HttpServletResponse res){

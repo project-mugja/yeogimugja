@@ -1,68 +1,56 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>비밀번호 찾기</title>
- <link rel="stylesheet" href="/css/member.css">
-<script src="https://code.jquery.com/jquery-latest.min.js"></script>
-<script src="/js/mail.js"></script>
-</head>
-<body>
-    <!-- -----------공통 헤더 시작------------- -->
-    <!-- 헤더 /푸터 import jquery -->
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript">   
-    $(document).ready( function() {
-    $("#headers").load("../view/common_head.html");  // 원하는 파일 경로를 삽입하면 된다
-    $("#footers").load("../view/common_footer.html");  // 원하는 파일 경로를 삽입하면 된다
-    });
-    </script>
-    <!-- 헤더 / 푸터 삽입 -->
-    <div id="headers"></div>
-    <!-- <div id="footers"></div> -->
-    <!-- -----------공통 헤더 /푸터 종료------------- -->
-
-    <div class="contents">
-        <div class="contents_body">
-            <div class="signup_title">
-                <div class="signup_title1">비밀번호 재설정</div>
-                <div class="signup_title2" style="padding-top:10px;">회원가입 시 등록한 이메일 주소를 입력해 주세요.</div>
-            </div>
-            
-            <div class="signup_frm">
-                <form action="/mugja/pwdchg" method="post">
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>비밀번호 찾기</title>
+        <link rel="stylesheet" href="/css/member.css">
+        <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+        <script src="/js/mail.js"></script>
+    </head>
+    <body>
+        <div th:include="view/common_head :: header"></div>
         
-                    <!-- 이메일 작성 영역 -->
-                    <div>
-                        <div class="mail_title">이메일</div> 
-                        <input class="input" placeholder="1234@Yogimugja.co.kr" type="email" name="mem_email" id="mem_email">
-                        <button type="button" id="email_auth_pwd" class="email_auth_pwd">인증요청</button>
-                    </div>
-
-                    <!-- 이메일 인증번호 입력 영역 -->
-                    <div class="mail_check" id="mail_check">
-                        <input class="input" placeholder="인증번호를 입력해주세요" type="text" id="number" class="number"/>
-                        <button type="button" id="mailcheck" class="mailcheck">확인</button>
-                    </div> 
-                    <input type="hidden" id="mailOk" class="mailOk" value="false"/>
-                </form>
+        <div class="contents">
+            <div class="contents_body">
+                <div class="signup_title">
+                    <div class="signup_title1">비밀번호 재설정</div>
+                    <div class="signup_title2" style="padding-top:10px;">회원가입 시 등록한 이메일 주소를 입력해 주세요.</div>
+                </div>
+                
+                <div class="signup_frm">
+                    <form action="/mugja/pwdchg" method="post">
+                        
+                        <!-- 이메일 작성 영역 -->
+                        <div>
+                            <div class="mail_title">이메일</div> 
+                            <input class="input" placeholder="1234@Yogimugja.co.kr" type="email" name="mem_email" id="mem_email">
+                            <button type="button" id="email_auth_pwd" class="email_auth_pwd">인증요청</button>
+                        </div>
+                        
+                        <!-- 이메일 인증번호 입력 영역 -->
+                        <div class="mail_check" id="mail_check">
+                            <input class="input" placeholder="인증번호를 입력해주세요" type="text" id="number" class="number"/>
+                            <button type="button" id="mailcheck" class="mailcheck">확인</button>
+                        </div> 
+                        <input type="hidden" id="mailOk" class="mailOk" value="false"/>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
 
-<!-- 기존 리소스 백업용 -->
-<!-- <div>이메일 <input type="email" name="mem_email" id="mem_email">
-<button type="button" id="email_auth_pwd" class="email_auth_pwd">인증번호 받기</button></div>
-<div class="mail_check" id="mail_check">
-<input type="text" id="number" class="number"/>
-<button type="button" id="mailcheck" class="mailcheck">인증</button> -->
-</div>
-</form>
-
-<style>
-    /* CSS 파트 */
-    /* 메인페이지 영역 */
-    /* 공통사항 */
+        <!-- 기존 리소스 백업용 -->
+        <!-- <div>이메일 <input type="email" name="mem_email" id="mem_email">
+            <button type="button" id="email_auth_pwd" class="email_auth_pwd">인증번호 받기</button></div>
+            <div class="mail_check" id="mail_check">
+                <input type="text" id="number" class="number"/>
+                <button type="button" id="mailcheck" class="mailcheck">인증</button> -->
+            </div>
+        </form>
+        
+        <style>
+            /* CSS 파트 */
+            /* 메인페이지 영역 */
+            /* 공통사항 */
     .contents{
             width: 100%;
             margin : 0.2% 0;

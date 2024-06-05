@@ -83,3 +83,88 @@
     
 </body>
 </html>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Room List</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #e0e0e0;
+            cursor: pointer;
+        }
+        td img {
+            width: 100px;
+            height: auto;
+            display: block;
+            max-width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+    </style>
+    <script>
+        function redirectToDetail(hostId) {
+            window.location.href = '/mugja/admin/roomdetail/' + hostId;
+        }
+    </script>
+</head>
+<body>
+<button type="button" onclick="location.href='/mugja/admin'">관리자 페이지</button>
+     <div class="container">
+        <h1 th:text=${hostname}></h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>대표이미지</th>
+                    <th>객실이름</th>
+                    <th>객실 최대인원</th>
+                    <th>객실 가격</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="room : ${list}" th:onclick="|redirectToDetail(${room.host_id})|">
+                    <td><img th:src="@{|/comFile/${room.room_imgpath}|}" alt="대표 이미지"></td>
+                    <td th:text="${room.room_name}">1234 Elm St</td>
+                    <td th:text="${room.room_maxcapacity}">(555) 123-4567</td>
+                    <td th:text="${room.room_price}">Host introduction</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+</body>
+</html>

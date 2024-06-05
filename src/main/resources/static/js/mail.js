@@ -11,6 +11,11 @@ $(document).ready(function() {
     });
 });
 
+function disableEmailField() {
+            document.getElementById("mem_email").disabled = true;
+            document.getElementById("email_auth").disabled = true;
+        }
+        
 function checkPasswordMatch() {
     var password = $('#password').val();
     var confirmPassword = $('#mem_pwd_ck').val();
@@ -71,7 +76,7 @@ function fn_email() {
 
         $.ajax({
             type: "POST",
-            url: "/mugja/email",
+            url: "/api/member/email",
             data: JSON.stringify({ mem_email: email }),
             contentType : "application/json",
             datatype : "json",
@@ -111,7 +116,7 @@ function fn_emailOk() {
 
         $.ajax({
             type: "POST",
-            url: "/mugja/emailOk",
+            url: "/api/member/emailOk",
             data: JSON.stringify({ mem_email: emailnum }),
             contentType : "application/json",
             datatype : "json",
@@ -121,6 +126,7 @@ function fn_emailOk() {
 					alert("인증이 완료되었습니다.");
 					$("#mail_check").slideUp();
 					emailOk ='true';
+					disableEmailField();
 					return;
 				} else if(response==false){
 					alert("인증번호가 일치하지 않습니다.");
@@ -158,7 +164,7 @@ function fn_emailpwd() {
 
         $.ajax({
             type: "POST",
-            url: "/mugja/emailpwd",
+            url: "/api/member/emailpwd",
             data: JSON.stringify({ mem_email: email }),
             contentType : "application/json",
             datatype : "json",
@@ -197,7 +203,7 @@ function fn_emailpwdOk() {
 
         $.ajax({
             type: "POST",
-            url: "/mugja/emailOk",
+            url: "/api/member/emailOk",
             data: JSON.stringify({ mem_email: emailnum }),
             contentType : "application/json",
             datatype : "json",
@@ -230,7 +236,7 @@ function fn_sendpwd() {
 		
         $.ajax({
             type: "POST",
-            url: "/mugja/emailSendPwd",
+            url: "/api/member/emailSendPwd",
             data: JSON.stringify({ mem_email: email }),
             contentType : "application/json",
             datatype : "json",
@@ -269,7 +275,7 @@ function fn_pwdchk() {
 
         $.ajax({
             type: "POST",
-            url: "/mugja/mypwdChg",
+            url: "/api/member/mypwdChg",
             data: JSON.stringify({ mem_pwd: password }),
             contentType: "application/json",
             dataType : "json",

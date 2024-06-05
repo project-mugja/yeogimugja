@@ -24,7 +24,7 @@ public class HostAdminListService {
 		  System.out.println(a.getHost_id());
 		  String img = mapper.hostImgList(a.getHost_id()); 
 		  if(img==null) {
-			  img="default.png"; 
+			  img="default.jpg"; 
 			  } 
 		  a.setHost_imgpath(img); 
 			  

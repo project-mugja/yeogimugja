@@ -24,7 +24,7 @@ import com.mugja.host.mapper.HostAdminMapper;
 @Service
 public class HostAdminServiceImpl implements HostAdminService {
 	
-	@Value("${spring.servlet.multipart.location}")
+	@Value("C:\\yogimugja\\img\\host")
 	private String uploadPath;
 	
 	@Autowired
