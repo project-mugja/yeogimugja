@@ -7,6 +7,7 @@ import com.mugja.jwt.JwtUtils;
 import com.mugja.member.dto.LoginRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,8 +27,8 @@ import com.mugja.member.service.MemberServiceImpl;
 @RequestMapping("/mugja")
 @ComponentScan
 public class MemberController {
-	
-	
+
+
 	@Autowired
 	private MemberServiceImpl service;
 
@@ -39,15 +40,8 @@ public class MemberController {
 
 	private AuthenticationManager authenticationManager;
 
-	@Autowired
-	private JwtUtils jwtUtils;
 
-	@Autowired
-	private UserDetailsService userDetailsService;
 
-	private AuthenticationManager authenticationManager;
-	
-	
 
 	public MemberController(MemberServiceImpl service) {
 		this.service = service;
@@ -57,7 +51,7 @@ public class MemberController {
 	public String login() {
 		return "/view/login";
 	}
-	
+
 	@RequestMapping(value="/admin",method = {RequestMethod.GET,RequestMethod.POST})
 	public String loginadmin() {
 		System.out.println("admin");
@@ -66,19 +60,20 @@ public class MemberController {
 
 
 
-	
+
 	@RequestMapping(value="/join",method = {RequestMethod.GET,RequestMethod.POST})
 	public String join(MemberDto dto) {
 		return "/view/join";
 	}
-	
+
 	@RequestMapping(value="/mypage",method = {RequestMethod.GET,RequestMethod.POST})
 	public String mypage(MemberDto dto) {
 		return "/view/mypage";
 	}
-	
+
 	@RequestMapping(value="/create",method = {RequestMethod.GET,RequestMethod.POST})
 	public String create(MemberDto dto) {
+		dto.setMem_email(dto.getMem_email_hidden());
 		service.createmember(dto);
 		return "redirect:/mugja/login";
 	}
@@ -86,7 +81,7 @@ public class MemberController {
 	public String pwdfind() {
 		return "/view/pwdfind";
 	}
-	
+
 	@RequestMapping(value="/pwdchgemail",method = {RequestMethod.GET,RequestMethod.POST})
 	public String pwdchg() {
 		return "/view/pwdchgemail";
@@ -97,7 +92,7 @@ public class MemberController {
 	public String myPwdChg() {
 		return "/view/myPwdChg";
 	}
-	
-	
-	
+
+
+
 }

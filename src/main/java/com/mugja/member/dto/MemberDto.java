@@ -20,4 +20,5 @@ public class MemberDto {
 	private String mem_point;
 	private String mem_grade;
 	private String mem_payment;
+	private String mem_email_hidden;
 }

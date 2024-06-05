@@ -36,8 +36,8 @@ import java.util.Arrays;
 @EnableWebSecurity
 public class SecurityConfiguration {
 
- 	private final JwtUtils jwtUtils;
- 	private final CustomAuthenticationHandler CustomAuthenticationHandler;
+	private final JwtUtils jwtUtils;
+	private final CustomAuthenticationHandler CustomAuthenticationHandler;
 	private final UserDetailsService userDetailsService;
 
 	@Autowired
@@ -47,10 +47,6 @@ public class SecurityConfiguration {
 		this.CustomAuthenticationHandler = CustomAuthenticationHandler;
 	}
 
-	@Bean
-	public BCryptPasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -71,39 +67,39 @@ public class SecurityConfiguration {
 				.formLogin(AbstractHttpConfigurer::disable)
 				.httpBasic(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests((auth) -> auth
-					.requestMatchers("/api","/mugja/main", "/mugja/login", "/mugja/loginaction", "/mugja/join", "/mugja/create", "/mugja/email", "/mugja/emailOk",
-							"/mugja/pwdfind", "/mugja/emailpwd", "/mugja/pwdchgemail", "/mugja/emailSendPwd").permitAll()
-					.requestMatchers("/mugja/admin/**").hasRole("ADMIN")
-					.requestMatchers("/mugja/**").hasAnyRole("ADMIN","USER")
-					.requestMatchers("/api","/jwt").authenticated()
-					.anyRequest().permitAll()
+						.requestMatchers("/api","/mugja/main", "/mugja/login", "/mugja/loginaction", "/mugja/join", "/mugja/create", "/mugja/email", "/mugja/emailOk",
+								"/mugja/pwdfind", "/mugja/emailpwd", "/mugja/pwdchgemail", "/mugja/emailSendPwd").permitAll()
+						.requestMatchers("/mugja/admin/**").hasRole("ADMIN")
+						.requestMatchers("/mugja/**").hasAnyRole("ADMIN","USER")
+						.requestMatchers("/api","/jwt").authenticated()
+						.anyRequest().permitAll()
 				)
 				.addFilterAt(
-								this.abstractAuthenticationProcessingFilter(authenticationManager),
-								UsernamePasswordAuthenticationFilter.class)
+						this.abstractAuthenticationProcessingFilter(authenticationManager),
+						UsernamePasswordAuthenticationFilter.class)
 				.logout(auth -> auth
-				.logoutUrl("/mugja/logout")
-				.logoutSuccessUrl("/mugja/login")
-				.logoutSuccessHandler(CustomAuthenticationHandler)
+						.logoutUrl("/mugja/logout")
+						.logoutSuccessUrl("/mugja/login")
+						.logoutSuccessHandler(CustomAuthenticationHandler)
 				)
 				.securityContext(securityContext -> securityContext
 						.securityContextRepository(new HttpSessionSecurityContextRepository())
 				)
 				.cors(cors -> cors.configurationSource(corsConfigurationSource()))
 				.addFilterBefore(new JwtAuthFilter(jwtUtils,userDetailsService), UsernamePasswordAuthenticationFilter.class);
-		
+
 		http.formLogin((auth) -> auth
-	                .loginPage("/mugja/login")
-	                .loginProcessingUrl("/mugja/loginaction")
-	                .failureUrl("/mugja/login")
-	                .successHandler(CustomAuthenticationHandler)  // Custom Authentication Success Handler 설정
-	                .failureHandler(CustomAuthenticationHandler)
-	                .permitAll()
-	                );
-		
+				.loginPage("/mugja/login")
+				.loginProcessingUrl("/mugja/loginaction")
+				.failureUrl("/mugja/login")
+				.successHandler(CustomAuthenticationHandler)  // Custom Authentication Success Handler 설정
+				.failureHandler(CustomAuthenticationHandler)
+				.permitAll()
+		);
+
 		http.sessionManagement(s -> s.maximumSessions(1).maxSessionsPreventsLogin(false));
-				return http.build();
-		}
+		return http.build();
+	}
 
 
 	private CorsConfigurationSource corsConfigurationSource() {
@@ -112,7 +108,7 @@ public class SecurityConfiguration {
 		configuration.setAllowedOriginPatterns(Arrays.asList(
 				"http://localhost:3000",
 				"https://main--mugja.netlify.app/"
-		));	
+		));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
 		configuration.setAllowCredentials(true);
