@@ -68,11 +68,6 @@ public class LoginAuthenticationFilter extends AbstractAuthenticationProcessingF
         context.setAuthentication(authResult);
         SecurityContextHolder.setContext(context);
 
-        System.out.println(SecurityContextHolder.getContext().getAuthentication().getName());
-        System.out.println("======");
-        System.out.println("get userId : "+securityService.userId());
-        System.out.println("======");
-
         // 인증된 사용자 정보 추출
         String username = authResult.getName();
 

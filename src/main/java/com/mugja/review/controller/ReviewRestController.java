@@ -53,7 +53,6 @@ public class ReviewRestController {
             reviewService.save(review);
             return ResponseEntity.ok().body("Success");
         }catch (IOException e){
-            System.out.println(e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }

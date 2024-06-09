@@ -52,14 +52,12 @@ public class WishListRestController {
         }
     }
 
-    //OK
-    //찜목록에 추가
+    //wishlist에 추가
     @PostMapping("/{hostId}")
     public ResponseEntity<Wish> createWish(
             @PathVariable Integer hostId
     ){
         try{
-            System.out.println("memId : "+memberService.getMemId());
             wishListService.save(
                     Wish.builder()
                             .memId(memberService.getMemId())
@@ -72,8 +70,7 @@ public class WishListRestController {
         }
     }
 
-    //OK
-    //찜목록에서 제거
+    //wishlist에서 제거
     @DeleteMapping("/{hostId}")
     public ResponseEntity<Wish> delWish(
             @PathVariable Integer hostId

@@ -34,8 +34,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         String requestURI = request.getRequestURI();
         String origin = request.getHeader("Origin");
 
-        System.out.println("filter");
-
         if (requestURI.startsWith("/api/") && "https://main--mugja.netlify.app".equals(origin)) {
             String token = request.getHeader("Authorization");
             if (token != null && token.startsWith("Bearer ")) {
@@ -43,8 +41,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 if (jwtUtils.validateToken(token)) {
                     Claims claims = jwtUtils.getClaimsFromToken(token);
                     String username = claims.getIssuer();
-
-                    System.out.println("username: " + username);
 
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
                     if(userDetails != null){
