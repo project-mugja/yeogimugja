@@ -7,7 +7,6 @@ import com.mugja.room.service.RoomService;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -43,7 +42,7 @@ public class BookingRoomController {
         // 필요한 데이터를 모델에 추가
         return "view/roomlistforbooking";
     }
-    
+
     @GetMapping("/booking/{hostId}/{roomId}/{payPrice}/{token}")
     public String submitBooking(@PathVariable String hostId,
                                 @PathVariable String roomId,
@@ -51,7 +50,7 @@ public class BookingRoomController {
                                 @PathVariable String token,
                                 HttpServletRequest request,
                                 Model model) {
-        
+
         if (jwtUtils.validateToken(token)) {
             Claims claims = jwtUtils.getClaimsFromToken(token);
             String username = claims.getIssuer();

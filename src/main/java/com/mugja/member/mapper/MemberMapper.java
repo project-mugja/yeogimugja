@@ -2,10 +2,9 @@ package com.mugja.member.mapper;
 
 
 import com.mugja.member.dto.LoginRequest;
+import com.mugja.member.dto.MemberDto;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
-
-import com.mugja.member.dto.MemberDto;
 
 @Mapper
 public interface MemberMapper {

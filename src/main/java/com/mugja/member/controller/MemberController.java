@@ -1,26 +1,15 @@
 package com.mugja.member.controller;
 
 import com.mugja.jwt.JwtUtils;
-import com.mugja.member.dto.LoginRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import com.mugja.jwt.JwtUtils;
-import com.mugja.member.dto.LoginRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import com.mugja.member.dto.MemberDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.origin.SystemEnvironmentOrigin;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.mugja.member.dto.MemberDto;
 import com.mugja.member.service.MemberServiceImpl;
 
 @Controller
@@ -73,10 +62,12 @@ public class MemberController {
 
 	@RequestMapping(value="/create",method = {RequestMethod.GET,RequestMethod.POST})
 	public String create(MemberDto dto) {
+		System.out.println(dto.getMem_email_hidden()+"dto이메일값");
 		dto.setMem_email(dto.getMem_email_hidden());
 		service.createmember(dto);
 		return "redirect:/mugja/login";
 	}
+	
 	@RequestMapping(value="/pwdfind",method = {RequestMethod.GET,RequestMethod.POST})
 	public String pwdfind() {
 		return "/view/pwdfind";

@@ -1,7 +1,7 @@
 package com.mugja.member.service;
 
-import com.mugja.member.dto.MemberDto;
 
+import com.mugja.member.dto.MemberDto;
 
 public interface MemberService {
 	
