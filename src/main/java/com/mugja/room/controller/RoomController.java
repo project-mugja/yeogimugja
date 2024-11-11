@@ -15,7 +15,8 @@ public class RoomController {
 
 	@Autowired
 	private RoomServiceImpl service;
-	
+
+	//객실등록페이지
 	@RequestMapping(value="/roomadd/{hostid}",method = {RequestMethod.GET,RequestMethod.POST})
 	public String  roomadd(@PathVariable("hostid") int hostid,Model model) {
 		System.out.println("hostid:" + hostid);
@@ -34,7 +35,7 @@ public class RoomController {
 	}
 	
 	
-	
+	// 객실등록
 	@PostMapping("/roomplus")
     public String roomplus(RoomDto dto, @RequestParam("roomimgpath") MultipartFile[] files) {
         service.hostRoomWrite(dto, files);

@@ -7,6 +7,6 @@ searchBtn.addEventListener("click",(event)=>{
     let token = localStorage.getItem("token")? localStorage.getItem("token") : "";
     let value = searchInput.value;
     if(value){
-        window.location.assign(`https://main--mugja.netlify.app/search/all/${searchInput.value}/${token}`);
+        window.location.assign(`https://localhost:3000/search/all/${searchInput.value}/${token}`);
     }
 })

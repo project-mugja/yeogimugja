@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<iframe id="csrPage" src="https://main--mugja.netlify.app" style="display:none;"></iframe>
+<iframe id="csrPage" src="https://localhost:3000" style="display:none;"></iframe>
 <title>Insert title here</title>
 </head>
 <body>
@@ -12,7 +12,7 @@
 [[${id}]]
 [[${grade}]]
 <a href="" id="mypage">마이페이지</a>
-<a href="https://main--yeogimugja.netlify.app/host/3">숙소 3</a>
+<a href="https://localhost:3000/host/3">숙소 3</a>
 </body>
 <script>
     const token = localStorage.getItem("token")
@@ -20,7 +20,7 @@
     const mypageBtn = document.getElementById("mypage");
     mypageBtn.addEventListener("click",(event)=>{
         event.preventDefault();
-        window.location = `https://main--mugja.netlify.app/mypage/${token}`
+        window.location = `https://localhost:3000/mypage/${token}`
         // window.location = `http://localhost:3000/mypage/${token}`
     })
 

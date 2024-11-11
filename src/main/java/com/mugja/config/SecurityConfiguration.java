@@ -67,9 +67,8 @@ public class SecurityConfiguration {
 				.formLogin(AbstractHttpConfigurer::disable)
 				.httpBasic(AbstractHttpConfigurer::disable)
 				.authorizeHttpRequests((auth) -> auth
-						.requestMatchers("/api","/mugja/main", "/mugja/login", "/mugja/loginaction", "/mugja/join", "/mugja/create", "/mugja/email", "/mugja/emailOk",
-								"/mugja/pwdfind", "/mugja/emailpwd", "/mugja/pwdchgemail", "/mugja/emailSendPwd").permitAll()
-						.requestMatchers("/mugja/admin/**").hasRole("ADMIN")
+						.requestMatchers("/api/**","/mugja/**").permitAll()
+						.requestMatchers("/mugja//**").hasRole("ADMIN")
 						.requestMatchers("/mugja/**").hasAnyRole("ADMIN","USER")
 						.requestMatchers("/api","/jwt").authenticated()
 						.anyRequest().permitAll()
@@ -102,12 +101,13 @@ public class SecurityConfiguration {
 	}
 
 
+   // CORS 설정
 	private CorsConfigurationSource corsConfigurationSource() {
 
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.setAllowedOriginPatterns(Arrays.asList(
-				"http://localhost:3000",
-				"https://main--mugja.netlify.app/"
+				"http://localhost:3000"
+//				"https://main--mugja.netlify.app/"
 		));
 		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));

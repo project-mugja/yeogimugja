@@ -36,7 +36,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
 
 
-        if (requestURI.startsWith("/api/") && "https://main--mugja.netlify.app".equals(origin)) {
+        if (requestURI.startsWith("/api/") && "https://localhost:3000".equals(origin)) {
             String token = request.getHeader("Authorization");
             if (token != null && token.startsWith("Bearer ")) {
                 token = token.substring(7);
