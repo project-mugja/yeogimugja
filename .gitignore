@@ -1,10 +1,14 @@
+# Ignore specific files and directories
 HELP.md
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+
+# Application properties - exclude application.properties
 *.properties
+!application.properties
 
 ### STS ###
 .apt_generated
